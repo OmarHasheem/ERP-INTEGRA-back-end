@@ -23,11 +23,16 @@ class BenefitController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'name' => ['required'],
-            'cost' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required | alpha:ascii',
+            'cost' => 'required | numeric',
         ]);
 
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+        
         Benefit::create([
             'name' => request('name'),
             'cost' => request('cost'),
@@ -38,12 +43,17 @@ class BenefitController extends Controller
 
     public function update($id)
     {
-        $benefit = Benefit::findOrFail($id);
 
-        request()->validate([
-            'name' => ['required'],
-            'cost' => ['required'],
+        $validator = Validator::make($request->all(), [
+            'name' => 'required | alpha:ascii',
+            'cost' => 'required | numeric',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
+        $benefit = Benefit::findOrFail($id);
 
         $benefit->update([
             'name' => request('name'),

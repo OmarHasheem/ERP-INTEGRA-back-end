@@ -46,6 +46,15 @@ class CampaignController extends Controller
             return  $validator->errors();
         }
 
+        $validator = Validator::make($request->all(), [
+
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
+
        Campaign::create ([
             'name'             => request('name') ,
             'description'      => request('description') ,

@@ -22,12 +22,17 @@ class EmployeePerformanceController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'employee_id' => ['required'],
-            'performanceRating' => ['required'],
-            'comments' => ['required'],
-            'reviewDate' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'       => 'required | numeric',
+            'performanceRating' => 'required | alpha:ascii',
+            'comments'          => 'required | alpha:ascii',
+            'reviewDate'        => 'required | date',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         EmployeePerformance::create([
             'employee_id' => request('employeeId'),
@@ -41,6 +46,18 @@ class EmployeePerformanceController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'       => 'required | numeric',
+            'performanceRating' => 'required | alpha:ascii',
+            'comments'          => 'required | alpha:ascii',
+            'reviewDate'        => 'required | date',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $employeePerformance = EmployeePerformance::findOrFail($id);
 
         request()->validate([

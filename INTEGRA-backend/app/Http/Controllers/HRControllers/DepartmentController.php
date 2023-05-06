@@ -22,9 +22,14 @@ class DepartmentController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'name' => ['required' | ''],
+        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required | alpha:ascii',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         Department::create(request()->all());
 
@@ -33,6 +38,15 @@ class DepartmentController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required | alpha:ascii',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $department = Department::findOrFail($id);
 
         request()->validate([

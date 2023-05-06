@@ -22,14 +22,19 @@ class EmployeeVacationController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'employee_id' => ['required'],
-            'startDate' => ['required'],
-            'endDate' => ['required'],
-            'typeOfVacation' => ['required'],
-            'reasonOfVacation' => ['required'],
-            'status' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'      => 'required | numeric',
+            'startDate'        => 'required | date',
+            'endDate'          => 'required | alpha:ascii',
+            'typeOfVacation'   => 'required | alpha:ascii',
+            'reasonOfVacation' => 'required | alpha:ascii',
+            'status'           => 'required | alpha:ascii',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         EmployeeVacation::create([
             'employee_id' => request('employeeId'),
@@ -45,6 +50,20 @@ class EmployeeVacationController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'      => 'required | numeric',
+            'startDate'        => 'required | date',
+            'endDate'          => 'required | alpha:ascii',
+            'typeOfVacation'   => 'required | alpha:ascii',
+            'reasonOfVacation' => 'required | alpha:ascii',
+            'status'           => 'required | alpha:ascii',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $employeeVacation = EmployeeVacation::findOrFail($id);
 
         request()->validate([

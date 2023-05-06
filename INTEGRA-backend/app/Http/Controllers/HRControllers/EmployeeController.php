@@ -24,20 +24,25 @@ class EmployeeController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'firstName' => ['required'],
-            'lastName' => ['required'],
-            'dateOfBrith' => ['required'],
-            'gender' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-            'dateOfHire' => ['required'],
-            'salary' => ['required'],
-            'supervisorId' => ['required'],
-            'status' => ['required'],
-            'departmentId' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'firstName'    => 'required | alpha:ascii',
+            'lastName'     => 'required | alpha:ascii',
+            'dateOfBrith'  => 'required | date',
+            'gender'       => 'required | alpha:ascii',
+            'address'      => 'required | alpha:ascii',
+            'email'        => 'required | email',
+            'phone'        => 'required | numeric',
+            'dateOfHire'   => 'required | date',
+            'salary'       => 'required | numeric',
+            'supervisorId' => 'required | numeric',
+            'status'       => 'required | alpha:ascii',
+            'departmentId' => 'required | numeric',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         Employee::create([
             'firstName' => request('firstName'),
@@ -59,6 +64,26 @@ class EmployeeController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'firstName'    => 'required | alpha:ascii',
+            'lastName'     => 'required | alpha:ascii',
+            'dateOfBrith'  => 'required | date',
+            'gender'       => 'required | alpha:ascii',
+            'address'      => 'required | alpha:ascii',
+            'email'        => 'required | email',
+            'phone'        => 'required | numeric',
+            'dateOfHire'   => 'required | date',
+            'salary'       => 'required | numeric',
+            'supervisorId' => 'required | numeric',
+            'status'       => 'required | alpha:ascii',
+            'departmentId' => 'required | numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $employee = Employee::findOrFail($id);
 
         request()->validate([

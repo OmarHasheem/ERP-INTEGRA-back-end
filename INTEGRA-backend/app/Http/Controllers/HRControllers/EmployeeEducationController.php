@@ -22,13 +22,18 @@ class EmployeeEducationController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'employee_id' => ['required'],
-            'specialization' => ['required'],
-            'degree' => ['required'],
-            'grantingBy' => ['required'],
-            'graduationDate' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'    => 'required | numeric',
+            'specialization' => 'required | alpha:ascii',
+            'degree'         => 'required | alpha:ascii',
+            'grantingBy'     => 'required | alpha:ascii',
+            'graduationDate' => 'required | date',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         EmployeeEducation::create([
             'employee_id' => request('employeeId'),
@@ -43,6 +48,19 @@ class EmployeeEducationController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'employee_id'    => 'required | numeric',
+            'specialization' => 'required | alpha:ascii',
+            'degree'         => 'required | alpha:ascii',
+            'grantingBy'     => 'required | alpha:ascii',
+            'graduationDate' => 'required | date',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $employeeEducation = EmployeeEducation::findOrFail($id);
 
         request()->validate([

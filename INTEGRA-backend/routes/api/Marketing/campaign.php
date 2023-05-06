@@ -10,4 +10,5 @@ Route::prefix('marketing')->group(function(){
     Route::post('/campaign/store', [CampaignController::class, 'store']);
     Route::delete('/campaign/destroy/{id}', [CampaignController::class, 'destroy']);
     Route::put('/campaign/update/{id}', [CampaignController::class, 'update']);
+
 });

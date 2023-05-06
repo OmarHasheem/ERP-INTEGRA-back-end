@@ -22,11 +22,16 @@ class EmployeeCertificateController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'employee_id' => ['required'],
-            'name' => ['required'],
-            'level' => ['required'],
+
+        $validator = Validator::make($request->all(), [
+            'employee_id' => 'required | numeric',
+            'name'        => 'required | alpha:ascii',
+            'level'       => 'required | alpha:ascii',
         ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
 
         EmployeeCertificate::create([
             'employee_id' => request('employeeId'),
@@ -39,6 +44,17 @@ class EmployeeCertificateController extends Controller
 
     public function update($id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'employee_id' => 'required | numeric',
+            'name'        => 'required | alpha:ascii',
+            'level'       => 'required | alpha:ascii',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
         $employeeCertificate = EmployeeCertificate::findOrFail($id);
 
         request()->validate([
