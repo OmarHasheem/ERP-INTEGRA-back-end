@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeEducationCollection;
 use App\Http\Resources\HR\EmployeeEducationResource;
 use App\Models\HR\EmployeeEducation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeEducationController extends Controller
 {
@@ -20,7 +22,7 @@ class EmployeeEducationController extends Controller
         return new EmployeeEducationResource($employeeEducation);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -46,7 +48,7 @@ class EmployeeEducationController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [

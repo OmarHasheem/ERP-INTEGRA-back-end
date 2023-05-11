@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\EmployeeResource;
 use App\Models\HR\Employee;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -22,7 +24,7 @@ class EmployeeController extends Controller
         return new EmployeeResource($employee);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -62,7 +64,7 @@ class EmployeeController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [

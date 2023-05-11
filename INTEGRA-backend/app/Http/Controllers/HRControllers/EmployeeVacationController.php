@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeVacationCollection;
 use App\Http\Resources\HR\EmployeeVacationResource;
 use App\Models\HR\EmployeeVacation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeVacationController extends Controller
 {
@@ -20,7 +22,7 @@ class EmployeeVacationController extends Controller
         return new EmployeeVacationResource($employeeVacation);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -48,7 +50,7 @@ class EmployeeVacationController extends Controller
         return $this->success();
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [

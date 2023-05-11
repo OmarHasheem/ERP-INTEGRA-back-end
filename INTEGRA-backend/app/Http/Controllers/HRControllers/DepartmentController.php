@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\DepartmentCollection;
 use App\Http\Resources\HR\DepartmentResource;
 use App\Models\HR\Department;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
 {
@@ -20,7 +22,7 @@ class DepartmentController extends Controller
         return new DepartmentResource($department);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         
         $validator = Validator::make($request->all(), [
@@ -36,7 +38,7 @@ class DepartmentController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [
