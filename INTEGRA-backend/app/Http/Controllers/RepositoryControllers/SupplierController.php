@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers\RepositoryControllers;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Repository\SupplierCollection;
+use App\Http\Resources\Repository\SupplierResource;
+use App\Models\Repository\Supplier;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class SupplierController extends Controller
+{
+    public function index () : SupplierCollection {
+        return new SupplierCollection(Supplier::all());
+    }
+
+    public function show ($id) : SupplierResource {
+        return new SupplierResource(Supplier::findOrFail($id));
+    }
+
+    public function store (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required | email:rfc',
+            'phone_number' => 'required | numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
+        Supplier::create([
+            'name' => request('name'),
+            'address' => request('address'),
+            'email' => request('email'),
+            'phone_number' => request('phone_number'),
+        ]);
+
+        return $this->success();
+    }
+
+    public function update (Request $request, $id) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required | email:rfc',
+            'phone_number' => 'required | numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return  $validator->errors();
+        }
+
+        $supplier = Supplier::findOrFail($id);
+
+        $supplier->name = request('name');
+        $supplier->address = request('address');
+        $supplier->email = request('email');
+        $supplier->phone_number = request('phone_number');
+
+        if($supplier->isDirty(['name', 'address', 'email', 'phone_number'])){
+            $supplier->save();
+            return response()->json(['message' => 'supplier is updated']);
+        }
+        else {
+            return response()->json(['message' => 'Nothing changed']);
+        }
+    }
+
+    public function destroy ($id) {
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
+
+        return $this->success();
+    }
+}

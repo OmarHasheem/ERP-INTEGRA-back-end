@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\DepartmentCollection;
 use App\Http\Resources\HR\DepartmentResource;
 use App\Models\HR\Department;
+<<<<<<< HEAD
+=======
+use Illuminate\Http\Request;
+>>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
