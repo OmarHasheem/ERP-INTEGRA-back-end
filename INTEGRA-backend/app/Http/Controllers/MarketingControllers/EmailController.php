@@ -36,9 +36,9 @@ class EmailController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'content' => 'required | alpha:ascii',
-            'sender'  => 'required | alpha:ascii',
-            'reciver' => 'required | alpha:ascii',
+            'content' => 'required | regex:/^[^\'"]+$/',
+            'sender'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'reciver' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {
@@ -94,9 +94,9 @@ class EmailController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'content' => 'required | alpha:ascii',
-            'sender'  => 'required | alpha:ascii',
-            'reciver' => 'required | alpha:ascii',
+            'content' => 'required | regex:/^[^\'"]+$/',
+            'sender'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'reciver' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'expected_revenue' => 'required | numeric',
             'actual_revenue'   => 'required | numeric',
         ]);

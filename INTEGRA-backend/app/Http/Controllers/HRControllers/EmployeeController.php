@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\EmployeeResource;
 use App\Models\HR\Employee;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -22,21 +23,21 @@ class EmployeeController extends Controller
         return new EmployeeResource($employee);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'firstName'    => 'required | alpha:ascii',
-            'lastName'     => 'required | alpha:ascii',
+            'firstName'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'lastName'     => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'dateOfBrith'  => 'required | date',
-            'gender'       => 'required | alpha:ascii',
-            'address'      => 'required | alpha:ascii',
+            'gender'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'address'      => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'email'        => 'required | email',
             'phone'        => 'required | numeric',
             'dateOfHire'   => 'required | date',
             'salary'       => 'required | numeric',
             'supervisorId' => 'required | numeric',
-            'status'       => 'required | alpha:ascii',
+            'status'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'departmentId' => 'required | numeric',
         ]);
 
@@ -62,21 +63,21 @@ class EmployeeController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
-            'firstName'    => 'required | alpha:ascii',
-            'lastName'     => 'required | alpha:ascii',
+            'firstName'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'lastName'     => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'dateOfBrith'  => 'required | date',
-            'gender'       => 'required | alpha:ascii',
-            'address'      => 'required | alpha:ascii',
+            'gender'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'address'      => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'email'        => 'required | email',
             'phone'        => 'required | numeric',
             'dateOfHire'   => 'required | date',
             'salary'       => 'required | numeric',
             'supervisorId' => 'required | numeric',
-            'status'       => 'required | alpha:ascii',
+            'status'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'departmentId' => 'required | numeric',
         ]);
 

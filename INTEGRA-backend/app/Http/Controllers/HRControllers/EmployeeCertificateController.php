@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCertificateCollection;
 use App\Http\Resources\HR\EmployeeCertificateResource;
 use App\Models\HR\EmployeeCertificate;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeCertificateController extends Controller
 {
@@ -20,13 +21,13 @@ class EmployeeCertificateController extends Controller
         return new EmployeeCertificateResource($employeeCertificate);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required | numeric',
-            'name'        => 'required | alpha:ascii',
-            'level'       => 'required | alpha:ascii',
+            'name'        => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'level'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {
@@ -42,13 +43,13 @@ class EmployeeCertificateController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required | numeric',
-            'name'        => 'required | alpha:ascii',
-            'level'       => 'required | alpha:ascii',
+            'name'        => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'level'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {

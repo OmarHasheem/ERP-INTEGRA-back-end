@@ -51,8 +51,6 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/HR/employeeVacation.php'));
 
-
-
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/campaign.php'));
 
@@ -76,7 +74,13 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/pdffile.php'));
-            });
+
+                //  Route::middleware('api')
+                //     ->group(base_path('routes/api/Usermangment/role.php'));    
+            });    
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Usermangment/role.php'));  
 
             Route::middleware('api')
                 ->group(base_path('routes/api/api.php'));

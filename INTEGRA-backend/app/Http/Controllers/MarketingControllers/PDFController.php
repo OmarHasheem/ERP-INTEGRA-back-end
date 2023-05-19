@@ -41,7 +41,7 @@ class PDFController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
+            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {

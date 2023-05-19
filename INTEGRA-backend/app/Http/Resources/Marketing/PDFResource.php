@@ -15,8 +15,8 @@ class PDFResource extends JsonResource
     public function toArray( $request): array
     {
         return [
-            'id'   => $this->id ,
-            'name' => $this->name,
+            'id'          => $this->id ,
+            'name'        => $this->name,
             'campaign_id' => $this->campaign_id,
         ];
     }

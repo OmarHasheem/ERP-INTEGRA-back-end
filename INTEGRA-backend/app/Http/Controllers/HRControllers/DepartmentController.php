@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\DepartmentCollection;
 use App\Http\Resources\HR\DepartmentResource;
 use App\Models\HR\Department;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
 {
@@ -20,11 +21,11 @@ class DepartmentController extends Controller
         return new DepartmentResource($department);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
+            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {
@@ -36,11 +37,11 @@ class DepartmentController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
+            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {

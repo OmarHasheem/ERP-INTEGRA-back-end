@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\BenefitCollection;
 use App\Http\Resources\HR\BenefitResource;
 use App\Models\HR\Benefit;
+use Illuminate\Support\Facades\Validator;
 
 class BenefitController extends Controller
 {
@@ -21,11 +22,11 @@ class BenefitController extends Controller
         return new BenefitResource($benefit);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
+            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost' => 'required | numeric',
         ]);
 
@@ -41,11 +42,11 @@ class BenefitController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
+            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost' => 'required | numeric',
         ]);
 

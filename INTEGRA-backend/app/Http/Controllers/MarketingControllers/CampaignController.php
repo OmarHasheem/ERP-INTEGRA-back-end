@@ -34,8 +34,8 @@ class CampaignController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'             => 'required | alpha:ascii',
-            'description'      => 'required | alpha:ascii',
+            'name'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'description'      => 'required | regex:/^[^\'"]+$/',
             'start_date'       => 'required | date',
             'end_date'         => 'required | date',
             'budget'           => 'required | numeric',
@@ -46,16 +46,7 @@ class CampaignController extends Controller
             return  $validator->errors();
         }
 
-        $validator = Validator::make($request->all(), [
-
-        ]);
-
-        if ($validator->fails()) {
-            return  $validator->errors();
-        }
-
-
-       Campaign::create ([
+        Campaign::create ([
             'name'             => request('name') ,
             'description'      => request('description') ,
             'start_date'       => request('start_date') ,
@@ -63,7 +54,6 @@ class CampaignController extends Controller
             'budget'           => request('budget') ,
             'expected_revenue' => request('expected_revenue') ,
         ]);
-
 
         return response()->json( ['message' => 'Campaign ' . request('name') . ' has been created']);
     }
@@ -75,7 +65,6 @@ class CampaignController extends Controller
         return response()->json( [ 'message' => 'Done' ]);
 
     }
-
 
     public function detach($id) {
 
@@ -108,8 +97,8 @@ class CampaignController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'             => 'required | alpha:ascii',
-            'description'      => 'required | alpha:ascii',
+            'name'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'description'      => 'required | regex:/^[^\'"]+$/',
             'start_date'       => 'required | date',
             'end_date'         => 'required | date',
             'budget'           => 'required | numeric',

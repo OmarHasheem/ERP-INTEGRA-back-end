@@ -35,9 +35,9 @@ class SocialMediaController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'blogger'          => 'required | alpha:ascii',
-            'type'             => 'required | alpha:ascii',
-            'way'              => 'required | alpha:ascii',
+            'blogger'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'way'              => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
@@ -84,9 +84,9 @@ class SocialMediaController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'blogger'          => 'required | alpha:ascii',
-            'type'             => 'required | alpha:ascii',
-            'way'              => 'required | alpha:ascii',
+            'blogger'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'way'              => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',

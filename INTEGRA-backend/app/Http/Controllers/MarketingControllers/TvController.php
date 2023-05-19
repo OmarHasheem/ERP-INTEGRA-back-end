@@ -34,7 +34,7 @@ class TvController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'channel'            => 'required | alpha:ascii',
+            'channel'            => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'time'               => 'required',
             'cost'               => 'required | numeric',
             'advertising_period' => 'required | numeric',
@@ -83,7 +83,7 @@ class TvController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'channel'            => 'required | alpha:ascii',
+            'channel'            => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'time'               => 'required',
             'cost'               => 'required | numeric',
             'advertising_period' => 'required | numeric',

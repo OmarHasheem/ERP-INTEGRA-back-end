@@ -34,10 +34,10 @@ class EventController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'             => 'required | alpha:ascii',
-            'place'            => 'required | alpha:ascii',
-            'description'      => 'required | alpha:ascii',
-            'type'             => 'required | alpha:ascii',
+            'name'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'place'            => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'description'      => 'required | regex:/^[^\'"]+$/',
+            'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
@@ -85,10 +85,10 @@ class EventController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'             => 'required | alpha:ascii',
-            'place'            => 'required | alpha:ascii',
-            'description'      => 'required | alpha:ascii',
-            'type'             => 'required | alpha:ascii',
+            'name'             => 'required | regex:/^[A-Za-z\s]+$/',
+            'place'            => 'required | regex:/^[^\'"]+$/',
+            'description'      => 'required | regex:/^[A-Za-z\s]+$/',
+            'type'             => 'required | regex:/^[A-Za-z\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',

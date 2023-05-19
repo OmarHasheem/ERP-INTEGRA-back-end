@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeVacationCollection;
 use App\Http\Resources\HR\EmployeeVacationResource;
 use App\Models\HR\EmployeeVacation;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeVacationController extends Controller
 {
@@ -20,16 +21,16 @@ class EmployeeVacationController extends Controller
         return new EmployeeVacationResource($employeeVacation);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'      => 'required | numeric',
             'startDate'        => 'required | date',
-            'endDate'          => 'required | alpha:ascii',
-            'typeOfVacation'   => 'required | alpha:ascii',
-            'reasonOfVacation' => 'required | alpha:ascii',
-            'status'           => 'required | alpha:ascii',
+            'endDate'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'typeOfVacation'   => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'reasonOfVacation' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'status'           => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {
@@ -48,16 +49,16 @@ class EmployeeVacationController extends Controller
         return $this->success();
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'      => 'required | numeric',
             'startDate'        => 'required | date',
-            'endDate'          => 'required | alpha:ascii',
-            'typeOfVacation'   => 'required | alpha:ascii',
-            'reasonOfVacation' => 'required | alpha:ascii',
-            'status'           => 'required | alpha:ascii',
+            'endDate'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'typeOfVacation'   => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'reasonOfVacation' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'status'           => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {

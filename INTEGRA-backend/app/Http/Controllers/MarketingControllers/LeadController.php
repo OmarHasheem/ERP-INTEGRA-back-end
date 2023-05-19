@@ -35,7 +35,7 @@ class LeadController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'type' => 'required | alpha:ascii',
+            'type' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {
@@ -92,7 +92,7 @@ class LeadController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'type' => 'required | alpha:ascii',
+            'type' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
         ]);
 
         if ($validator->fails()) {

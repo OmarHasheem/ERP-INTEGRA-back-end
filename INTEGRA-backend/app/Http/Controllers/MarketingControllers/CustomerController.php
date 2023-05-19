@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return new CustomerCollection(Customer::all());
     }
 
     /**
@@ -34,10 +34,10 @@ class CustomerController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'    => 'required | alpha:ascii',
-            'gender'  => 'required | alpha:ascii',
+            'name'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'gender'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'age'     => 'required | numeric | max:99',
-            'address' => 'required | alpha:ascii',
+            'address' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'email'   => 'required | email:rfc',
             'phone'   => 'required | numeric | max:9999999999 ',
         ]);
@@ -82,10 +82,10 @@ class CustomerController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'    => 'required | alpha:ascii',
-            'gender'  => 'required | alpha:ascii',
+            'name'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'gender'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'age'     => 'required | numeric | max:99',
-            'address' => 'required | alpha:ascii',
+            'address' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'email'   => 'required | email:rfc',
             'phone'   => 'required | numeric | max:99999999999999 ',
         ]);
@@ -117,7 +117,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $customer = Customer::findOrFail($id);
         $customer->delete();

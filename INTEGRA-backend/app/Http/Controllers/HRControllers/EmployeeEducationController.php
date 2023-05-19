@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeEducationCollection;
 use App\Http\Resources\HR\EmployeeEducationResource;
 use App\Models\HR\EmployeeEducation;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeEducationController extends Controller
 {
@@ -20,14 +21,14 @@ class EmployeeEducationController extends Controller
         return new EmployeeEducationResource($employeeEducation);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'    => 'required | numeric',
-            'specialization' => 'required | alpha:ascii',
-            'degree'         => 'required | alpha:ascii',
-            'grantingBy'     => 'required | alpha:ascii',
+            'specialization' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'degree'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'grantingBy'     => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'graduationDate' => 'required | date',
         ]);
 
@@ -46,14 +47,14 @@ class EmployeeEducationController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'    => 'required | numeric',
-            'specialization' => 'required | alpha:ascii',
-            'degree'         => 'required | alpha:ascii',
-            'grantingBy'     => 'required | alpha:ascii',
+            'specialization' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'degree'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'grantingBy'     => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'graduationDate' => 'required | date',
         ]);
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeePerformanceCollection;
 use App\Http\Resources\HR\EmployeePerformanceResource;
 use App\Models\HR\EmployeePerformance;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeePerformanceController extends Controller
 {
@@ -20,13 +21,13 @@ class EmployeePerformanceController extends Controller
         return new EmployeePerformanceResource($employeePerformance);
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'       => 'required | numeric',
-            'performanceRating' => 'required | alpha:ascii',
-            'comments'          => 'required | alpha:ascii',
+            'performanceRating' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'comments'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'reviewDate'        => 'required | date',
         ]);
 
@@ -44,13 +45,13 @@ class EmployeePerformanceController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-    public function update($id)
+    public function update(Request $request , $id)
     {
 
         $validator = Validator::make($request->all(), [
             'employee_id'       => 'required | numeric',
-            'performanceRating' => 'required | alpha:ascii',
-            'comments'          => 'required | alpha:ascii',
+            'performanceRating' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'comments'          => 'required | regex:/^[^\'"]+$/',
             'reviewDate'        => 'required | date',
         ]);
 
