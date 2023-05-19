@@ -21,11 +21,11 @@ class ExportController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
-            'date' => 'required | date',
-            'total_amount' => 'required | numeric',
-            'employee_id' => 'required | numeric',
-            'pdf_id' => 'required | numeric',
+            'name'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'date'          => 'required | date',
+            'total_amount'  => 'required | numeric',
+            'employee_id'   => 'required | numeric',
+            'pdf_id'        => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -33,11 +33,11 @@ class ExportController extends Controller
         }
 
         Export::create([
-            'name' => request('name'),
-            'date' => request('date'),
-            'total_amount' => request('total_amount'),
-            'employee_id' => request('employee_id'),
-            'pdf_id' => request('pdf_id'),
+            'name'          => request('name'),
+            'date'          => request('date'),
+            'total_amount'  => request('total_amount'),
+            'employee_id'   => request('employee_id'),
+            'pdf_id'        => request('pdf_id'),
         ]);
 
         return $this->success();
@@ -45,11 +45,11 @@ class ExportController extends Controller
 
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
-            'date' => 'required | date',
-            'total_amount' => 'required | numeric',
-            'employee_id' => 'required | numeric',
-            'pdf_id' => 'required | numeric',
+            'name'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'date'          => 'required | date',
+            'total_amount'  => 'required | numeric',
+            'employee_id'   => 'required | numeric',
+            'pdf_id'        => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -58,11 +58,11 @@ class ExportController extends Controller
 
         $export = Export::findOrFail($id);
 
-        $export->name = request('name');
-        $export->date = request('date');
+        $export->name         = request('name');
+        $export->date         = request('date');
         $export->total_amount = request('total_amount');
-        $export->employee_id = request('employee_id');
-        $export->pdf_id = request('pdf_id');
+        $export->employee_id  = request('employee_id');
+        $export->pdf_id       = request('pdf_id');
 
         if($export->isDirty(['name', 'date', 'total_amount', 'employee_id', 'pdf_id'])){
             $export->save();

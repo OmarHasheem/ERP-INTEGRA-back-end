@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16e57549-0a68-4946-8c07-a12bf782a9eb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/RoleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Middleware/MarketingMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/UserMangment/RoleCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/UserMangment/RoleResource.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/UserMangment/role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/BenefitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/BenefitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/DepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/DepartmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeCertificateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeCertificateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeEducationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeEducationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeePerformanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeePerformanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeVacationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/HRControllers/EmployeeVacationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/CampaignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/CampaignController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/EmailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/EmailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/LeadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/LeadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/PDFController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/PDFController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/SocialMediaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/SocialMediaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/TvController.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Controllers/MarketingControllers/TvController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/Marketing/EmailResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/Marketing/EmailResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/Marketing/PDFResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Http/Resources/Marketing/PDFResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/benefit.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/benefit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/department.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/department.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeCertificate.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeCertificate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeEducation.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeEducation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeePerformance.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeePerformance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeVacation.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/HR/employeeVacation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/campaign.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/campaign.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/customer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/email.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/email.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/event.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/lead.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/lead.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/pdffile.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/pdffile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/socialmedia.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/socialmedia.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/tv.php" beforeDir="false" afterPath="$PROJECT_DIR$/INTEGRA-backend/routes/api/Marketing/tv.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2Q1VEIF9WpCKFunHeoGrfA51Phw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16e57549-0a68-4946-8c07-a12bf782a9eb" name="Changes" comment="" />
+      <created>1684520966380</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684520966380</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

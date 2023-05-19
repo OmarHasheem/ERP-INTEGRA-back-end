@@ -21,9 +21,9 @@ class SupplierController extends Controller
 
     public function store (Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
-            'email' => 'required | email:rfc',
+            'name'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'address'      => 'required | regex:/^[a-zA-Z0-9:-]+$/ ',
+            'email'        => 'required | email:rfc',
             'phone_number' => 'required | numeric',
         ]);
 
@@ -32,9 +32,9 @@ class SupplierController extends Controller
         }
 
         Supplier::create([
-            'name' => request('name'),
-            'address' => request('address'),
-            'email' => request('email'),
+            'name'         => request('name'),
+            'address'      => request('address'),
+            'email'        => request('email'),
             'phone_number' => request('phone_number'),
         ]);
 
@@ -43,9 +43,9 @@ class SupplierController extends Controller
 
     public function update (Request $request, $id) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
-            'email' => 'required | email:rfc',
+            'name'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'address'      => 'required | regex:/^[a-zA-Z0-9:-]+$/ ',
+            'email'        => 'required | email:rfc',
             'phone_number' => 'required | numeric',
         ]);
 
@@ -55,9 +55,9 @@ class SupplierController extends Controller
 
         $supplier = Supplier::findOrFail($id);
 
-        $supplier->name = request('name');
-        $supplier->address = request('address');
-        $supplier->email = request('email');
+        $supplier->name         = request('name');
+        $supplier->address      = request('address');
+        $supplier->email        = request('email');
         $supplier->phone_number = request('phone_number');
 
         if($supplier->isDirty(['name', 'address', 'email', 'phone_number'])){

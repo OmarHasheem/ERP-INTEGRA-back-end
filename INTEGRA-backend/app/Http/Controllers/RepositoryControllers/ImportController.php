@@ -21,11 +21,11 @@ class ImportController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
-            'date' => 'required | date',
+            'name'         => 'required | alpha:regex:/^[a-zA-Z0-9\s]+$/',
+            'date'         => 'required | date',
             'total_amount' => 'required | numeric',
-            'supplier_id' => 'required | numeric',
-            'pdf_id' => 'required | numeric',
+            'supplier_id'  => 'required | numeric',
+            'pdf_id'       => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -33,11 +33,11 @@ class ImportController extends Controller
         }
 
         Import::create([
-            'name' => request('name'),
-            'date' => request('date'),
+            'name'         => request('name'),
+            'date'         => request('date'),
             'total_amount' => request('total_amount'),
-            'supplier_id' => request('supplier_id'),
-            'pdf_id' => request('pdf_id'),
+            'supplier_id'  => request('supplier_id'),
+            'pdf_id'       => request('pdf_id'),
         ]);
 
         return $this->success();
@@ -45,11 +45,11 @@ class ImportController extends Controller
 
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required | alpha:ascii',
-            'date' => 'required | date',
+            'name'         => 'required | alpha:regex:/^[a-zA-Z0-9\s]+$/',
+            'date'         => 'required | date',
             'total_amount' => 'required | numeric',
-            'supplier_id' => 'required | numeric',
-            'pdf_id' => 'required | numeric',
+            'supplier_id'  => 'required | numeric',
+            'pdf_id'       => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -58,11 +58,11 @@ class ImportController extends Controller
 
         $import = Import::findOrFail($id);
 
-        $import->name = request('name');
-        $import->date = request('date');
+        $import->name         = request('name');
+        $import->date         = request('date');
         $import->total_amount = request('total_amount');
-        $import->supplier_id = request('supplier_id');
-        $import->pdf_id = request('pdf_id');
+        $import->supplier_id  = request('supplier_id');
+        $import->pdf_id       = request('pdf_id');
 
         if($import->isDirty(['name', 'date', 'total_amount', 'supplier_id', 'pdf_id'])){
             $import->save();

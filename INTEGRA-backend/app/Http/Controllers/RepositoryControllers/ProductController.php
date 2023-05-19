@@ -21,13 +21,13 @@ class ProductController extends Controller
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required ',
-            'description' => 'required',
-            'price' => 'required | numeric',
-            'quantity_in_stock' => 'required | numeric',
-            'details' => 'required',
-            'category_id' => 'required | numeric',
-            'supplier_id' => 'required | numeric',
+            'name'               => 'required | regex:/^[a-zA-Z0-9\s]+$/ ',
+            'description'        => 'required | regex:/^[^\'"]+$/',
+            'price'              => 'required | numeric',
+            'quantity_in_stock'  => 'required | numeric',
+            'details'            => 'required | regex:/^[^\'"]+$/',
+            'category_id'        => 'required | numeric',
+            'supplier_id'        => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -35,13 +35,13 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'name' => request('name'),
-            'description' => request('description'),
-            'price' => request('price'),
-            'quantity_in_stock' => request('quantity_in_stock'),
-            'details' => request('details'),
-            'category_id' => request('category_id'),
-            'supplier_id' => request('supplier_id'),
+            'name'               => request('name'),
+            'description'        => request('description'),
+            'price'              => request('price'),
+            'quantity_in_stock'  => request('quantity_in_stock'),
+            'details'            => request('details'),
+            'category_id'        => request('category_id'),
+            'supplier_id'        => request('supplier_id'),
         ]);
 
         return $this->success();
@@ -49,13 +49,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required | numeric',
-            'quantity_in_stock' => 'required | numeric',
-            'details' => 'required',
-            'category_id' => 'required | numeric',
-            'supplier_id' => 'required | numeric',
+            'name'               => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'description'        => 'required | regex:/^[^\'"]+$/',
+            'price'              => 'required | numeric',
+            'quantity_in_stock'  => 'required | numeric',
+            'details'            => 'required | regex:/^[^\'"]+$/',
+            'category_id'        => 'required | numeric',
+            'supplier_id'        => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -64,13 +64,13 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        $product->name = request('name');
-        $product->description = request('description');
-        $product->price = request('price');
+        $product->name              = request('name');
+        $product->description       = request('description');
+        $product->price             = request('price');
         $product->quantity_in_stock = request('quantity_in_stock');
-        $product->details = request('details');
-        $product->category_id = request('category_id');
-        $product->supplier_id = request('supplier_id');
+        $product->details           = request('details');
+        $product->category_id       = request('category_id');
+        $product->supplier_id       = request('supplier_id');
 
         if($product->isDirty(['name', 'description', 'price', 'quantity_in_stock', 'details', 'category_id', 'supplier_id'])){
             $product->save();
