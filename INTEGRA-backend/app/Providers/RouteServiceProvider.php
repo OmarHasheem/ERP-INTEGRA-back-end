@@ -75,16 +75,9 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/pdffile.php'));
 
-<<<<<<< HEAD
                 //  Route::middleware('api')
-                //     ->group(base_path('routes/api/Usermangment/role.php'));    
-            });    
-
-            Route::middleware('api')
-            ->group(base_path('routes/api/Usermangment/role.php'));  
-=======
-        });
-
+                //     ->group(base_path('routes/api/Usermangment/role.php'));
+                
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/category.php'));
 
@@ -100,7 +93,13 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/supplier.php'));
             
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
+            });    
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Usermangment/role.php'));  
+
+
+
 
             Route::middleware('api')
                 ->group(base_path('routes/api/api.php'));

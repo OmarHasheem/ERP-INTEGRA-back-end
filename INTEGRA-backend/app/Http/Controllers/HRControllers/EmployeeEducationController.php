@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeEducationCollection;
 use App\Http\Resources\HR\EmployeeEducationResource;
 use App\Models\HR\EmployeeEducation;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeEducationController extends Controller
@@ -51,11 +48,7 @@ class EmployeeEducationController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
     public function update(Request $request , $id)
-=======
-    public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [

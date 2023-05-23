@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCertificateCollection;
 use App\Http\Resources\HR\EmployeeCertificateResource;
 use App\Models\HR\EmployeeCertificate;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeCertificateController extends Controller
@@ -47,13 +44,8 @@ class EmployeeCertificateController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
     public function update(Request $request , $id)
-=======
-    public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
-
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required | numeric',
             'name'        => 'required | regex:/^[a-zA-Z0-9\s]+$/',
