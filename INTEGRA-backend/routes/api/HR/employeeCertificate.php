@@ -4,10 +4,13 @@ use App\Http\Controllers\HRControllers\EmployeeCertificateController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('HR')->group(function (){
-    Route::get('/employeeCertificates', [EmployeeCertificateController  ::class, 'index'])->middleware('can:index employeeCertification');
-    Route::get('/employeeCertificate/show/{id}', [EmployeeCertificateController::class, 'show'])->middleware('can:store employeeCertification');
-    Route::post('/employeeCertificate/store', [EmployeeCertificateController::class, 'store'])->middleware('can:show employeeCertification');
-    Route::put('/employeeCertificate/update/{id}', [EmployeeCertificateController::class, 'update'])->middleware('can:update employeeCertification');
-    Route::delete('/employeeCertificate/destroy/{id}', [EmployeeCertificateController::class, 'destroy'])->middleware('can:destroy employeeCertification');
+Route::controller(EmployeeCertificateController::class)->group(function () {
+    Route::prefix('HR')->group(function (){
+        Route::get('/employeeCertificates', 'index')->middleware('permission:index employeeCertificate');        
+        Route::get('/employeeCertificate/show/{id}', 'show')->middleware('permission:store employeeCertificate');
+        Route::post('/employeeCertificate/store', 'store')->middleware('permission:show employeeCertificate');
+        Route::put('/employeeCertificate/update/{id}', 'update')->middleware('permission:update employeeCertificate');
+        Route::delete('/employeeCertificate/destroy/{id}', 'destroy')->middleware('permission:destroy employeeCertificate');
+    });
 });
+

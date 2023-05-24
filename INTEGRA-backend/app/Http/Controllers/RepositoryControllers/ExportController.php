@@ -16,7 +16,11 @@ class ExportController extends Controller
     }
 
     public function show($id) : ExportResource{
-        return new ExportResource(Export::findOrFail($id));
+        $export = Export::find($id);
+        if($export)
+             return new exportResource($campaign);
+        else 
+             return $this->failure();
     } 
 
     public function store(Request $request) {
@@ -32,15 +36,16 @@ class ExportController extends Controller
             return  $validator->errors();
         }
 
-        Export::create([
+       if( Export::create([
             'name'          => request('name'),
             'date'          => request('date'),
             'total_amount'  => request('total_amount'),
             'employee_id'   => request('employee_id'),
             'pdf_id'        => request('pdf_id'),
-        ]);
-
-        return $this->success();
+        ]))
+            return $this->success();
+        else
+            return $this->failure();    
     }
 
     public function update(Request $request, $id) {
@@ -66,17 +71,19 @@ class ExportController extends Controller
 
         if($export->isDirty(['name', 'date', 'total_amount', 'employee_id', 'pdf_id'])){
             $export->save();
-            return response()->json(['message' => 'export is updated']);
+            return $this->success();
         }
         else {
-            return response()->json(['message' => 'Nothing changed']);
+            return $this->failure();  
         }
     }
 
     public function destroy($id) {
-        $export = Export::findOrFail($id);
-        $export->delete();
-
-        return $this->success();
+        if( $export = Export::findOrFail($id)){
+            $export->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

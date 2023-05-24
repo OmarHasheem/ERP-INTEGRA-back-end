@@ -8,30 +8,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Marketing\CampaignResource;
 use App\Http\Resources\Marketing\CampaignCollection;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class CampaignController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+
+    public function index() : CampaignCollection {
+
         return new CampaignCollection(Campaign::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'name'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -46,55 +33,29 @@ class CampaignController extends Controller
             return  $validator->errors();
         }
 
-        Campaign::create ([
+       if( Campaign::create ([
             'name'             => request('name') ,
             'description'      => request('description') ,
             'start_date'       => request('start_date') ,
             'end_date'         => request('end_date') ,
             'budget'           => request('budget') ,
             'expected_revenue' => request('expected_revenue') ,
-        ]);
-
-        return response()->json( ['message' => 'Campaign ' . request('name') . ' has been created']);
+        ]))
+            return $this->success();
+        else
+            return $this->failure();
     }
 
-    public function attach($id) {
+    public function show($id) : CampaignResource {
 
-        $campaign = Campaign::find($id)->leads()->attach(request('lead_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
+            $campaign = Campaign::find($id);
+            if($campaign)
+                return new CampaignResource($campaign);
+            else 
+                return $this->failure();
     }
 
-    public function detach($id) {
-
-        $campaign = Campaign::find($id)->leads()->detach(request('lead_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        return new CampaignResource(Campaign::find($id));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
 
         $validator = Validator::make($request->all(), [
             'name'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -120,21 +81,92 @@ class CampaignController extends Controller
 
         if($campaign->isDirty(['name' , 'description' , 'start_date', 'end_date' , 'budget' , 'expected_revenue' ])){
             $campaign->save();
-            return response()->json(['message' => 'Campaign is updated']);
+            return $this->success();
         }
-
-        else {
-            return response()->json(['message' => 'Nothing changed']);
-        }
+        else 
+            return $this->failure();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy($id) {
+
+        if( $campaign = Campaign::findOrFail($id)){
+            $campaign->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
+    }
+
+    public function attach($id) {
+
+        $campaign = Campaign::find($id)->leads()->attach(request('lead_id'));
+        
+        if($campaign)
+            return $this->success();
+         else
+            return $this->failure();
+    }
+
+    public function detach($id) {
+
+        $campaign = Campaign::find($id)->leads()->detach(request('lead_id'));
+
+        if($campaign)
+            return $this->success();
+        else
+            return $this->failure();
+    }
+
+    public function edit(Request $request)
     {
-        $campaign = Campaign::findOrFail($id);
-        $campaign->delete();
-        return response()->json(['message' => 'Campaign ' . $campaign->name . ' has been deleted']);
+        $query = DB::table('campaigns');
+        if ($request->name) {
+            $name = $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->start_date) {
+            $start_date = $query->where('start_date', '>=', $request->start_date);
+        }
+        if ($request->end_date) {
+            $end_date = $query->where('end_date', '<=', $request->end_date);
+        }
+        if ($request->budget) {
+            $budget = $query->where('budget', '>=', $request->budget);
+        }
+        if ($request->expected_revenue) {
+            $expected_revenue = $query->where('expected_revenue', '>=', $request->expected_revenue);
+        }
+        if ($name || $start_date || $end_date || $budget || $expected_revenue) {
+            $query->where(function ($q) use ($name, $start_date, $end_date, $budget, $expected_revenue) {
+                $q->where('name', 'like', '%' . $name . '%')
+                  ->where('start_date', '>=', $start_date)
+                  ->where('end_date', '<=', $end_date)
+                  ->where('budget', '>=', $budget)
+                  ->where('expected_revenue', '>=', $expected_revenue);
+            });
+        }
+
+        // if ($request->tv) {
+        //     $query->whereHas('tv', function ($q) use ($tv) {
+        //         $q->where('name', 'like', '%' . $tv . '%');
+        //     });
+        // }
+
+        // if ($request->event) {
+        //     $query->whereHas('event', function ($q) use ($event) {
+        //         $q->where('name', 'like', '%' . $event . '%');
+        //     });
+        // }
+
+        // if ($request->social_media) {
+        //     $query->whereHas('socialMedia', function ($q) use ($social_media) {
+        //         $q->where('name', 'like', '%' . $social_media . '%');
+        //     });
+        // }
+
+       return
+       
+       $campaigns = $query->get();
     }
+
+
 }

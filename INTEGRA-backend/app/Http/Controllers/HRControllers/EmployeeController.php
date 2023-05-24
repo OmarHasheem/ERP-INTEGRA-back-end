@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\EmployeeResource;
 use App\Models\HR\Employee;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -23,8 +20,11 @@ class EmployeeController extends Controller
 
     public function show($id) : EmployeeResource
     {
-        $employee = Employee::findOrFail($id);
-        return new EmployeeResource($employee);
+        $employee = Employee::find($id);
+        if($employee)
+             return new EmployeeResource($employee);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request)
@@ -67,11 +67,7 @@ class EmployeeController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
-    public function update(Request $request , $id)
-=======
     public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [
@@ -94,63 +90,55 @@ class EmployeeController extends Controller
         }
 
         $employee = Employee::findOrFail($id);
+        
+        $employee->firstName    = request('firstName');
+        $employee->lastName     = request('lastName');
+        $employee->dateOfBrith  = request('dateOfBrith');
+        $employee->gender       = request('gender');
+        $employee->address      = request('address');
+        $employee->email        = request('email');
+        $employee->phone        = request('phone');
+        $employee->dateOfHire   = request('dateOfHire');
+        $employee->salary       = request('salary');
+        $employee->supervisorId = request('supervisorId');
+        $employee->status       = request('status');
+        $employee->departmentId = request('departmentId');
 
-        request()->validate([
-            'firstName' => ['required'],
-            'lastName' => ['required'],
-            'dateOfBrith' => ['required'],
-            'gender' => ['required'],
-            'address' => ['required'],
-            'email' => ['required'],
-            'phone' => ['required'],
-            'dateOfHire' => ['required'],
-            'salary' => ['required'],
-            'supervisorId' => ['required'],
-            'status' => ['required'],
-            'departmentId' => ['required'],
-        ]);
-
-        $employee->update([
-            'firstName' => request('firstName'),
-            'lastName' => request('lastName'),
-            'dateOfBrith' => request('dateOfBrith'),
-            'gender' => request('gender'),
-            'address' => request('address'),
-            'email' => request('email'),
-            'phone' => request('phone'),
-            'dateOfHire' => request('dateOfHire'),
-            'salary' => request('salary'),
-            'supervisorId' => request('supervisorId'),
-            'status' => request('status'),
-            'departmentId' => request('departmentId'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if($employee->isDirty(['firstName' , 'lastName' ,  'dateOfBrith',  'gender',  'address',  'email',  'phone',  'dateOfHire',  'salary',  'supervisorId',  'status',  'departmentId'])){
+            $employee->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $employee = Employee::findOrFail($id);
-        $employee->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $employee = Employee::findOrFail($id)){
+            $employee->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 
     public function attachBenefitToEmployee($id)
     {
-        $benefitId = request('benefitId');
-        $enrollmentDate = request('enrollmentDate');
+        $benefitId         = request('benefitId');
+        $enrollmentDate    = request('enrollmentDate');
         $coverageStartDate = request('coverageStartDate');
-        $coverageEndDate = request('coverageEndDate');
+        $coverageEndDate   = request('coverageEndDate');
 
         $employee = Employee::findOrFail($id);
-        $employee->benefits()->attach($benefitId,
+        if($employee->benefits()->attach($benefitId,
          [
-            'enrollmentDate' => $enrollmentDate,
+            'enrollmentDate'    => $enrollmentDate,
             'coverageStartDate' => $coverageStartDate,
-            'coverageEndDate' => $coverageEndDate,
-        ]);
+            'coverageEndDate'   => $coverageEndDate,
+        ]))
+            return $this->success();
+        else
+            return $this->failure();    
 
-        return response()->json(["message" => "The process has been succeded"]);
     }
 }

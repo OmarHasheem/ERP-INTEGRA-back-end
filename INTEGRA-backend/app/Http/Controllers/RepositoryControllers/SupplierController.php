@@ -16,7 +16,11 @@ class SupplierController extends Controller
     }
 
     public function show ($id) : SupplierResource {
-        return new SupplierResource(Supplier::findOrFail($id));
+        $supplier = Supplier::find($id);
+        if($supplier)
+             return new SupplierResource($campaign);
+        else 
+             return $this->failure();
     }
 
     public function store (Request $request) {
@@ -31,14 +35,15 @@ class SupplierController extends Controller
             return  $validator->errors();
         }
 
-        Supplier::create([
+        if(Supplier::create([
             'name'         => request('name'),
             'address'      => request('address'),
             'email'        => request('email'),
             'phone_number' => request('phone_number'),
-        ]);
-
-        return $this->success();
+        ]))
+            return $this->success();
+        else    
+            return $this->failure();
     }
 
     public function update (Request $request, $id) {
@@ -62,17 +67,19 @@ class SupplierController extends Controller
 
         if($supplier->isDirty(['name', 'address', 'email', 'phone_number'])){
             $supplier->save();
-            return response()->json(['message' => 'supplier is updated']);
+            return $this->success();
         }
         else {
-            return response()->json(['message' => 'Nothing changed']);
+            return $this->failure();
         }
     }
 
     public function destroy ($id) {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->delete();
-
-        return $this->success();
+        if( $supplier = Supplier::findOrFail($id)){
+            $supplier->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

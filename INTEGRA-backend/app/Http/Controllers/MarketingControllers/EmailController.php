@@ -13,25 +13,12 @@ use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index() : EmailCollection
     {
         return new EmailCollection(Email::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -49,47 +36,22 @@ class EmailController extends Controller
             'content' => request('content') ,
             'sender'  => request('sender') ,
             'reciver' => request('reciver') ,
-        ]));
-
-        return response()->json( ['message'=> 'email has been created']);
+        ]))
+            return $this->success();
+        else
+            return $this->failure();
     }
 
-    public function attach($id) {
-
-        $email = Email::find($id)->leads()->attach(request('lead_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
-    }
-
-
-    public function detach($id) {
-
-        $email = Email::find($id)->leads()->detach(request('lead_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $id) : EmailResource
     {
-        return new EmailResource(Email::find($id));
+        $email = Email::find($id);
+
+        if($email)
+            return new EmailResource($email);
+        else
+            return $this->failure();    
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
 
@@ -113,21 +75,43 @@ class EmailController extends Controller
 
         if($email->isDirty(['content' , 'sender' , 'reciver'])){
             $email->save();
-            return response()->json( ['message' => 'Email is updated']);
+            return $this->success();
         }
-
-        else {
-            return response()->json([ 'message' => 'Nothing changed']);
-        }
+        else 
+            return $this->failure();
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $email = Email::findOrFail($id);
-        $email->delete();
-        return response()->json(['message' => 'email ' . $email->name . " has been deleted"]);
+        if( $email = Emai::findOrFail($id)) {
+            $email->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
+
+    public function attach($id) {
+
+        $email = Email::find($id)->leads()->attach(request('lead_id'));
+
+        if($email)
+            return $this->success();
+        else
+            return $this->failure();    
+
+    }
+
+    public function detach($id) {
+
+        $email = Email::find($id)->leads()->detach(request('lead_id'));
+
+        if($email)
+              return $this->success();
+        else
+             return $this->failure();    
+    }
+
+
 }

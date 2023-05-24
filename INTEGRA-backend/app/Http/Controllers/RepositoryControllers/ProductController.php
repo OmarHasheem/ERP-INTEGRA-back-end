@@ -16,7 +16,11 @@ class ProductController extends Controller
     }
 
     public function show ($id) : ProductResource {
-        return new ProductResource(Product::findOrFail($id));
+        $product = Product::find($id);
+        if($product)
+             return new ProductResource($campaign);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request) {
@@ -34,7 +38,7 @@ class ProductController extends Controller
             return  $validator->errors();
         }
 
-        Product::create([
+        if(Product::create([
             'name'               => request('name'),
             'description'        => request('description'),
             'price'              => request('price'),
@@ -42,9 +46,10 @@ class ProductController extends Controller
             'details'            => request('details'),
             'category_id'        => request('category_id'),
             'supplier_id'        => request('supplier_id'),
-        ]);
-
-        return $this->success();
+        ]))
+            return $this->success();
+        else
+            return $this->failure();    
     }
 
     public function update(Request $request, $id) {
@@ -74,17 +79,19 @@ class ProductController extends Controller
 
         if($product->isDirty(['name', 'description', 'price', 'quantity_in_stock', 'details', 'category_id', 'supplier_id'])){
             $product->save();
-            return response()->json(['message' => 'product is updated']);
+            return $this->success();
         }
         else {
-            return response()->json(['message' => 'Nothing changed']);
+            return $this->failure();
         }
     }
 
     public function destroy ($id) {
-        $product = Product::findOrFail($id);
-        $product->delete();
-
-        return $this->success();
+        if( $product = Product::findOrFail($id)){
+            $product->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

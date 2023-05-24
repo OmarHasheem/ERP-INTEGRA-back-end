@@ -16,7 +16,11 @@ class ImportController extends Controller
     }
 
     public function show($id) : ImportResource{
-        return new ImportResource(Import::findOrFail($id));
+        $import = Import::find($id);
+        if($import)
+             return new ImportResource($campaign);
+        else 
+             return $this->failure();
     } 
 
     public function store(Request $request) {
@@ -32,15 +36,16 @@ class ImportController extends Controller
             return  $validator->errors();
         }
 
-        Import::create([
+        if(Import::create([
             'name'         => request('name'),
             'date'         => request('date'),
             'total_amount' => request('total_amount'),
             'supplier_id'  => request('supplier_id'),
             'pdf_id'       => request('pdf_id'),
-        ]);
-
-        return $this->success();
+        ]))
+            return $this->success();
+        else
+            return $this->failure();
     }
 
     public function update(Request $request, $id) {
@@ -66,17 +71,19 @@ class ImportController extends Controller
 
         if($import->isDirty(['name', 'date', 'total_amount', 'supplier_id', 'pdf_id'])){
             $import->save();
-            return response()->json(['message' => 'im$import is updated']);
+            return $this->success();
         }
-        else {
-            return response()->json(['message' => 'Nothing changed']);
-        }
+        else 
+            return $this->failure();
+        
     }
 
     public function destroy($id) {
-        $import = Import::findOrFail($id);
-        $import->delete();
-
-        return $this->success();
+        if( $import = Import::findOrFail($id)){
+            $import->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

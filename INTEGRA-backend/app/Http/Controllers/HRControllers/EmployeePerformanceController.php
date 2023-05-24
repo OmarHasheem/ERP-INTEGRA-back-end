@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeePerformanceCollection;
 use App\Http\Resources\HR\EmployeePerformanceResource;
 use App\Models\HR\EmployeePerformance;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeePerformanceController extends Controller
@@ -21,8 +18,11 @@ class EmployeePerformanceController extends Controller
 
     public function show($id) : EmployeePerformanceResource
     {
-        $employeePerformance = EmployeePerformance::findOrFail($id);
-        return new EmployeePerformanceResource($employeePerformance);
+        $employeePerformance = EmployeePerformance::find($id);
+        if($employeePerformance)
+            return new EmployeePerformanceResource($employeePerformance);
+        else 
+            return $this->failure();
     }
 
     public function store(Request $request)
@@ -39,21 +39,18 @@ class EmployeePerformanceController extends Controller
             return  $validator->errors();
         }
 
-        EmployeePerformance::create([
-            'employee_id' => request('employeeId'),
+        if(EmployeePerformance::create([
+            'employee_id'       => request('employeeId'),
             'performanceRating' => request('performanceRating'),
-            'comments' => request('comments'),
-            'reviewDate' => request('reviewDate'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+            'comments'          => request('comments'),
+            'reviewDate'        => request('reviewDate'),
+        ]))
+            return $this->success();
+        else
+            return $this->failure();    
     }
 
-<<<<<<< HEAD
-    public function update(Request $request , $id)
-=======
     public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [
@@ -68,29 +65,27 @@ class EmployeePerformanceController extends Controller
         }
 
         $employeePerformance = EmployeePerformance::findOrFail($id);
+        
+        $employeePerformance->employee_id       = request('employee_id');
+        $employeePerformance->performanceRating = request('performanceRating');
+        $employeePerformance->comments          = request('comments');
+        $employeePerformance->reviewDate        = request('reviewDate');
 
-        request()->validate([
-            'employee_id' => ['required'],
-            'performanceRating' => ['required'],
-            'comments' => ['required'],
-            'reviewDate' => ['required'],
-        ]);
-
-        $employeePerformance->update([
-            'employee_id' => request('employeeId'),
-            'performanceRating' => request('performanceRating'),
-            'comments' => request('comments'),
-            'reviewDate' => request('reviewDate'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if($employeePerformance->isDirty(['employee_id' , 'performanceRating' ,  'comments',  'reviewDate'])){
+            $employeePerformance->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $employeePerformance = EmployeePerformance::findOrFail($id);
-        $employeePerformance->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $employeePerformance = EmployeePerformance::findOrFail($id)){
+            $employeePerformance->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

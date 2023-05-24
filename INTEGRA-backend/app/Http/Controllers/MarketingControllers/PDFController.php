@@ -18,25 +18,12 @@ use Illuminate\Support\Facades\Validator;
 
 class PDFController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index() : PDFCollection
     {
         return new PDFCollection(PDFFile::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request , $id)
     {
 
@@ -48,16 +35,11 @@ class PDFController extends Controller
             return  $validator->errors();
         }
 
-
         $campaign = Campaign::find($id);
-
         $name = request('name');
-
         $SM = $campaign->socialmedias;
         $TV = $campaign->tvs;
         $EV = $campaign->events;
-
-
         $data = [
             'title' => $name,
             'date' => date('m/d/Y'),
@@ -68,7 +50,6 @@ class PDFController extends Controller
         ];
 
         $pdf = PDF::loadView('marketingPDF', $data);
-
         $content = $pdf->download($name .'.pdf');
 
         if (PDFFile::create ([
@@ -77,15 +58,12 @@ class PDFController extends Controller
             'content'     => $content ,
             'campaign_id' => $id
 
-        ]));
-
-        return response()->json(['message' => 'PDF has been stored']);
-
+        ]))
+            return $this->success();
+        else
+            return $this->failure();    
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $pdf_file = PDFFile::find($id);
@@ -93,40 +71,22 @@ class PDFController extends Controller
         if (!$pdf_file) {
             abort(404);
         }
-
+        
         $response = new Response($pdf_file->content, 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $pdf_file->name . '"',
         ]);
-
         return $response;
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $pdf = PDFFile::findOrFail($id);
-        $pdf->delete();
-        return response()->json(['message' => 'PDF ' . $pdf->name . ' has been deleted']);
+        if( $pdf = PDFFile::findOrFail($id)) {
+            $pdf->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

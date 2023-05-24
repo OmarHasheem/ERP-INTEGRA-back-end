@@ -51,8 +51,8 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/HR/employeeVacation.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/campaign.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/campaign.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/tv.php'));
@@ -75,41 +75,41 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/pdffile.php'));
 
-<<<<<<< HEAD
-                //  Route::middleware('api')
-                //     ->group(base_path('routes/api/Usermangment/role.php'));    
+                Route::middleware('api')
+                     ->group(base_path('routes/api/Usermangment/role.php'));    
             });    
 
-            Route::middleware('api')
-            ->group(base_path('routes/api/Usermangment/role.php'));  
-=======
-        });
+    //         Route::middleware('api')
+    //         ->group(base_path('routes/api/Usermangment/role.php'));  
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/category.php'));
+         });
+         Route::middleware('api')
+         ->group(base_path('routes/api/Marketing/campaign.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/export.php'));
+    //             Route::middleware('api')
+    //                 ->group(base_path('routes/api/Repository/category.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/import.php'));
+    //             Route::middleware('api')
+    //                 ->group(base_path('routes/api/Repository/export.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/product.php'));
+    //             Route::middleware('api')
+    //                 ->group(base_path('routes/api/Repository/import.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/supplier.php'));
+    //             Route::middleware('api')
+    //                 ->group(base_path('routes/api/Repository/product.php'));
+
+    //             Route::middleware('api')
+    //                 ->group(base_path('routes/api/Repository/supplier.php'));
             
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 
-            Route::middleware('api')
-                ->group(base_path('routes/api/api.php'));
+    //         Route::middleware('api')
+    //             ->group(base_path('routes/api/api.php'));
 
-            Route::middleware('web')
-                ->prefix('web')
-                ->group(base_path('routes/web.php'));
-        });
-    }
+    //         Route::middleware('web')
+    //             ->prefix('web')
+    //             ->group(base_path('routes/web.php'));
+    //     });
+      }
 
     /**
      * Configure the rate limiters for the application.

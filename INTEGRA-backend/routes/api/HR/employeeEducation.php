@@ -3,12 +3,13 @@
 use App\Http\Controllers\HRControllers\EmployeeEducationController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::prefix('HR')->group(function (){
-    Route::get('/employeeEducations', [EmployeeEducationController  ::class, 'index'])->middleware('can:index campaign');
-    Route::get('/employeeEducation/show/{id}', [EmployeeEducationController::class, 'show'])->middleware('can:index campaign');
-
-    Route::post('/employeeEducation/store', [EmployeeEducationController::class, 'store'])->middleware('can:index campaign');
-    Route::put('/employeeEducation/update/{id}', [EmployeeEducationController::class, 'update'])->middleware('can:index campaign');
-    Route::delete('/employeeEducation/destroy/{id}', [EmployeeEducationController::class, 'destroy'])->middleware('can:index campaign');
+Route::controller(EmployeeEducationController::class)->group(function () {
+    Route::prefix('HR')->group(function (){
+        Route::get('/employeeEducations', 'index')->middleware('permission:index employeeEducation');        
+        Route::get('/employeeEducation/show/{id}', 'show')->middleware('permission:store employeeEducation');
+        Route::post('/employeeEducation/store', 'store')->middleware('permission:show employeeEducation');
+        Route::put('/employeeEducation/update/{id}', 'update')->middleware('permission:update employeeEducation');
+        Route::delete('/employeeEducation/destroy/{id}', 'destroy')->middleware('permission:destroy employeeEducation');
+    });
 });
+

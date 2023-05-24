@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeCertificateCollection;
 use App\Http\Resources\HR\EmployeeCertificateResource;
 use App\Models\HR\EmployeeCertificate;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeCertificateController extends Controller
@@ -21,8 +18,11 @@ class EmployeeCertificateController extends Controller
 
     public function show($id) : EmployeeCertificateResource
     {
-        $employeeCertificate = EmployeeCertificate::findOrFail($id);
-        return new EmployeeCertificateResource($employeeCertificate);
+        $employeeCertificate = EmployeeCertificate::find($id);
+        if($employeeCertificate)
+             return new EmployeeCertificate($employeeCertificate);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request)
@@ -47,11 +47,7 @@ class EmployeeCertificateController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
-    public function update(Request $request , $id)
-=======
     public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [
@@ -65,27 +61,25 @@ class EmployeeCertificateController extends Controller
         }
 
         $employeeCertificate = EmployeeCertificate::findOrFail($id);
+        
+        $employeeCertificate->name = request('name');
+        $employeeCertificate->cost = request('cost');
 
-        request()->validate([
-            'employee_id' => ['required'],
-            'name' => ['required'],
-            'level' => ['required'],
-        ]);
-
-        $employeeCertificate->update([
-            'employee_id' => request('employeeId'),
-            'name' => request('name'),
-            'level' => request('level'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if($employeeCertificate->isDirty(['name' ,  'level'])){
+            $employeeCertificate->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $employeeCertificate = EmployeeCertificate::findOrFail($id);
-        $employeeCertificate->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $employeeCertificate = EmployeeCertificate::findOrFail($id)){
+            $employeeCertificate->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

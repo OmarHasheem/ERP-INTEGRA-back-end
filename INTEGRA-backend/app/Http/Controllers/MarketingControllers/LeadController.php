@@ -12,25 +12,12 @@ use Illuminate\Support\Facades\Validator;
 
 class LeadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index() : LeadCollection
     {
         return new LeadCollection(Lead::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request )
     {
 
@@ -42,52 +29,27 @@ class LeadController extends Controller
             return  $validator->errors();
         }
 
-             if($lead = Lead::create ([
-
+            if($lead = Lead::create ([
                 'type' => request('type') ,
-            ]));
+            ]))
 
-            return response()->json( ['message'=> 'Lead ' . request('type') . 'has been created']);
+                return $this->success();
+            else
+                return $this->failure(); 
 
 
     }
 
-    public function attach($id) {
-
-        $lead = Lead::find($id)->customers()->attach(request('customer_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
-    }
-
-
-    public function detach($id) {
-
-        $lead = Lead::find($id)->customers()->detach(request('customer_id'));
-
-        return response()->json( [ 'message' => 'Done' ]);
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $id) : LeadResource
     {
-        return new LeadResource(Lead::find($id));
+        $lead = Lead::find($id);
+
+        if($lead)
+            return new LeadResource($lead);
+        else
+            return $this->failure(); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
 
@@ -105,22 +67,44 @@ class LeadController extends Controller
 
         if($lead->isDirty(['type'])){
             $lead->save();
-            return response()->json( ['message' => 'Lead is updated']);
+            return $this->success();
         }
-
-        else {
-            return response()->json([ 'message' => 'Nothing changed']);
-        }
+        else 
+            return $this->failure();
+        
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $lead = Lead::findOrFail($id);
-        $lead->delete();
-        return response()->json(['message' => 'Lead ' . $lead->name . " has been deleted"]);
+        if( $lead = Lead::findOrFail($id)) {
+            $lead->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
+    }
+
+    public function attach($id) {
+
+        $lead = Lead::find($id)->customers()->attach(request('customer_id'));
+
+        if($lead)
+            return $this->success();
+        else
+            return $this->failure();
+
+    }
+
+
+    public function detach($id) {
+
+        $lead = Lead::find($id)->customers()->detach(request('customer_id'));
+
+        if($lead)
+            return $this->success();
+        else
+            return $this->failure();
+
     }
 }

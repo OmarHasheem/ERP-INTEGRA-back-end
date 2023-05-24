@@ -11,25 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return new EventCollection(Event::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -57,30 +44,24 @@ class EventController extends Controller
             'expected_revenue' => request('expected_revenue') ,
             'campaign_id'      => request('campaign_id') ,
 
-        ]));
+        ]))
 
-        return response()->json(['message' => 'Event ' . request('name') . ' has been created']);
+            return $this-success();
+        else
+            return $this->failure();
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function show($id) : EventResource
     {
-        return new EventResource(Event::find($id));
+        $event = Event::find($id);
+
+        if($event)
+            return new EventResource($event);
+        else
+            return $this->failure(); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request,  $id)
     {
 
@@ -110,21 +91,20 @@ class EventController extends Controller
 
         if($event->isDirty(['name' , 'place' , 'description' , 'type' , 'cost' , 'expected_revenue' , 'campaign_id' ])){
             $event->save();
-            return response()->json( ['message' => 'Event is Updated']);
+            return $this->success();
         }
-
-        else {
-            return response()->json(['message' => 'Nothing Changed']);
-        }
+        else 
+            return $this->failure();
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $event = Event::findOrFail($id);
-        $event->delete();
-        return response()->json(['message' => 'Event ' . $event->name . ' has been deleted']);
+        if( $event = Event::findOrFail($id)) {
+            $event->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

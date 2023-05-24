@@ -11,25 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index() : CustomerCollection
     {
         return new CustomerCollection(Customer::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -54,30 +41,23 @@ class CustomerController extends Controller
             'address' => request('address') ,
             'email'   => request('email') ,
             'phone'   => request('phone') ,
-        ]));
+        ]))
 
-        return response()->json( ['message'=> 'customer has been created']);
+            return $this->success();
+        else
+            return $this->failure();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function show($id) : CustomerResource
     {
-        return new CustomerResource(Customer::find($id));
+        $customer = Customer::find($id);
+        
+        if($customer)
+            return new CustomerResource($customer);
+        else
+            return $this->failure();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request , $id)
     {
 
@@ -106,21 +86,20 @@ class CustomerController extends Controller
 
         if($customer->isDirty(['name' , 'gender' , 'age', 'address' , 'email' , 'phone'])){
             $customer->save();
-            return response()->json(['message' => 'Customer is updated']);
+            return $this->success();
         }
-
-        else {
-            return response()->json(['message' => 'Nothing changed']);
-        }
+        else 
+            return $this->failure();
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $customer = Customer::findOrFail($id);
-        $customer->delete();
-        return response()->json(['message' => 'Customer  has been deleted']);
+        if( $customer = Customer::findOrFail($id)) {
+            $customer->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\EmployeeEducationCollection;
 use App\Http\Resources\HR\EmployeeEducationResource;
 use App\Models\HR\EmployeeEducation;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeEducationController extends Controller
@@ -21,8 +18,11 @@ class EmployeeEducationController extends Controller
 
     public function show($id) : EmployeeEducationResource
     {
-        $employeeEducation = EmployeeEducation::findOrFail($id);
-        return new EmployeeEducationResource($employeeEducation);
+        $employeeEducation = EmployeeEducation::find($id);
+        if($employeeEducation)
+             return new EmployeeEducationResource($employeeEducation);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request)
@@ -40,22 +40,20 @@ class EmployeeEducationController extends Controller
             return  $validator->errors();
         }
 
-        EmployeeEducation::create([
-            'employee_id' => request('employeeId'),
+        if(EmployeeEducation::create([
+            'employee_id'    => request('employeeId'),
             'specialization' => request('specialization'),
-            'degree' => request('degree'),
-            'grantingBy' => request('grantingBy'),
+            'degree'         => request('degree'),
+            'grantingBy'     => request('grantingBy'),
             'graduationDate' => request('graduationDate'),
-        ]);
+        ]))
+            return $this->success();
+        else
+            return $this->failure();
 
-        return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
-    public function update(Request $request , $id)
-=======
     public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [
@@ -71,31 +69,28 @@ class EmployeeEducationController extends Controller
         }
 
         $employeeEducation = EmployeeEducation::findOrFail($id);
+        
+        $employeeEducation->employee_id    = request('employee_id');
+        $employeeEducation->specialization = request('specialization');
+        $employeeEducation->degree         = request('degree');
+        $employeeEducation->grantingBy     = request('grantingBy');
+        $employeeEducation->graduationDate = request('graduationDate');
 
-        request()->validate([
-            'employee_id' => ['required'],
-            'specialization' => ['required'],
-            'degree' => ['required'],
-            'grantingBy' => ['required'],
-            'graduationDate' => ['required'],
-        ]);
-
-        $employeeEducation->update([
-            'employee_id' => request('employeeId'),
-            'specialization' => request('specialization'),
-            'degree' => request('degree'),
-            'grantingBy' => request('grantingBy'),
-            'graduationDate' => request('graduationDate'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if($employeeEducation->isDirty(['employee_id' , 'specialization' ,  'degree',  'grantingBy',  'graduationDate'])){
+            $employeeEducation->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $employeeEducation = EmployeeEducation::findOrFail($id);
-        $employeeEducation->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $employeeEducation = EmployeeEducation::findOrFail($id)){
+            $employeeEducation->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

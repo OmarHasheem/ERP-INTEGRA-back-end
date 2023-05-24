@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\DepartmentCollection;
 use App\Http\Resources\HR\DepartmentResource;
 use App\Models\HR\Department;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
@@ -21,8 +18,11 @@ class DepartmentController extends Controller
 
     public function show($id) : DepartmentResource
     {
-        $department = Department::findOrFail($id);
-        return new DepartmentResource($department);
+        $department = Department::find($id);
+        if($department)
+             return new DepartmentResource($department);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request)
@@ -36,9 +36,10 @@ class DepartmentController extends Controller
             return  $validator->errors();
         }
 
-        Department::create(request()->all());
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if(Department::create(request()->all()))
+            return $this->success();
+        else
+            return $this->failure();    
     }
 
     public function update(Request $request, $id)
@@ -54,21 +55,24 @@ class DepartmentController extends Controller
 
         $department = Department::findOrFail($id);
 
-        request()->validate([
-            'name' => ['required'],
-        ]);
+        $department->name = request('name');
 
-        $department->update(request()->all());
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if($department->isDirty(['name'])){
+            $department->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $department = Department::findOrFail($id);
-        $department->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $department = Department::findOrFail($id)){
+            $department->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 
 }

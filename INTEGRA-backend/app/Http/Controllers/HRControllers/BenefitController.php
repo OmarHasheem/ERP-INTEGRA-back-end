@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HR\BenefitCollection;
 use App\Http\Resources\HR\BenefitResource;
 use App\Models\HR\Benefit;
-<<<<<<< HEAD
-=======
 use Illuminate\Http\Request;
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
 use Illuminate\Support\Facades\Validator;
 
 class BenefitController extends Controller
@@ -22,8 +19,11 @@ class BenefitController extends Controller
 
     public function show($id) : BenefitResource
     {
-        $benefit = Benefit::findOrFail($id);
-        return new BenefitResource($benefit);
+        $benefit = Benefit::find($id);
+        if($benefit)
+             return new BenefitResource($benefit);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request)
@@ -38,19 +38,16 @@ class BenefitController extends Controller
             return  $validator->errors();
         }
         
-        Benefit::create([
+       if(Benefit::create([
             'name' => request('name'),
             'cost' => request('cost'),
-        ]);
-
-        return response()->json(["message" => "The process has been succeded"]);
+        ]))
+            return $this->success();
+        else    
+            return $this->failure();
     }
 
-<<<<<<< HEAD
-    public function update(Request $request , $id)
-=======
     public function update(Request $request, $id)
->>>>>>> 69fa921c485ba7180d0f275486482a80fc772c95
     {
 
         $validator = Validator::make($request->all(), [
@@ -64,19 +61,24 @@ class BenefitController extends Controller
 
         $benefit = Benefit::findOrFail($id);
 
-        $benefit->update([
-            'name' => request('name'),
-            'cost' => request('cost'),
-        ]);
+        $benefit->name = request('name');
+        $benefit->cost = request('cost');
 
-        return response()->json(["message" => "The process has been succeded"]);
+        if($benefit->isDirty(['name' , 'cost'])){
+            $benefit->save();
+            return $this->success();
+        }
+        else 
+            return $this->failure();
     }
 
     public function destroy($id)
     {
-        $benefit = Benefit::findOrFail($id);
-        $benefit->delete();
-
-        return response()->json(["message" => "The process has been succeded"]);
+        if( $benefit = Benefit::findOrFail($id)){
+            $benefit->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

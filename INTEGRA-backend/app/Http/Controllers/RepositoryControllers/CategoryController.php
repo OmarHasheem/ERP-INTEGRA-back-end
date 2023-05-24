@@ -16,7 +16,11 @@ class CategoryController extends Controller
     }
 
     public function show($id) : CategoryResource {
-        return new CategoryResource(Category::findOrFail($id));
+        $catagory = Catagory::find($id);
+        if($catagory)
+             return new CatagoryResource($campaign);
+        else 
+             return $this->failure();
     }
 
     public function store(Request $request) {
@@ -28,11 +32,12 @@ class CategoryController extends Controller
             return  $validator->errors();
         }
 
-        Category::create([
+       if( Category::create([
             'name' => request('name'),
-        ]);
-
-        return $this->success();
+        ]))
+            return $this->success();
+        else
+            return $this->failure();
     }
 
     public function update(Request $request, $id) {
@@ -50,17 +55,19 @@ class CategoryController extends Controller
 
         if($category->isDirty(['name'])){
             $category->save();
-            return response()->json(['message' => 'product is updated']);
+            return $this->success();
         }
         else {
-            return response()->json(['message' => 'Nothing changed']);
+            return $this->failure();
         }
     }
 
     public function destroy($id) {
-        $category = Category::findOrFail($id);
-        $category->delete();
-
-        return $this->success();
+        if( $Catagory = Catagory::findOrFail($id)){
+            $catagory->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

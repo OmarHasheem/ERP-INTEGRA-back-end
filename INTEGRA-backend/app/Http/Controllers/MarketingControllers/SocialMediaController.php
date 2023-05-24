@@ -15,22 +15,11 @@ class SocialMediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : SocialMediaCollection
     {
         return new SocialMediaCollection(SocialMedia::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -55,31 +44,22 @@ class SocialMediaController extends Controller
             'cost'             => request('cost') ,
             'expected_revenue' => request('expected_revenue') ,
             'campaign_id'      => request('campaign_id')
-        ]));
-
-
-        return response()->json([ 'message' => 'SocialMedia  has been created']);
+        ]))
+            return $this->success();
+        else    
+            return $this->failure();
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
-        return new SocialMediaResource(SocialMedia::find($id));
+        $socialmedia = SocialMedia::find($id);
+
+        if($socialmedia)
+            return new SocialMediaResource($lead);
+        else
+            return $this->failure(); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
 
@@ -99,31 +79,31 @@ class SocialMediaController extends Controller
 
         $socialmedia = SocialMedia::findOrFail($id);
 
-        $socialmedia->blogger               = request('blogger');
-        $socialmedia->type                  = request('type');
-        $socialmedia->way                   = request('way');
-        $socialmedia->cost                  = request('cost');
-        $socialmedia->expected_revenue      = request('expected_revenue');
-        $socialmedia->campaign_id           = request('campaign_id');
+        $socialmedia->blogger           = request('blogger');
+        $socialmedia->type              = request('type');
+        $socialmedia->way               = request('way');
+        $socialmedia->cost              = request('cost');
+        $socialmedia->expected_revenue  = request('expected_revenue');
+        $socialmedia->campaign_id       = request('campaign_id');
 
 
         if($socialmedia->isDirty(['blogger' , 'type' , 'way', 'cost' , 'expected_revenue' , 'campaign_id' ])){
             $socialmedia->save();
-            return response()->json(['message' => 'SocialMedia is updated']);
+            return $this->success();
         }
-
-        else {
-        return response()->json(['message' => 'Nothing Changed']);
-        }
+        else 
+            return $this->failure();
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
-        $socialmedia = SocialMedia::findOrFail($id);
-        $socialmedia->delete();
-        return response()->json(['message' => 'SocialMedia has been deleted']);
+        if( $socialmedia = SocialMedia::findOrFail($id)) {
+            $socialmedia->delete();
+            return $this->success();
+        } 
+        else
+            return $this->failure();
     }
 }

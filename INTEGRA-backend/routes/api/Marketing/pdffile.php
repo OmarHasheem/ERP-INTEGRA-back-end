@@ -3,10 +3,11 @@
 use App\Http\Controllers\MarketingControllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::prefix('marketing')->group(function(){
-    Route::get('/pdfs', [PDFController::class, 'index'])->middleware('permission:index pdf');
-    Route::get('/pdf/show/{id}', [PDFController::class, 'show'])->middleware('permission:show pdf');
-    Route::post('/pdf/store/{id}', [PDFController::class, 'store'])->middleware('permission:store pdf');
-    Route::delete('/pdf/destroy/{id}', [PDFController::class, 'destroy'])->middleware('permission:destoy pdf');
+Route::controller(PDFController::class)->group(function () {
+    Route::prefix('marketing')->group(function (){
+        Route::get('/pdfs', 'index')->middleware('permission:index pdf');        
+        Route::get('/pdf/show/{id}', 'show')->middleware('permission:store pdf');
+        Route::post('/pdf/store', 'store')->middleware('permission:show pdf');
+        Route::delete('/pdf/destroy/{id}', 'destroy')->middleware('permission:destroy pdf');
+    });
 });
