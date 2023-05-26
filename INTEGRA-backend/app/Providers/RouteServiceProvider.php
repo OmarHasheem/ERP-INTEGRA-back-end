@@ -75,6 +75,7 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/pdffile.php'));
 
+<<<<<<< HEAD
                 Route::middleware('api')
                      ->group(base_path('routes/api/Usermangment/role.php'));    
             });    
@@ -85,6 +86,13 @@ class RouteServiceProvider extends ServiceProvider
          });
          Route::middleware('api')
          ->group(base_path('routes/api/Marketing/campaign.php'));
+=======
+                //  Route::middleware('api')
+                //     ->group(base_path('routes/api/Usermangment/role.php'));
+                
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Repository/category.php'));
+>>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
 
     //             Route::middleware('api')
     //                 ->group(base_path('routes/api/Repository/category.php'));
@@ -101,6 +109,16 @@ class RouteServiceProvider extends ServiceProvider
     //             Route::middleware('api')
     //                 ->group(base_path('routes/api/Repository/supplier.php'));
             
+<<<<<<< HEAD
+=======
+            });    
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Usermangment/role.php'));  
+
+
+
+>>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
 
     //         Route::middleware('api')
     //             ->group(base_path('routes/api/api.php'));

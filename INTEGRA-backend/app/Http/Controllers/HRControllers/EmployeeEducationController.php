@@ -53,7 +53,11 @@ class EmployeeEducationController extends Controller
 
     }
 
+<<<<<<< HEAD
     public function update(Request $request, $id)
+=======
+    public function update(Request $request , $id)
+>>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
     {
 
         $validator = Validator::make($request->all(), [
