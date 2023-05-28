@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function show ($id) : ProductResource {
         $product = Product::find($id);
         if($product)
-             return new ProductResource($campaign);
+             return new ProductResource($product);
         else 
              return $this->failure();
     }
@@ -29,7 +29,7 @@ class ProductController extends Controller
             'description'        => 'required | regex:/^[^\'"]+$/',
             'price'              => 'required | numeric',
             'quantity_in_stock'  => 'required | numeric',
-            'details'            => 'required | regex:/^[^\'"]+$/',
+            'details'            => 'required',
             'category_id'        => 'required | numeric',
             'supplier_id'        => 'required | numeric',
         ]);

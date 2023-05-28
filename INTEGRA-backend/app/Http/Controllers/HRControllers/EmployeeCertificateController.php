@@ -20,7 +20,7 @@ class EmployeeCertificateController extends Controller
     {
         $employeeCertificate = EmployeeCertificate::find($id);
         if($employeeCertificate)
-             return new EmployeeCertificate($employeeCertificate);
+             return new EmployeeCertificateResource($employeeCertificate);
         else 
              return $this->failure();
     }
@@ -47,11 +47,7 @@ class EmployeeCertificateController extends Controller
         return response()->json(["message" => "The process has been succeded"]);
     }
 
-<<<<<<< HEAD
     public function update(Request $request, $id)
-=======
-    public function update(Request $request , $id)
->>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
     {
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required | numeric',

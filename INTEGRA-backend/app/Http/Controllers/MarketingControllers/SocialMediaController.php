@@ -55,7 +55,7 @@ class SocialMediaController extends Controller
         $socialmedia = SocialMedia::find($id);
 
         if($socialmedia)
-            return new SocialMediaResource($lead);
+            return new SocialMediaResource($socialmedia);
         else
             return $this->failure(); 
     }

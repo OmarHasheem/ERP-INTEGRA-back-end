@@ -13,4 +13,3 @@ Route::controller(EmployeeCertificateController::class)->group(function () {
         Route::delete('/employeeCertificate/destroy/{id}', 'destroy')->middleware('permission:destroy employeeCertificate');
     });
 });
-

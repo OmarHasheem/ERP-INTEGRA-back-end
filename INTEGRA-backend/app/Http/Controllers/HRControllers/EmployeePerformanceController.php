@@ -16,7 +16,7 @@ class EmployeePerformanceController extends Controller
         return new EmployeePerformanceCollection(EmployeePerformance::all());
     }
 
-    public function show($id) : EmployeePerformanceResource
+    public function show($id)
     {
         $employeePerformance = EmployeePerformance::find($id);
         if($employeePerformance)

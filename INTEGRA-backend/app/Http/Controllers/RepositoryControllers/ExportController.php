@@ -18,7 +18,7 @@ class ExportController extends Controller
     public function show($id) : ExportResource{
         $export = Export::find($id);
         if($export)
-             return new exportResource($campaign);
+             return new exportResource($export);
         else 
              return $this->failure();
     } 

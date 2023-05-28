@@ -18,7 +18,7 @@ class ImportController extends Controller
     public function show($id) : ImportResource{
         $import = Import::find($id);
         if($import)
-             return new ImportResource($campaign);
+             return new ImportResource($import);
         else 
              return $this->failure();
     } 

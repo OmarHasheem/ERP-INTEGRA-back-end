@@ -27,16 +27,16 @@ class PDFController extends Controller
     public function store(Request $request , $id)
     {
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+        // ]);
 
-        if ($validator->fails()) {
-            return  $validator->errors();
-        }
+        // if ($validator->fails()) {
+        //     return  $validator->errors();
+        // }
 
         $campaign = Campaign::find($id);
-        $name = request('name');
+        $name = "new";
         $SM = $campaign->socialmedias;
         $TV = $campaign->tvs;
         $EV = $campaign->events;
@@ -49,7 +49,7 @@ class PDFController extends Controller
             'EV'   => $EV
         ];
 
-        $pdf = PDF::loadView('marketingPDF', $data);
+        $pdf = PDFFile::loadView('marketingPDF', $data);
         $content = $pdf->download($name .'.pdf');
 
         if (PDFFile::create ([

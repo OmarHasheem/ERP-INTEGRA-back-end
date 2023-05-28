@@ -16,9 +16,9 @@ class CategoryController extends Controller
     }
 
     public function show($id) : CategoryResource {
-        $catagory = Catagory::find($id);
+        $catagory = Category::find($id);
         if($catagory)
-             return new CatagoryResource($campaign);
+             return new CategoryResource($catagory);
         else 
              return $this->failure();
     }
@@ -63,7 +63,7 @@ class CategoryController extends Controller
     }
 
     public function destroy($id) {
-        if( $Catagory = Catagory::findOrFail($id)){
+        if( $catagory = Category::findOrFail($id)){
             $catagory->delete();
             return $this->success();
         } 

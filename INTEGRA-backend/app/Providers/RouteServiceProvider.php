@@ -51,8 +51,8 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/HR/employeeVacation.php'));
 
-                // Route::middleware('api')
-                //     ->group(base_path('routes/api/Marketing/campaign.php'));
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Marketing/campaign.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/tv.php'));
@@ -73,60 +73,38 @@ class RouteServiceProvider extends ServiceProvider
                     ->group(base_path('routes/api/Marketing/customer.php'));
 
                 Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/pdffile.php'));
+                    ->group(base_path('routes/api/Marketing/pdffile.php'));   
 
-<<<<<<< HEAD
+
+
                 Route::middleware('api')
-                     ->group(base_path('routes/api/Usermangment/role.php'));    
-            });    
+                    ->group(base_path('routes/api/Repository/export.php'));
 
-    //         Route::middleware('api')
-    //         ->group(base_path('routes/api/Usermangment/role.php'));  
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Repository/import.php'));
 
-         });
-         Route::middleware('api')
-         ->group(base_path('routes/api/Marketing/campaign.php'));
-=======
-                //  Route::middleware('api')
-                //     ->group(base_path('routes/api/Usermangment/role.php'));
-                
+
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Repository/supplier.php'));
+            
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/category.php'));
->>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
-
-    //             Route::middleware('api')
-    //                 ->group(base_path('routes/api/Repository/category.php'));
-
-    //             Route::middleware('api')
-    //                 ->group(base_path('routes/api/Repository/export.php'));
-
-    //             Route::middleware('api')
-    //                 ->group(base_path('routes/api/Repository/import.php'));
-
-    //             Route::middleware('api')
-    //                 ->group(base_path('routes/api/Repository/product.php'));
-
-    //             Route::middleware('api')
-    //                 ->group(base_path('routes/api/Repository/supplier.php'));
-            
-<<<<<<< HEAD
-=======
             });    
 
             Route::middleware('api')
-            ->group(base_path('routes/api/Usermangment/role.php'));  
+            ->group(base_path('routes/api/Repository/product.php'));
 
 
+       Route::middleware('api')
+         ->group(base_path('routes/api/Usermangment/role.php'));  
 
->>>>>>> 79f768b69fe31d06176c0ff9f21327c8f556cc94
+            Route::middleware('api')
+                ->group(base_path('routes/api/api.php'));
 
-    //         Route::middleware('api')
-    //             ->group(base_path('routes/api/api.php'));
-
-    //         Route::middleware('web')
-    //             ->prefix('web')
-    //             ->group(base_path('routes/web.php'));
-    //     });
+            Route::middleware('web')
+                ->prefix('web')
+                ->group(base_path('routes/web.php'));
+        });
       }
 
     /**

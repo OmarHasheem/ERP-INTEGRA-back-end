@@ -18,7 +18,7 @@ class SupplierController extends Controller
     public function show ($id) : SupplierResource {
         $supplier = Supplier::find($id);
         if($supplier)
-             return new SupplierResource($campaign);
+             return new SupplierResource($supplier);
         else 
              return $this->failure();
     }
@@ -26,7 +26,7 @@ class SupplierController extends Controller
     public function store (Request $request) {
         $validator = Validator::make($request->all(), [
             'name'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-            'address'      => 'required | regex:/^[a-zA-Z0-9:-]+$/ ',
+            'address'      => 'required | regex:/^[^\'"]+$/',
             'email'        => 'required | email:rfc',
             'phone_number' => 'required | numeric',
         ]);

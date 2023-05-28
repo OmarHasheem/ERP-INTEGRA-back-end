@@ -84,7 +84,7 @@ class EmailController extends Controller
 
     public function destroy(string $id)
     {
-        if( $email = Emai::findOrFail($id)) {
+        if( $email = Email::findOrFail($id)) {
             $email->delete();
             return $this->success();
         } 

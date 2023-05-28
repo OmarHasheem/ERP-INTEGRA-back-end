@@ -56,7 +56,7 @@ class TvController extends Controller
         $tv = Tv::find($id);
 
         if($tv)
-            return new Tv($lead);
+            return new Tv($tv);
         else
             return $this->failure(); 
     }

@@ -46,7 +46,7 @@ class EventController extends Controller
 
         ]))
 
-            return $this-success();
+            return $this->success();
         else
             return $this->failure();
 
