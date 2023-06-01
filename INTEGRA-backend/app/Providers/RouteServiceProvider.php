@@ -83,20 +83,36 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/import.php'));
 
-
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/supplier.php'));
             
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/category.php'));
+            
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Repository/ProductAttribute/attribute.php'));
+                
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Repository/ProductAttribute/attributeValue.php'));
+
+                // Route::middleware('api')
+                // ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
             });    
 
             Route::middleware('api')
-            ->group(base_path('routes/api/Repository/product.php'));
+            ->group(base_path('routes/api/Repository/ProductAttribute/attribute.php'));
+        
+        Route::middleware('api')
+            ->group(base_path('routes/api/Repository/ProductAttribute/attributeValue.php'));
 
+        Route::middleware('api')
+        ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
 
-       Route::middleware('api')
-         ->group(base_path('routes/api/Usermangment/role.php'));  
+            Route::middleware('api')
+                ->group(base_path('routes/api/Repository/product.php'));
+
+            Route::middleware('api')
+                ->group(base_path('routes/api/Usermangment/role.php'));  
 
             Route::middleware('api')
                 ->group(base_path('routes/api/api.php'));
