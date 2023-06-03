@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use App\Models\marketing\Campaign;
 use App\Models\User;
+use App\Models\Repository\Export;
+use App\Models\Repository\Import;
+use App\Models\HR\Employee;
 use App\Models\marketing\PDFFile;
 use PDF;
 use App\Http\Resources\Marketing\PDFResource;
@@ -24,7 +27,7 @@ class PDFController extends Controller
         return new PDFCollection(PDFFile::all());
     }
 
-    public function store(Request $request , $id)
+    public function storeCampaign(Request $request , $id)
     {
 
         // $validator = Validator::make($request->all(), [
@@ -37,7 +40,7 @@ class PDFController extends Controller
 
         $campaign = Campaign::find($id);
         $name = "new";
-        $SM = $campaign->socialmedias;
+        $SM = $campaign->socialmedia;
         $TV = $campaign->tvs;
         $EV = $campaign->events;
         $data = [
@@ -49,20 +52,108 @@ class PDFController extends Controller
             'EV'   => $EV
         ];
 
-        $pdf = PDFFile::loadView('marketingPDF', $data);
+        $pdf = PDF::loadView('marketingPDF', $data);
         $content = $pdf->download($name .'.pdf');
 
-        if (PDFFile::create ([
+        
+        PDFFile::create ([
 
-            'name'        => "lolo" ,
-            'content'     => $content ,
-            'campaign_id' => $id
+            'name'          => "lolo" ,
+            'content'       => $content ,
+            'pdfable_id'    => $campaign->id,
+            'pdfable_type'  => Campaign::class,
 
-        ]))
-            return $this->success();
-        else
-            return $this->failure();    
+        ]);
+
+
+        return $content;
+ 
     }
+
+
+    public function storeExport(Request $request , $id)
+    {
+
+        // $validator = Validator::make($request->all(), [
+        //     'name'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+        //     'date'         => 'required | date',
+        //     'total_amount' => 'required | numeric',
+        //     'customer_id'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+        //     'employee_id'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return  $validator->errors();
+        // }
+
+        $export  = Export::find($id);
+        $name    = $export->name;
+        foreach($export->products as $product ){
+        
+        $data    = [
+            'title'    => $name,
+            'date'     => date('m/d/Y'),
+            'export'   => $export,
+            'product'  => $product
+            
+                           ];  
+                        
+
+        $pdf = PDF::loadView('exportPDF', $data);
+        $content = $pdf->download($name .'.pdf');
+                        }
+
+        // PDFFile::create ([
+
+        //     'name'          => "lolo" ,
+        //     'content'       => $content ,
+        //     'pdfable_id'    => $export->id,
+        //     'pdfable_type'  => Export::class,
+
+        // ]);
+            return $content;
+        }
+
+        public function storeEmployeeVacation(Request $request , $id)
+        {
+    
+            // $validator = Validator::make($request->all(), [
+            //     'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            // ]);
+    
+            // if ($validator->fails()) {
+            //     return  $validator->errors();
+            // }
+    
+            $employee = Employee::find($id);
+            $name = $employee-> firstName;
+            $EP = $employee->employeeVacations;
+            
+            $data = [
+                'title' => $name,
+                'date' => date('m/d/Y'),
+                'employee' => $employee,
+                'EP'   => $EP,
+
+            ];
+    
+            $pdf = PDF::loadView('employeeVacationPDF', $data);
+            $content = $pdf->download($name .'.pdf');
+    
+            
+            PDFFile::create ([
+    
+                'name'          => "lolo" ,
+                'content'       => $content ,
+                'pdfable_id'    => $employee->id,
+                'pdfable_type'  => Employee::class,
+    
+            ]);
+    
+    
+            return $content;
+     
+        }
 
     public function show($id)
     {
@@ -79,6 +170,9 @@ class PDFController extends Controller
         return $response;
 
     }
+
+
+
 
     public function destroy($id)
     {

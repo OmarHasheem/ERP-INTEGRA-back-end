@@ -5,12 +5,18 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(BenefitController::class)->group(function () {
-    Route::prefix('HR')->group(function (){
-        Route::get('/benefits', 'index')->middleware('permission:index benefit');        
-        Route::get('/benefit/show/{id}', 'show')->middleware('permission:store benefit');
-        Route::post('/benefit/store', 'store')->middleware('permission:show benefit');
-        Route::put('/benefit/update/{id}', 'update')->middleware('permission:update benefit');
-        Route::delete('/benefit/destroy/{id}', 'destroy')->middleware('permission:destroy benefit');
+    Route::prefix('hr')->group(function (){
+        // Route::get('/benefits/{id}', 'show')->middleware('permission:show benefit');        
+        // Route::get('/benefits', 'index')->middleware('permission:index benefit');
+        // Route::post('/benefits', 'store')->middleware('permission:store benefit');
+        // Route::put('/benefits/{id}', 'update')->middleware('permission:update benefit');
+        // Route::delete('/benefits/{id}', 'destroy')->middleware('permission:destroy benefit');
+
+        Route::get('/benefits/{id}', 'show');        
+        Route::get('/benefits', 'index');
+        Route::post('/benefits', 'store');
+        Route::put('/benefits/{id}', 'update');
+        Route::delete('/benefits/{id}', 'destroy');
     });
 });
 

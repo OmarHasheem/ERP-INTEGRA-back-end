@@ -29,6 +29,7 @@ class ExportController extends Controller
             'date'          => 'required | date',
             'total_amount'  => 'required | numeric',
             'employee_id'   => 'required | numeric',
+            'customer_id'   => 'required | numeric',
             'pdf_id'        => 'required | numeric',
         ]);
 
@@ -41,6 +42,7 @@ class ExportController extends Controller
             'date'          => request('date'),
             'total_amount'  => request('total_amount'),
             'employee_id'   => request('employee_id'),
+            'customer_id'   => request('customer_id'),
             'pdf_id'        => request('pdf_id'),
         ]))
             return $this->success();
@@ -54,6 +56,7 @@ class ExportController extends Controller
             'date'          => 'required | date',
             'total_amount'  => 'required | numeric',
             'employee_id'   => 'required | numeric',
+            'customer_id'   => 'required | numeric',
             'pdf_id'        => 'required | numeric',
         ]);
 
@@ -67,9 +70,10 @@ class ExportController extends Controller
         $export->date         = request('date');
         $export->total_amount = request('total_amount');
         $export->employee_id  = request('employee_id');
+        $export->customer_id  = request('customer_id');
         $export->pdf_id       = request('pdf_id');
 
-        if($export->isDirty(['name', 'date', 'total_amount', 'employee_id', 'pdf_id'])){
+        if($export->isDirty(['name', 'date', 'total_amount', 'employee_id', 'customer_id' ,  'pdf_id'])){
             $export->save();
             return $this->success();
         }

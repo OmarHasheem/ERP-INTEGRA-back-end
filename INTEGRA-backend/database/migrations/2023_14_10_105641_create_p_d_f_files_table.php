@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->binary('content');
-            $table->foreignId('campaign_id')->constrained('campaigns')->cascade();
+            $table->integer('pdfable_id');
+            $table->string('pdfable_type');
             $table->timestamps();
         });
     }

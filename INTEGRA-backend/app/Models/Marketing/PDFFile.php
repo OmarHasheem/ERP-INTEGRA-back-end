@@ -4,6 +4,7 @@ namespace App\Models\Marketing;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class PDFFile extends Model
 {
@@ -11,7 +12,7 @@ class PDFFile extends Model
 
     protected $guarded = [];
 
-    public function campaigns() {
-        return $this->belongsTo(Campaign::class);
+    public function pdfable() {
+        return $this->morphTo();
     }
 }

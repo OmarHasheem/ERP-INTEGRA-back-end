@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\MarketingControllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +16,16 @@ use Spatie\Permission\Models\Role;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
     
-    $role = Role::find(1);
+//     $role = Role::find(1);
         
-    // $permission = Permission::find(1);
+//     // $permission = Permission::find(1);
 
-    // $role->givePermissionTo($permission);
+//     // $role->givePermissionTo($permission);
 
-    return $role->getPermissionNames();
-});
+//     return $role->getPermissionNames();
+// });
 
 Route::controller(PDFController::class)->group(function () {
     Route::prefix('marketing')->group(function (){
@@ -35,7 +36,9 @@ Route::controller(PDFController::class)->group(function () {
 
         Route::get('/pdfs', 'index');        
         Route::get('/pdf/show/{id}', 'show');
-        Route::post('/pdf/store/{id}', 'store');
+        Route::get('/pdf/storeExport/{id}', 'storeExport');
+        Route::get('/pdf/storeCampaign/{id}','storeCampaign');
+        Route::get('/pdf/storeEmployeeVacation/{id}','storeEmployeeVacation');
         Route::delete('/pdf/destroy/{id}', 'destroy');
     });
 });

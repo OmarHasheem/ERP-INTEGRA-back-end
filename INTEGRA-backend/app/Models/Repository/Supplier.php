@@ -16,7 +16,7 @@ class Supplier extends Model
         return $this->belongsTo(Product::class);
     }    
 
-    public function imports() : BelongsTo {
-        return $this->belongsTo(Product::class);
+    public function imports()  {
+        return $this->hasMany(Import::class);
     }
 }

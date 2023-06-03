@@ -4,12 +4,18 @@ use App\Http\Controllers\HRControllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(DepartmentController::class)->group(function () {
-    Route::prefix('HR')->group(function (){
-        Route::get('/departments', 'index')->middleware('permission:index department');        
-        Route::get('/department/show/{id}', 'show')->middleware('permission:store department');
-        Route::post('/department/store', 'store')->middleware('permission:show department');
-        Route::put('/department/update/{id}', 'update')->middleware('permission:update department');
-        Route::delete('/department/destroy/{id}', 'destroy')->middleware('permission:destroy department');
+    Route::prefix('hr')->group(function (){
+        // Route::get('/departments/{id}', 'show')->middleware('permission:show department');        
+        // Route::get('/departments', 'index')->middleware('permission:index department');
+        // Route::post('/departments', 'store')->middleware('permission:store department');
+        // Route::put('/departments/{id}', 'update')->middleware('permission:update department');
+        // Route::delete('/departments/{id}', 'destroy')->middleware('permission:destroy department');
+
+        Route::get('/departments/{id}', 'show');        
+        Route::get('/departments', 'index');
+        Route::post('/departments', 'store');
+        Route::put('/departments/{id}', 'update');
+        Route::delete('/departments/{id}', 'destroy');
     });
 });
 

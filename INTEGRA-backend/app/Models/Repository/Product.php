@@ -23,7 +23,7 @@ class Product extends Model
         return $this->belongsToMany(Import::class)->withPivot('details', 'total_amount');
     }
 
-    public function exports() : BelongsToMany {
+    public function exports() {
         return $this->belongsToMany(Export::class)->withPivot('details', 'total_amount');
     }
 

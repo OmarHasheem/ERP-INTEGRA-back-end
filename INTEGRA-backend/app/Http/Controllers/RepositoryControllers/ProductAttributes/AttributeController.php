@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class AttributeController extends Controller
 {
     public function index() : AttributeCollection {
-        $attributes = Attribute
-            ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
+        $attributes = Attribute::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
             ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
             ->get([
                     'attributes.id as id',
@@ -23,13 +22,11 @@ class AttributeController extends Controller
                     'attribute_values.name as attribute_values',
                 ]);
 
-
         return new AttributeCollection($attributes);
     }
 
     public function show($id) : AttributeResource {
-        $attributes = Attribute
-        ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
+        $attributes = Attribute::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
         ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
         ->get([
                 'attributes.id as id',
