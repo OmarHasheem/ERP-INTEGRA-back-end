@@ -14,4 +14,8 @@ class Customer extends Model
     public function lead() {
         return $this->belongsToMany(Lead::class);
     }
+
+    public function exporst() {
+        return $this->hasMany(Export::class);
+    }
 }

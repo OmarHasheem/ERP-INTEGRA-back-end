@@ -50,18 +50,18 @@ class EmployeeController extends Controller
         }
 
         Employee::create([
-            'firstName' => request('firstName'),
-            'lastName' => request('lastName'),
-            'dateOfBrith' => request('dateOfBrith'),
-            'gender' => request('gender'),
-            'address' => request('address'),
-            'email' => request('email'),
-            'phone' => request('phone'),
-            'dateOfHire' => request('dateOfHire'),
-            'salary' => request('salary'),
-            'supervisorId' => request('supervisorId'),
-            'status' => request('status'),
-            'departmentId' => request('departmentId'),
+            'firstName'     => request('firstName'),
+            'lastName'      => request('lastName'),
+            'dateOfBrith'   => request('dateOfBrith'),
+            'gender'        => request('gender'),
+            'address'       => request('address'),
+            'email'         => request('email'),
+            'phone'         => request('phone'),
+            'dateOfHire'    => request('dateOfHire'),
+            'salary'        => request('salary'),
+            'supervisorId'  => request('supervisorId'),
+            'status'        => request('status'),
+            'departmentId'  => request('departmentId'),
         ]);
 
         return response()->json(["message" => "The process has been succeded"]);

@@ -47,4 +47,14 @@ class Employee extends Model
     public function department() : HasOne {
         return $this->hasOne(department::class);
     }
+
+    public function export() {
+        return $this->hasMany(Export::class);
+    }
+
+    public function import() {
+        return $this->hasMany(Import::class);
+    }
+
+
 }

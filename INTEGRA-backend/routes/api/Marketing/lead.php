@@ -11,10 +11,12 @@ Route::controller(LeadController::class)->group(function () {
         // Route::put('/leads/{id}', 'update')->middleware('permission:update lead');
         // Route::delete('/leads/{id}', 'destroy')->middleware('permission:destroy lead');
 
-        Route::get('/leads{id}', 'show');
+        Route::get('/leads/{id}', 'show');
         Route::get('/leads', 'index');        
         Route::post('/leads', 'store');
         Route::put('/leads/{id}', 'update');
         Route::delete('/leads/{id}', 'destroy');
+
+        
     });
 });

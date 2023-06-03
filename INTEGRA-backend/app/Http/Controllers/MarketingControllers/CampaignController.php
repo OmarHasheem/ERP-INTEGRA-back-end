@@ -97,7 +97,7 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function attach($id) {
+    public function attachCampaignToLead($id) {
 
         $campaign = Campaign::find($id)->leads()->attach(request('lead_id'));
         
@@ -107,7 +107,7 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function detach($id) {
+    public function detachCampaignToLead($id) {
 
         $campaign = Campaign::find($id)->leads()->detach(request('lead_id'));
 

@@ -29,6 +29,7 @@ class ImportController extends Controller
             'date'         => 'required | date',
             'total_amount' => 'required | numeric',
             'supplier_id'  => 'required | numeric',
+            'employee_id'  => 'required | numeric',
             'pdf_id'       => 'required | numeric',
         ]);
 
@@ -41,6 +42,7 @@ class ImportController extends Controller
             'date'         => request('date'),
             'total_amount' => request('total_amount'),
             'supplier_id'  => request('supplier_id'),
+            'employee_id'  => request('employee_id'),
             'pdf_id'       => request('pdf_id'),
         ]))
             return $this->success();
@@ -54,6 +56,7 @@ class ImportController extends Controller
             'date'         => 'required | date',
             'total_amount' => 'required | numeric',
             'supplier_id'  => 'required | numeric',
+            'employee_id'  => 'required | numeric',
             'pdf_id'       => 'required | numeric',
         ]);
 
@@ -67,9 +70,10 @@ class ImportController extends Controller
         $import->date         = request('date');
         $import->total_amount = request('total_amount');
         $import->supplier_id  = request('supplier_id');
+        $import->employee_id  = request('employee_id');
         $import->pdf_id       = request('pdf_id');
 
-        if($import->isDirty(['name', 'date', 'total_amount', 'supplier_id', 'pdf_id'])){
+        if($import->isDirty(['name', 'date', 'total_amount', 'supplier_id' , 'employee_id' , 'pdf_id'])){
             $import->save();
             return $this->success();
         }

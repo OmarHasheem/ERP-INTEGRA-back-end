@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('import_id')->constrained('imports');
             $table->foreignId('product_id')->constrained('products');
             $table->jsonb('details');
+            $table->integer('quantity');
             $table->integer('total_amount');
             $table->timestamps();
         });

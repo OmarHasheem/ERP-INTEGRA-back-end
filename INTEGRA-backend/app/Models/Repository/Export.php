@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Export extends Model
 {
@@ -14,15 +15,20 @@ class Export extends Model
 
     protected $guarded = [];
 
-    public function products() : BelongsToMany {
-        return $this->belongsToMany(Product::class)->withPivot('details', 'total_amount');
+    public function products()  {
+        return $this->belongsToMany(Product::class)->withPivot('details', 'quantity' , 'total_amount');
     }
 
-    public function pdf(): HasOne {
-        return $this->hasOne(PDFFile::class);
+    public function pdf() {
+        return $this->morphOne(PDFFile::class , 'pdf');
     }
 
-    public function employee(): HasOne {
-        return $this->hasOne(Employee::class);
+    public function employees() {
+        return $this->belongsTo(Employee::class);
     }
+
+    public function customers()  {
+        return $this->belongsTo(Customer::class);
+    }
+
 }

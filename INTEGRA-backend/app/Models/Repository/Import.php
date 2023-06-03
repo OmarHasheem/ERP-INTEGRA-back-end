@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Import extends Model
 {
@@ -14,14 +15,18 @@ class Import extends Model
     protected $guarded = [];
 
     public function products() : BelongsToMany {
-        return $this->belongsToMany(Product::class)->withPivot('details', 'total_amount');
+        return $this->belongsToMany(Product::class)->withPivot('details', 'quantity' , 'total_amount');
     }
 
-    public function pdf(): HasOne {
-        return $this->hasOne(PDFFile::class);
+    public function pdf() {
+        return $this->morphOne(PDFFile::class , 'pdf');
     }
 
-    public function supplier(): HasOne {
-        return $this->hasOne(Supplier::class);
+    public function suppliers() {
+        return $this->belongsTO(Supplier::class);
+    }
+
+    public function customers()  {
+        return $this->belongsTo(Customer::class);
     }
 }
