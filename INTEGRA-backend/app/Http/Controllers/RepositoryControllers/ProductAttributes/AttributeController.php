@@ -12,39 +12,40 @@ use Illuminate\Support\Facades\Validator;
 class AttributeController extends Controller
 {
     public function index() : AttributeCollection {
-        $attributes = Attribute
-            ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
-            ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
-            ->get([
-                    'attributes.id as id',
-                    'attributes.name as name',
-                    'attributes.type as type',
-                    'attribute_groups.name as group_name',
-                    'attribute_values.name as attribute_values',
-                ]);
+        // $attributes = Attribute
+        //     ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
+        //     ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
+        //     ->get([
+        //             'attributes.id as id',
+        //             'attributes.name as name',
+        //             'attributes.type as type',
+        //             'attribute_groups.name as group_name',
+        //             'attribute_values.name as attribute_values',
+        //         ]);
 
 
-        return new AttributeCollection($attributes);
+        return new AttributeCollection(Attribute::all());
     }
 
     public function show($id) : AttributeResource {
-        $attributes = Attribute
-        ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
-        ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
-        ->get([
-                'attributes.id as id',
-                'attributes.name as name',
-                'attributes.type as type',
-                'attribute_groups.name as group_name',
-                'attribute_values.name as attribute_values',
-            ]);
-        return new AttributeResource($attributes);
+        // $attributes = Attribute
+        // ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
+        // ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
+        // ->get([
+        //         'attributes.id as id',
+        //         'attributes.name as name',
+        //         'attributes.type as type',
+        //         'attribute_groups.name as group_name',
+        //         'attribute_values.name as attribute_values',
+        //     ]);
+        return new AttributeResource(Attribute::findOrFail($id));
     }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'name'     => 'required | regex:/^[^\'"]+$/',
             'type'     => 'required',
+            'values'   => 'required',
             'group_id' => 'required | numeric',
         ]);
         
@@ -55,6 +56,7 @@ class AttributeController extends Controller
        if(Attribute::create([
             'name'     => request('name'),
             'type'     => request('type'),
+            'values'   => request('values'),
             'group_id' => request('group_id'),
         ]))
             return $this->success();
@@ -65,7 +67,8 @@ class AttributeController extends Controller
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
             'name'     => 'required | regex:/^[^\'"]+$/',
-            'type'     =>'required',
+            'type'     => 'required',
+            'values'   => 'required',
             'group_id' => 'required | numeric',
         ]);
         
@@ -75,8 +78,9 @@ class AttributeController extends Controller
 
         $attribute = Attribute::findOrFail($id);
 
-        $attribute->name = request('name');
-        $attribute->type = request('type');
+        $attribute->name     = request('name');
+        $attribute->type     = request('type');
+        $attribute->values   = request('values');
         $attribute->group_id = request('group_id');
 
         if($attribute->isDirty(['name', 'type', 'group_id'])){

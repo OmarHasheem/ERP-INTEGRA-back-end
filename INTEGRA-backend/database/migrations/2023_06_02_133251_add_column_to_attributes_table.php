@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_values', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('attribute_id')->constrained('attributes');
-            $table->timestamps();
+        Schema::table('attributes', function (Blueprint $table) {
+            //
+            $table->jsonb('values')->nullable()->after('type');
         });
     }
 
@@ -28,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_values');
+        Schema::table('attributes', function (Blueprint $table) {
+            $table->dropColumn('values');
+        });
     }
 };

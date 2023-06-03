@@ -57,8 +57,8 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/tv.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/socialmedia.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/socialmedia.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/event.php'));
@@ -98,12 +98,10 @@ class RouteServiceProvider extends ServiceProvider
                 // Route::middleware('api')
                 // ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
             });    
-
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/socialmedia.php'));
             Route::middleware('api')
             ->group(base_path('routes/api/Repository/ProductAttribute/attribute.php'));
-        
-        Route::middleware('api')
-            ->group(base_path('routes/api/Repository/ProductAttribute/attributeValue.php'));
 
         Route::middleware('api')
         ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));

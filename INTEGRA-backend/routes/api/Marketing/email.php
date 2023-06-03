@@ -13,8 +13,8 @@ Route::controller(EmailController::class)->group(function () {
 
         Route::get('/emails/{id}', 'show');
         Route::get('/emails', 'index');        
-        Route::post('/email', 'store');
-        Route::put('/email/{id}', 'update');
-        Route::delete('/email/{id}', 'destroy');
+        Route::post('/emails', 'store');
+        Route::put('/emails/{id}', 'update');
+        Route::delete('/emails/{id}', 'destroy');
     });
 });

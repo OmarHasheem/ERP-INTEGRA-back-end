@@ -49,7 +49,6 @@ class EventController extends Controller
             return $this->success();
         else
             return $this->failure();
-
     }
 
     public function show($id) : EventResource

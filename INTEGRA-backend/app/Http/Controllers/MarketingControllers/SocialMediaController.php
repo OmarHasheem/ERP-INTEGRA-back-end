@@ -22,7 +22,6 @@ class SocialMediaController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'blogger'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -70,7 +69,6 @@ class SocialMediaController extends Controller
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
-
         ]);
 
         if ($validator->fails()) {
