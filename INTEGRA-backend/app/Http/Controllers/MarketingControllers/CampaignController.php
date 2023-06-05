@@ -6,7 +6,10 @@ use App\Models\Marketing\Campaign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Marketing\CampaignResource;
-use App\Http\Resources\Marketing\CampaignCollection;
+use App\Http\Resources\Marketing\EventCollection;
+use App\Http\Resources\Marketing\SocialMediaCollection;
+use App\Http\Resources\Marketing\TvCollection;
+use App\Http\Resources\Marketing\LeadCollection;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
@@ -48,11 +51,8 @@ class CampaignController extends Controller
 
     public function show($id) : CampaignResource {
 
-            $campaign = Campaign::find($id);
-            if($campaign)
-                return new CampaignResource($campaign);
-            else 
-                return $this->failure();
+            $campaign = Campaign::findOrFail($id);
+            return new CampaignResource($campaign);
     }
 
     public function update(Request $request, $id) {
@@ -107,6 +107,8 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
+    //error
+
     public function detachCampaignToLead($id) {
 
         $campaign = Campaign::find($id)->leads()->detach(request('lead_id'));
@@ -117,56 +119,29 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function edit(Request $request)
+    public function showCampaignEvents(Request $request)
     {
-        $query = DB::table('campaigns');
-        if ($request->name) {
-            $name = $query->where('name', 'like', '%' . $request->name . '%');
-        }
-        if ($request->start_date) {
-            $start_date = $query->where('start_date', '>=', $request->start_date);
-        }
-        if ($request->end_date) {
-            $end_date = $query->where('end_date', '<=', $request->end_date);
-        }
-        if ($request->budget) {
-            $budget = $query->where('budget', '>=', $request->budget);
-        }
-        if ($request->expected_revenue) {
-            $expected_revenue = $query->where('expected_revenue', '>=', $request->expected_revenue);
-        }
-        if ($name || $start_date || $end_date || $budget || $expected_revenue) {
-            $query->where(function ($q) use ($name, $start_date, $end_date, $budget, $expected_revenue) {
-                $q->where('name', 'like', '%' . $name . '%')
-                  ->where('start_date', '>=', $start_date)
-                  ->where('end_date', '<=', $end_date)
-                  ->where('budget', '>=', $budget)
-                  ->where('expected_revenue', '>=', $expected_revenue);
-            });
-        }
+        $campaign = Campaign::findOrFail(request('campaign_id'));
+        return new EventCollection($campaign->events);
+            }
 
-        // if ($request->tv) {
-        //     $query->whereHas('tv', function ($q) use ($tv) {
-        //         $q->where('name', 'like', '%' . $tv . '%');
-        //     });
-        // }
-
-        // if ($request->event) {
-        //     $query->whereHas('event', function ($q) use ($event) {
-        //         $q->where('name', 'like', '%' . $event . '%');
-        //     });
-        // }
-
-        // if ($request->social_media) {
-        //     $query->whereHas('socialMedia', function ($q) use ($social_media) {
-        //         $q->where('name', 'like', '%' . $social_media . '%');
-        //     });
-        // }
-
-       return
+    public function showCampaignSocialMedia(Request $request)
+    {
+            $campaign = Campaign::findOrFail(request('campaign_id'));
+            return new SocialMediaCollection($campaign->socialmedia);
+                    }
        
-       $campaigns = $query->get();
-    }
+    public function showCampaignTvs(Request $request)
+    {
+            $campaign = Campaign::findOrFail(request('campaign_id'));
+            return new TvCollection($campaign->tvs);
+                    }  
+                     
+     public function showCampaignLeads(Request $request)
+    {
+            $campaign = Campaign::findOrFail(request('campaign_id'));
+             return new LeadCollection($campaign->leads);
+                    }                
 
 
 }

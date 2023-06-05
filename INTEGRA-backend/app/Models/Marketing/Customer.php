@@ -11,11 +11,11 @@ class Customer extends Model
 
     protected $guarded = [];
 
-    public function lead() {
+    public function leads() {
         return $this->belongsToMany(Lead::class);
     }
 
-    public function exporst() {
+    public function exports() {
         return $this->hasMany(Export::class);
     }
 }

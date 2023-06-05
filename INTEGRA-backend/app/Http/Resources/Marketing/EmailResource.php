@@ -19,6 +19,7 @@ class EmailResource extends JsonResource
             'content' => $this->content,
             'sender'  => $this->sender,
             'reciver' => $this->reciver,
+            'lead_id' => $this->leads,
         ];
     }
 }

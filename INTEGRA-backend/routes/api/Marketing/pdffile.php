@@ -14,9 +14,10 @@ Route::controller(PDFController::class)->group(function () {
 
         Route::get('/pdfs/{id}', 'show');        
         Route::get('/pdfs', 'index');
-        Route::post('/pdfs/storeCampaign/{id}', 'storeCampaign');
-        Route::get('/pdfs/storeExport/{id}', 'storeExport');
         Route::post('/pdfs/storeImport/{id}', 'storeImport');
+        Route::post('/pdfs/storeCampaign/{id}', 'storeCampaign');
+        Route::post('/pdfs/storeExport/{id}', 'storeExport');
+        Route::post('/pdfs/storeEmployeeVacation/{id}', 'storeImport');
         Route::delete('/pdfs/{id}', 'destroy');
 
         

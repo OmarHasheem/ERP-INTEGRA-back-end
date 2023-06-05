@@ -39,26 +39,22 @@ class PDFController extends Controller
         // }
 
         $campaign = Campaign::find($id);
-        $name = "new";
-        $SM = $campaign->socialmedia;
-        $TV = $campaign->tvs;
-        $EV = $campaign->events;
         $data = [
-            'title' => $name,
+            'title' => $campaign->name,
             'date' => date('m/d/Y'),
             'campaign' => $campaign,
-            'SM'   => $SM,
-            'TV'   => $TV,
-            'EV'   => $EV
+            'SM'   => $campaign->socialmedia,
+            'TV'   => $campaign->tvs,
+            'EV'   => $campaign->events
         ];
 
-        $pdf = PDF::loadView('marketingPDF', $data);
-        $content = $pdf->download($name .'.pdf');
+        $pdf = PDF::loadView('MarketingPDF', $data);
+        $content = $pdf->download('MarketingPDF' .'.pdf');
 
         
         PDFFile::create ([
 
-            'name'          => "lolo" ,
+            'name'          => "Marketing" ,
             'content'       => $content ,
             'pdfable_id'    => $campaign->id,
             'pdfable_type'  => Campaign::class,
@@ -74,86 +70,123 @@ class PDFController extends Controller
     public function storeExport(Request $request , $id)
     {
 
-        // $validator = Validator::make($request->all(), [
-        //     'name'         => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-        //     'date'         => 'required | date',
-        //     'total_amount' => 'required | numeric',
-        //     'customer_id'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-        //     'employee_id'  => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-        // ]);
+        $export = Export::find($id)->join('employees'  , 'exports.employee_id', '=', 'employees.id')
+                                   ->join('customers', 'exports.customer_id', '=', 'customers.id')
+                                   ->select( 'employees.firstName  as employee_name'  
+                                            ,'customers.name as customer_name'
+                                            ,'exports.name as export_name' ,'exports.date' ,'exports.total_amount'  )
+                                   ->get(); 
 
-        // if ($validator->fails()) {
-        //     return  $validator->errors();
-        // }
+        $product = Export::find($id)->join('export_product', 'exports.id', '=', 'export_product.export_id')
+                                   ->join('products'  , 'export_product.product_id', '=', 'products.id')
+                                   ->join('categories', 'products.category_id', '=', 'categories.id')
+                                   ->select( 'products.name as product_name', 'products.price'   
+                                    ,'export_product.quantity', 'export_product.total_amount'
+                                    ,'categories.name as category_name' )
+                                    ->get();
 
-        $export  = Export::find($id);
-        $name    = $export->name;
-        foreach($export->products as $product ){
-        
+        $export_id =  Export::find($id);                            
+
         $data    = [
-            'title'    => $name,
+            'title'    => $export_id->name,
             'date'     => date('m/d/Y'),
             'export'   => $export,
-            'product'  => $product
+            'product' => $product
             
-                           ];  
+                           ];            
+
+        $pdf = PDF::loadView('ExportPDF', $data);
+        $content = $pdf->download('ExportPDF' .'.pdf');
+
+        
+
+        PDFFile::create ([
+
+            'name'          => "Export" ,
+            'content'       => $content ,
+            'pdfable_id'    => $export_id->id,
+            'pdfable_type'  => Export::class,
+
+        ]);
                         
-
-        $pdf = PDF::loadView('exportPDF', $data);
-        $content = $pdf->download($name .'.pdf');
-                        }
-
-        // PDFFile::create ([
-
-        //     'name'          => "lolo" ,
-        //     'content'       => $content ,
-        //     'pdfable_id'    => $export->id,
-        //     'pdfable_type'  => Export::class,
-
-        // ]);
             return $content;
         }
+
+        public function storeImport(Request $request , $id)
+        {
+    
+            $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
+                                       ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
+                                       ->select('employees.firstName  as employee_name'  
+                                                ,'suppliers.name as supplier_name'
+                                                ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount' )
+                                       ->get(); 
+    
+            $product = Import::find($id)->join('import_product', 'imports.id', '=', 'import_product.import_id')
+                                        ->join('products'  , 'import_product.product_id', '=', 'products.id')
+                                        ->join('categories', 'products.category_id', '=', 'categories.id')
+                                        ->select( 'products.name as product_name', 'products.price'   
+                                         ,'import_product.quantity', 'import_product.total_amount'
+                                         ,'categories.name as category_name' )
+                                         ->get();
+            $import_id =  Import::find($id);
+    
+            $data    = [
+                'title'    => $import_id->name,
+                'date'     => date('m/d/Y'),
+                'import'   => $import,
+                'product'  => $product
+                
+                               ];  
+                            
+            $pdf = PDF::loadView('ImportPDF', $data);
+            $content = $pdf->download('ImportPDF' .'.pdf');
+
+           
+
+            PDFFile::create ([
+
+                'name'          => "Import" ,
+                'content'       => $content ,
+                'pdfable_id'    => $import_id->id,
+                'pdfable_type'  => Import::class,
+    
+            ]);
+                            
+                return $content;
+                            }
 
         public function storeEmployeeVacation(Request $request , $id)
         {
     
-            // $validator = Validator::make($request->all(), [
-            //     'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-            // ]);
-    
-            // if ($validator->fails()) {
-            //     return  $validator->errors();
-            // }
-    
             $employee = Employee::find($id);
             $name = $employee-> firstName;
-            $EP = $employee->employeeVacations;
+            
             
             $data = [
                 'title' => $name,
                 'date' => date('m/d/Y'),
                 'employee' => $employee,
-                'EP'   => $EP,
+                'EP'   =>  $employee->employeeVacations,
 
             ];
     
             $pdf = PDF::loadView('employeeVacationPDF', $data);
-            $content = $pdf->download($name .'.pdf');
+            $content = $pdf->download('employeeVacationPDF'.'.pdf');
     
             
             PDFFile::create ([
     
-                'name'          => "lolo" ,
+                'name'          => "Employee Vacation" ,
                 'content'       => $content ,
                 'pdfable_id'    => $employee->id,
                 'pdfable_type'  => Employee::class,
     
             ]);
     
-    
             return $content;
      
-        }
+        }//error
 
     public function show($id)
     {
@@ -170,9 +203,6 @@ class PDFController extends Controller
         return $response;
 
     }
-
-
-
 
     public function destroy($id)
     {

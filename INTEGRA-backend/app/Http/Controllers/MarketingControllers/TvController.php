@@ -54,7 +54,10 @@ class TvController extends Controller
     public function show($id) 
     {
         $tv = Tv::find($id);
-        return new TvResource($tv);
+        if($tv)
+            return new TvResource($tv);
+        else
+            return $this->failure(); 
     }
 
     public function update(Request $request,  $id)

@@ -42,9 +42,9 @@ class EmailController extends Controller
             return $this->failure();
     }
 
-    public function show(string $id) : EmailResource
+    public function show($id) 
     {
-        $email = Email::find($id);
+        $email = Email::findOrFail($id);
 
         if($email)
             return new EmailResource($email);
@@ -91,8 +91,9 @@ class EmailController extends Controller
         else
             return $this->failure();
     }
+    //error
 
-    public function attach($id) {
+    public function attachEmailToLead($id) {
 
         $email = Email::find($id)->leads()->attach(request('lead_id'));
 
@@ -103,7 +104,7 @@ class EmailController extends Controller
 
     }
 
-    public function detach($id) {
+    public function detachEmailToLead($id) {
 
         $email = Email::find($id)->leads()->detach(request('lead_id'));
 

@@ -16,6 +16,11 @@ Route::controller(LeadController::class)->group(function () {
         Route::post('/leads', 'store');
         Route::put('/leads/{id}', 'update');
         Route::delete('/leads/{id}', 'destroy');
+        Route::post('/leads/attachLeadToCustomer/{id}', 'attachLeadToCustomer');
+        Route::post('/leads/detachLeadToCustomer/{id}', 'detachLeadToCustomer');
+
+        Route::post('/leads/showLeadCustomers', 'showLeadCustomers');
+        Route::post('/leads/showLeadCampaigns', 'showLeadCampaigns');
 
         
     });

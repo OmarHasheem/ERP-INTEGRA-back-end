@@ -21,6 +21,11 @@ Route::controller(CampaignController::class)->group(function () {
         Route::post('/campaigns/attachCampaignToLead/{id}', 'attachCampaignToLead');
         Route::post('/campaigns/detachCampaignToLead/{id}', 'detachCampaignToLead');
 
+        Route::post('/campaigns/showCampaignEvents', 'showCampaignEvents');
+        Route::post('/campaigns/showCampaignTvs', 'showCampaignTvs');
+        Route::post('/campaigns/showCampaignSocialMedia', 'showCampaignSocialMedia');
+        Route::post('/campaigns/showCampaignLeads', 'showCampaignLeads');
+
     
     });
 });

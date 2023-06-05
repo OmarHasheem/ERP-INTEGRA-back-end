@@ -16,8 +16,7 @@
             <th>End Date</th>
             <th>Type Of Vacation</th>
             <th>Reason Of Vacation</th>
-            <th>Status</th>
-            <th>Employee Id</th>
+            <th>Employee Name</th>
 
         </tr>
 
@@ -28,8 +27,7 @@
             <td>{{ $employeeVacation->endDate }}</td>
             <td>{{ $employeeVacation->typeOfVacation }}</td>
             <td>{{ $employeeVacation->reasonOfVacation }}</td>
-            <td>{{ $employeeVacation->status }}</td> 
-            <td>{{ $employeeVacation->employee_id }}</td>
+            <td>{{ $employee->firstName }}</td>
            
         </tr>
         @endforeach

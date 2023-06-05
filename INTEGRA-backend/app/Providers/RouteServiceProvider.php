@@ -51,8 +51,11 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/HR/employeeVacation.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/campaign.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/campaign.php'));
+
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/tv.php'));
 
                 // Route::middleware('api')
                 //     ->group(base_path('routes/api/Marketing/tv.php'));
@@ -60,28 +63,28 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/socialmedia.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/event.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/event.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/lead.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/lead.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/email.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/email.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/customer.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/customer.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Marketing/pdffile.php'));   
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Marketing/pdffile.php'));   
 
 
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/export.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Repository/export.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/import.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Repository/import.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/supplier.php'));
@@ -98,6 +101,31 @@ class RouteServiceProvider extends ServiceProvider
                 // Route::middleware('api')
                 // ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
             });    
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/tv.php')); 
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/event.php'));
+
+        Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/lead.php'));
+
+        Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/email.php'));
+
+        Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/customer.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/campaign.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/pdffile.php')); 
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Marketing/email.php'));
+
             Route::middleware('api')
             ->group(base_path('routes/api/Marketing/socialmedia.php'));
             Route::middleware('api')
