@@ -36,9 +36,10 @@ Route::controller(PDFController::class)->group(function () {
 
         Route::get('/pdfs', 'index');        
         Route::get('/pdf/show/{id}', 'show');
-        Route::get('/pdf/storeExport/{id}', 'storeExport');
-        Route::get('/pdf/storeCampaign/{id}','storeCampaign');
-        Route::get('/pdf/storeEmployeeVacation/{id}','storeEmployeeVacation');
+        Route::get('/pdfs/storeImport/{id}', 'storeImport');
+        Route::get('/pdfs/storeExport/{id}', 'storeExport');
+        Route::get('/pdfs/storeCampaign/{id}','storeCampaign');
+        Route::get('/pdfs/storeEmployeeVacation/{id}','storeEmployeeVacation');
         Route::delete('/pdf/destroy/{id}', 'destroy');
     });
 });

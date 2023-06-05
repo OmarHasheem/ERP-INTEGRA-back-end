@@ -23,7 +23,8 @@ class CampaignResource extends JsonResource
             'budget'           =>$this->budget ,
             'status'           =>$this->status ,
             'expected_revenue' =>$this->expected_revenue ,
-            'actual_revenue'   =>$this->actual_revenue
+            'actual_revenue'   =>$this->actual_revenue,
+                       
 
       ];
     }

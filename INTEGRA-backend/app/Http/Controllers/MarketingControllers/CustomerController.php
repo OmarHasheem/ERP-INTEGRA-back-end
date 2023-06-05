@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Marketing\Customer;
 use App\Http\Resources\Marketing\CustomerResource;
 use App\Http\Resources\Marketing\CustomerCollection;
+use App\Http\Resources\Marketing\LeadCollection;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -102,4 +103,9 @@ class CustomerController extends Controller
         else
             return $this->failure();
     }
+
+    public function showCustomerLeads(Request $request) {
+        $customer = Customer::findOrFail(request('customer_id'));
+            return new LeadCollection($customer->leads);
+            }     
 }

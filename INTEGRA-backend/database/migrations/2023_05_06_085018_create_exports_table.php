@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('date');
-            $table->integer('total_amount');
             $table->foreignId('employee_id')->constrained('employees');
             $table->foreignId('customer_id')->constrained('customers');
             $table->integer('pdf_id')->nullable();

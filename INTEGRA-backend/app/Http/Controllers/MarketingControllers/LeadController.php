@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Marketing\Lead;
 use App\Http\Resources\Marketing\LeadResource;
+use App\Http\Resources\Marketing\CustomerCollection;
+use App\Http\Resources\Marketing\CampaignCollection;
 use App\Http\Resources\Marketing\LeadCollection;
 use Illuminate\Support\Facades\Validator;
 
@@ -85,7 +87,7 @@ class LeadController extends Controller
             return $this->failure();
     }
 
-    public function attach($id) {
+    public function attachLeadToCustomer($id) {
 
         $lead = Lead::find($id)->customers()->attach(request('customer_id'));
 
@@ -95,9 +97,10 @@ class LeadController extends Controller
             return $this->failure();
 
     }
+    //error
 
 
-    public function detach($id) {
+    public function detachLeadToCustomer($id) {
 
         $lead = Lead::find($id)->customers()->detach(request('customer_id'));
 
@@ -106,5 +109,15 @@ class LeadController extends Controller
         else
             return $this->failure();
 
+    }
+
+    public function showLeadCustomers() {
+        $lead = Lead::findOrFail(request('lead_id'));
+        return new CustomerCollection($lead->customers);
+    }
+
+    public function showLeadCampaigns() {
+        $lead = Lead::findOrFail(request('lead_id'));
+        return new CampaignCollection($lead->campaigns);
     }
 }

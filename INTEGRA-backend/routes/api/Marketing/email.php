@@ -16,5 +16,7 @@ Route::controller(EmailController::class)->group(function () {
         Route::post('/emails', 'store');
         Route::put('/emails/{id}', 'update');
         Route::delete('/emails/{id}', 'destroy');
+        Route::post('/emails/attachEmailToLead/{id}', 'attachEmailToLead');
+        Route::post('/emails/detachEmailToLead/{id}', 'detachEmailToLead');
     });
 });
