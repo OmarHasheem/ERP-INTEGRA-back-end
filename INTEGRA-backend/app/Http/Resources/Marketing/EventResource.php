@@ -21,7 +21,9 @@ class EventResource extends JsonResource
             'description' => $this->description ,
             'type'        => $this->type ,
             'cost'        =>$this->cost,
-            'campaign_id' => $this->campaign_id
+            'campaign_id' => $this->campaign_id,
+            'expected_revenue' =>$this->expected_revenue ,
+            'actual_revenue'   =>$this->actual_revenue
         ];
     }
 }

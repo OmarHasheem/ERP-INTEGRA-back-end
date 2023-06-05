@@ -12,15 +12,17 @@ class SocialMediaResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray( $request): array
+    public function toArray($request): array
     {
         return [
-            'id'          => $this->id ,
-            'blogger'     => $this->blogger ,
-            'type'        => $this->type ,
-            'way'         => $this->way ,
-            'cost'        => $this->cost ,
-            'campaign_id' => $this->campaign_id
+            'id'          => $this->id,
+            'blogger'     => $this->blogger,
+            'type'        => $this->type,
+            'way'         => $this->way,
+            'cost'        => $this->cost,
+            'campaign_id' => $this->campaign_id,
+            'expected_revenue' =>$this->expected_revenue,
+            'actual_revenue'   =>$this->actual_revenue
         ];
     }
 }

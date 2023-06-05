@@ -20,7 +20,9 @@ class TvResource extends JsonResource
             'time'               => $this->time ,
             'cost'               => $this->cost ,
             'advertising_period' =>$this->advertising_period,
-            'campaign_id'        => $this->campaign_id
+            'campaign_id'        => $this->campaign_id,
+            'expected_revenue'   =>$this->expected_revenue ,
+            'actual_revenue'     =>$this->actual_revenue
         ];
     }
 }
