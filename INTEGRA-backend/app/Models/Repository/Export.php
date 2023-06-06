@@ -31,4 +31,12 @@ class Export extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function getProductsTotalAmount()
+    {
+        return $this->products->sum(function ($product) {
+            return $product->price;
+        });
+    }
+
+
 }

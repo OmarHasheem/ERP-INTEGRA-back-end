@@ -20,11 +20,11 @@ class Product extends Model
     }
 
     public function imports() : BelongsToMany {
-        return $this->belongsToMany(Import::class)->withPivot('details', 'total_amount');
+        return $this->belongsToMany(Import::class)->withPivot('details', 'total_amount' , 'quantity');
     }
 
     public function exports() {
-        return $this->belongsToMany(Export::class)->withPivot('details', 'total_amount');
+        return $this->belongsToMany(Export::class)->withPivot('details', 'total_amount' , 'quantity');
     }
 
     public function supplier() : HasOne {
