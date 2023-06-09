@@ -17,15 +17,13 @@
             <th>Employee</th>
             <th>Customer</th>
         </tr>
-        @foreach($export as $exports)
         <tr>
-            <td>{{ $exports->export_name }}</td>
-            <td>{{ $exports->date }}</td>
-            <td>{{ $exports->total_amount }}</td>
-            <td>{{ $exports->employee_name }}</td>
-            <td>{{ $exports->customer_name }}</td>
+            <td>{{ $export->export_name }}</td>
+            <td>{{ $export->date }}</td>
+            <td>{{ $export->total_amount }}</td>
+            <td>{{ $export->employee_name }}</td>
+            <td>{{ $export->customer_name }}</td>
         </tr>
-        @endforeach
     </table> 
 
     

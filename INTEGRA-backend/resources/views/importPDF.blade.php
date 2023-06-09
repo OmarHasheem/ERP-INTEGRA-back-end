@@ -17,15 +17,13 @@
             <th>Employee</th>
             <th>Supplier</th>
         </tr>
-        @foreach($import as $importss)
         <tr>
-            <td>{{ $importss->import_name }}</td>
-            <td>{{ $importss->date }}</td>
-            <td>{{ $importss->total_amount }}</td>
-            <td>{{ $importss->employee_name }}</td>
-            <td>{{ $importss->supplier_name }}</td>
+            <td>{{ $import->import_name }}</td>
+            <td>{{ $import->date }}</td>
+            <td>{{ $import->total_amount }}</td>
+            <td>{{ $import->employee_name }}</td>
+            <td>{{ $import->supplier_name }}</td>
         </tr>
-        @endforeach
     </table> 
 
     

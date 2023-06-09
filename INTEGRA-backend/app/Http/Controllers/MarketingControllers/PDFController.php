@@ -74,8 +74,8 @@ class PDFController extends Controller
                                    ->join('customers', 'exports.customer_id', '=', 'customers.id')
                                    ->select( 'employees.firstName  as employee_name'  
                                             ,'customers.name as customer_name'
-                                            ,'exports.name as export_name' ,'exports.date' ,'exports.total_amount'  )
-                                   ->get(); 
+                                            ,'exports.name as export_name' ,'exports.date' ,'exports.total_amount' ,'exports.id')
+                                   ->get()->first(); 
 
         $product = Export::find($id)->join('export_product', 'exports.id', '=', 'export_product.export_id')
                                    ->join('products'  , 'export_product.product_id', '=', 'products.id')
@@ -83,15 +83,13 @@ class PDFController extends Controller
                                    ->select( 'products.name as product_name', 'products.price'   
                                     ,'export_product.quantity', 'export_product.total_amount'
                                     ,'categories.name as category_name' )
-                                    ->get();
-
-        $export_id =  Export::find($id);                            
+                                    ->get();                           
 
         $data    = [
-            'title'    => $export_id->name,
+            'title'    => $export->export_name,
             'date'     => date('m/d/Y'),
             'export'   => $export,
-            'product' => $product
+            'product'  => $product
             
                            ];            
 
@@ -104,7 +102,7 @@ class PDFController extends Controller
 
             'name'          => "Export" ,
             'content'       => $content ,
-            'pdfable_id'    => $export_id->id,
+            'pdfable_id'    => $export->id,
             'pdfable_type'  => Export::class,
 
         ]);
@@ -119,8 +117,8 @@ class PDFController extends Controller
                                        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
                                        ->select('employees.firstName  as employee_name'  
                                                 ,'suppliers.name as supplier_name'
-                                                ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount' )
-                                       ->get(); 
+                                                ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount','imports.id' )
+                                       ->get()->first(); 
     
             $product = Import::find($id)->join('import_product', 'imports.id', '=', 'import_product.import_id')
                                         ->join('products'  , 'import_product.product_id', '=', 'products.id')
@@ -129,10 +127,10 @@ class PDFController extends Controller
                                          ,'import_product.quantity', 'import_product.total_amount'
                                          ,'categories.name as category_name' )
                                          ->get();
-            $import_id =  Import::find($id);
+            
     
             $data    = [
-                'title'    => $import_id->name,
+                'title'    => $import->import_name,
                 'date'     => date('m/d/Y'),
                 'import'   => $import,
                 'product'  => $product
@@ -142,13 +140,11 @@ class PDFController extends Controller
             $pdf = PDF::loadView('ImportPDF', $data);
             $content = $pdf->download('ImportPDF' .'.pdf');
 
-           
-
             PDFFile::create ([
 
                 'name'          => "Import" ,
                 'content'       => $content ,
-                'pdfable_id'    => $import_id->id,
+                'pdfable_id'    => $import->id,
                 'pdfable_type'  => Import::class,
     
             ]);
@@ -156,7 +152,7 @@ class PDFController extends Controller
                 return $content;
                             }
 
-        public function storeEmployeeVacation(Request $request , $id)
+        public function storeEmployeeVecation(Request $request , $id)
         {
     
             $employee = Employee::find($id);
