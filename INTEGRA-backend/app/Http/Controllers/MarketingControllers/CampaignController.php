@@ -119,29 +119,25 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function showCampaignEvents(Request $request)
-    {
+    public function showCampaignEvents(Request $request){
         $campaign = Campaign::findOrFail(request('campaign_id'));
         return new EventCollection($campaign->events);
-            }
+    }
 
-    public function showCampaignSocialMedia(Request $request)
-    {
+    public function showCampaignSocialMedia(Request $request){
             $campaign = Campaign::findOrFail(request('campaign_id'));
             return new SocialMediaCollection($campaign->socialmedia);
-                    }
+    }
        
-    public function showCampaignTvs(Request $request)
-    {
+    public function showCampaignTvs(Request $request){
             $campaign = Campaign::findOrFail(request('campaign_id'));
             return new TvCollection($campaign->tvs);
-                    }  
+    }  
                      
-     public function showCampaignLeads(Request $request)
-    {
+    public function showCampaignLeads(Request $request) {
             $campaign = Campaign::findOrFail(request('campaign_id'));
              return new LeadCollection($campaign->leads);
-                    }                
+    }                
 
 
 }

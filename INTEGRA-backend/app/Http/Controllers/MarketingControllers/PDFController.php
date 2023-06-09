@@ -27,8 +27,7 @@ class PDFController extends Controller
         return new PDFCollection(PDFFile::all());
     }
 
-    public function storeCampaign(Request $request , $id)
-    {
+    public function storeCampaign(Request $request , $id){
 
         // $validator = Validator::make($request->all(), [
         //     'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -65,10 +64,8 @@ class PDFController extends Controller
         return $content;
  
     }
-
-
-    public function storeExport(Request $request , $id)
-    {
+    
+    public function storeExport(Request $request , $id){
 
         $export = Export::find($id)->join('employees'  , 'exports.employee_id', '=', 'employees.id')
                                    ->join('customers', 'exports.customer_id', '=', 'customers.id')
@@ -108,10 +105,9 @@ class PDFController extends Controller
         ]);
                         
             return $content;
-        }
+    }
 
-        public function storeImport(Request $request , $id)
-        {
+    public function storeImport(Request $request , $id){
     
             $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
                                        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
@@ -150,10 +146,9 @@ class PDFController extends Controller
             ]);
                             
                 return $content;
-                            }
+    }
 
-        public function storeEmployeeVecation(Request $request , $id)
-        {
+    public function storeEmployeeVecation(Request $request , $id){
     
             $employee = Employee::find($id);
             $name = $employee-> firstName;
@@ -182,10 +177,9 @@ class PDFController extends Controller
     
             return $content;
      
-        }//error
+    }//error
 
-    public function show($id)
-    {
+    public function show($id){
         $pdf_file = PDFFile::find($id);
 
         if (!$pdf_file) {
@@ -200,8 +194,7 @@ class PDFController extends Controller
 
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         if( $pdf = PDFFile::findOrFail($id)) {
             $pdf->delete();
             return $this->success();
