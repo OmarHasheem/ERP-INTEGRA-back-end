@@ -57,9 +57,6 @@ class RouteServiceProvider extends ServiceProvider
                 // Route::middleware('api')
                 //     ->group(base_path('routes/api/Marketing/tv.php'));
 
-                // Route::middleware('api')
-                //     ->group(base_path('routes/api/Marketing/tv.php'));
-
                 Route::middleware('api')
                     ->group(base_path('routes/api/Marketing/socialmedia.php'));
 
@@ -79,7 +76,6 @@ class RouteServiceProvider extends ServiceProvider
                 //     ->group(base_path('routes/api/Marketing/pdffile.php'));   
 
 
-
                 // Route::middleware('api')
                 //     ->group(base_path('routes/api/Repository/export.php'));
 
@@ -89,23 +85,22 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/supplier.php'));
             
-                Route::middleware('api')
-                    ->group(base_path('routes/api/Repository/category.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/Repository/category.php'));
             
                 // Route::middleware('api')
                 //     ->group(base_path('routes/api/Repository/ProductAttribute/attribute.php'));
                 
                 // Route::middleware('api')
-                //     ->group(base_path('routes/api/Repository/ProductAttribute/attributeValue.php'));
-
-                // Route::middleware('api')
                 // ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
             });    
 
-            Route::middleware('api')
+        
+    
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/tv.php')); 
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/event.php'));
 
         Route::middleware('api')
@@ -117,39 +112,49 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('api')
             ->group(base_path('routes/api/Marketing/customer.php'));
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/campaign.php'));
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/pdffile.php')); 
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/email.php'));
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/socialmedia.php'));
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Repository/ProductAttribute/attribute.php'));
 
-            Route::middleware('api')
+        Route::middleware('api')
             ->group(base_path('routes/api/Marketing/tv.php'));
 
 
+
         Route::middleware('api')
-        ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
+            ->group(base_path('routes/api/Repository/supplier.php'));
+    
+        Route::middleware('api')
+            ->group(base_path('routes/api/Repository/category.php'));
 
-            Route::middleware('api')
-                ->group(base_path('routes/api/Repository/product.php'));
+        Route::middleware('api')
+            ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
 
-            Route::middleware('api')
-                ->group(base_path('routes/api/Usermangment/role.php'));  
+        Route::middleware('api')
+            ->group(base_path('routes/api/Repository/product.php'));
 
-            Route::middleware('api')
-                ->group(base_path('routes/api/api.php'));
+        Route::middleware('api')
+            ->group(base_path('routes/api/Repository/productDetail.php'));
 
-            Route::middleware('web')
-                ->prefix('web')
-                ->group(base_path('routes/web.php'));
+        Route::middleware('api')
+            ->group(base_path('routes/api/Usermangment/role.php'));  
+
+        Route::middleware('api')
+            ->group(base_path('routes/api/api.php'));
+
+        Route::middleware('web')
+            ->prefix('web')
+            ->group(base_path('routes/web.php'));
         });
       }
 

@@ -4,7 +4,7 @@ use App\Http\Controllers\HRControllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(EmployeeController::class)->group(function () {
-    Route::prefix('HR')->group(function (){
+    Route::prefix('hr')->group(function (){
 
         // Route::get('/employees/{id}', 'show')->middleware('permission:show employee');        
         // Route::get('/employees', 'index')->middleware('permission:index employee');

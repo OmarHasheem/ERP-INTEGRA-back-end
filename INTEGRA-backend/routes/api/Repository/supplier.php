@@ -18,5 +18,6 @@ Route::controller(SupplierController::class)->group(function () {
         Route::put('/suppliers/{id}', 'update');
         Route::delete('/suppliers/{id}', 'destroy');
    
+        Route::get('/suppliers/products/{id}', 'getProductsBySupplier');
     });
 });

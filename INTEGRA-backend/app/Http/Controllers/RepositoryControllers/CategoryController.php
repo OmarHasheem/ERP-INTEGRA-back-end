@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RepositoryControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Repository\CategoryCollection;
 use App\Http\Resources\Repository\CategoryResource;
+use App\Http\Resources\Repository\ProductResource;
 use App\Models\Repository\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -69,5 +70,10 @@ class CategoryController extends Controller
         } 
         else
             return $this->failure();
+    }
+
+    public function getProductsByCategory($id) {
+        $catagory = Category::findOrFail($id);
+        return new ProductResource($catagory->products);
     }
 }

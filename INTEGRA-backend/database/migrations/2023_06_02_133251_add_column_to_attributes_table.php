@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('attributes', function (Blueprint $table) {
             //
-            $table->jsonb('values')->nullable()->after('type');
+            $table->json('values')->nullable()->after('type');
         });
     }
 

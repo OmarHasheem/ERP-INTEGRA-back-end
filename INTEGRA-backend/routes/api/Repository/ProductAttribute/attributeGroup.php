@@ -11,5 +11,7 @@ Route::controller(AttributeGroupController::class)->group(function () {
         Route::post('attributeGroups', 'store');
         Route::put('attributeGroups/{id}', 'update');
         Route::delete('attributeGroups/{id}', 'destroy');
+        Route::get('attributeGroups/attributesOfGroup/{id}', 'getAttributesByGroup');
+
     });
 });

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('total_amount');
             $table->foreignId('supplier_id')->constrained('suppliers');
             $table->foreignId('employee_id')->constrained('employees');
-            $table->integer('pdf_id')->nullable();
             $table->timestamps();
         });
     }

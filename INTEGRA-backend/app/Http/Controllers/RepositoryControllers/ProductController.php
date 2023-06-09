@@ -5,7 +5,9 @@ namespace App\Http\Controllers\RepositoryControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Repository\ProductCollection;
 use App\Http\Resources\Repository\ProductResource;
+use App\Models\Repository\Category;
 use App\Models\Repository\Product;
+use App\Models\Repository\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,6 +19,11 @@ class ProductController extends Controller
 
     public function show ($id) : ProductResource {
         $product = Product::find($id);
+        $supplier = Supplier::findOrFail($product->supplier_id)->name;
+        $category = Category::findOrFail($product->supplier_id)->name;
+        $product->details = Product::find($id)->details;
+        $product->supplier = $supplier;
+        $product->category = $category;
         if($product)
              return new ProductResource($product);
         else 
@@ -29,7 +36,6 @@ class ProductController extends Controller
             'description'        => 'required | regex:/^[^\'"]+$/',
             'price'              => 'required | numeric',
             'quantity_in_stock'  => 'required | numeric',
-            'details'            => 'required',
             'category_id'        => 'required | numeric',
             'supplier_id'        => 'required | numeric',
         ]);
@@ -43,12 +49,14 @@ class ProductController extends Controller
             'description'        => request('description'),
             'price'              => request('price'),
             'quantity_in_stock'  => request('quantity_in_stock'),
-            'details'            => request('details'),
             'category_id'        => request('category_id'),
             'supplier_id'        => request('supplier_id'),
-        ]))
-            return $this->success();
-        else
+        ])) {
+
+            $product_id = Product::get()->last()->id;
+            return response()->json(['product_id'=>$product_id]);
+        
+        } else
             return $this->failure();    
     }
 
@@ -58,7 +66,6 @@ class ProductController extends Controller
             'description'        => 'required | regex:/^[^\'"]+$/',
             'price'              => 'required | numeric',
             'quantity_in_stock'  => 'required | numeric',
-            'details'            => 'required | regex:/^[^\'"]+$/',
             'category_id'        => 'required | numeric',
             'supplier_id'        => 'required | numeric',
         ]);
@@ -73,7 +80,6 @@ class ProductController extends Controller
         $product->description       = request('description');
         $product->price             = request('price');
         $product->quantity_in_stock = request('quantity_in_stock');
-        $product->details           = request('details');
         $product->category_id       = request('category_id');
         $product->supplier_id       = request('supplier_id');
 

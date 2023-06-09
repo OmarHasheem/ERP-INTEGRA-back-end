@@ -13,6 +13,6 @@ class AttributeGroup extends Model
     protected $guarded = [];
 
     public function attributes() : HasMany {
-        return $this->hasMany(Attribute::class);
+        return $this->hasMany(Attribute::class, 'group_id');
     }
 }
