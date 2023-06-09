@@ -17,6 +17,6 @@ Route::controller(CustomerController::class)->group(function () {
         Route::put('/customers/{id}', 'update');
         Route::delete('/customers/{id}', 'destroy');
 
-        Route::post('/customers/showCustomerLeads', 'showCustomerLeads');
+        Route::get('/customers/showCustomerLeads/{id}', 'showCustomerLeads');
     });
 });

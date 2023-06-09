@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MarketingControllers;
 use App\Models\Marketing\Campaign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Marketing\CampaignCollection;
 use App\Http\Resources\Marketing\CampaignResource;
 use App\Http\Resources\Marketing\EventCollection;
 use App\Http\Resources\Marketing\SocialMediaCollection;
@@ -119,29 +120,23 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function showCampaignEvents(Request $request)
-    {
-        $campaign = Campaign::findOrFail(request('campaign_id'));
+    public function showCampaignEvents($id) {
+        $campaign = Campaign::findOrFail($id);
         return new EventCollection($campaign->events);
-            }
+    }
 
-    public function showCampaignSocialMedia(Request $request)
-    {
-            $campaign = Campaign::findOrFail(request('campaign_id'));
-            return new SocialMediaCollection($campaign->socialmedia);
-                    }
+    public function showCampaignSocialMedia($id) {
+        $campaign = Campaign::findOrFail($id);
+        return new SocialMediaCollection($campaign->socialmedia);
+    }
        
-    public function showCampaignTvs(Request $request)
-    {
-            $campaign = Campaign::findOrFail(request('campaign_id'));
-            return new TvCollection($campaign->tvs);
-                    }  
+    public function showCampaignTvs($id) {
+        $campaign = Campaign::findOrFail($id);
+        return new TvCollection($campaign->tvs);
+    }  
                      
-     public function showCampaignLeads(Request $request)
-    {
-            $campaign = Campaign::findOrFail(request('campaign_id'));
-             return new LeadCollection($campaign->leads);
-                    }                
-
-
+     public function showCampaignLeads($id) {
+        $campaign = Campaign::findOrFail($id);
+        return new LeadCollection($campaign->leads);
+    }                
 }

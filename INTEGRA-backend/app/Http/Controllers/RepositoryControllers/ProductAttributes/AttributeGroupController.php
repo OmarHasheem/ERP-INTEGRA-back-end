@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\RepositoryControllers\ProductAttributes;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Repository\ProductAttributes\AttributeCollection;
 use App\Http\Resources\Repository\ProductAttributes\AttributeGroupCollection;
 use App\Http\Resources\Repository\ProductAttributes\AttributeGroupResource;
 use App\Models\Repository\ProductAttributes\AttributeGroup;
+use Attribute;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,7 @@ class AttributeGroupController extends Controller
         if ($validator->fails()) {
             return  $validator->errors();
         }
-
+        
        if(AttributeGroup::create([
             'name' => request('name'),
         ]))
@@ -63,5 +65,10 @@ class AttributeGroupController extends Controller
         $attributeGroup->delete();
 
         return $this->success();
+    }
+
+    public function getAttributesByGroup($id) {
+        $attributeGroup = AttributeGroup::findOrFail($id)->attributes;
+        return new AttributeCollection($attributeGroup);
     }
 }

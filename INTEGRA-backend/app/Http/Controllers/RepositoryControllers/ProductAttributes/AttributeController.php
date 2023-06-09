@@ -45,14 +45,13 @@ class AttributeController extends Controller
         $validator = Validator::make($request->all(), [
             'name'     => 'required | regex:/^[^\'"]+$/',
             'type'     => 'required',
-            'values'   => 'required',
             'group_id' => 'required | numeric',
         ]);
         
         if ($validator->fails()) {
             return  $validator->errors();
         }
-
+        
        if(Attribute::create([
             'name'     => request('name'),
             'type'     => request('type'),

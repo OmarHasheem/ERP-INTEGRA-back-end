@@ -13,6 +13,10 @@ class Attribute extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'values' => 'json'
+    ];
+
     public function attributeGroup() : BelongsTo {
         return $this->belongsTo(AttributeGroup::class);
     }
@@ -21,7 +25,7 @@ class Attribute extends Model
     {
         return Attribute::make(
             get: fn ($value) => json_decode($value, true),
-            set: fn ($value) => json_encode($value, true),
+            set: fn ($value) => json_encode($value),
         );
     } 
 }

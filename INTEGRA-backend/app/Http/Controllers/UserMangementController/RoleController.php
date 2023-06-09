@@ -19,17 +19,6 @@ class RoleController extends Controller
         return new RoleCollection(Role::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -63,18 +52,11 @@ class RoleController extends Controller
         }
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $role)
     {
         return new RoleResource(Role::where('name', $role)->where('guard_name', 'api')->first());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function assignRole(string $id , Request $request)
     {
         $user = User::find($id);
@@ -91,9 +73,6 @@ class RoleController extends Controller
         return response()->json(['message' => $request->role . " is unassigned to " . $user->fullName]); 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(string $name , Request $request)
     {
         $role = Role::where('name', $name)->where('guard_name', 'api')->first();    
@@ -106,18 +85,12 @@ class RoleController extends Controller
 
          else
          return response()->json(['message' => 'Role does not changed']);
-
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $name)
     {
-        
         $role = Role::where('name', $name)->where('guard_name', 'api')->first();
         $role->delete();
         return response()->json(['message' => 'Role Deleted']);
-
     }
 }

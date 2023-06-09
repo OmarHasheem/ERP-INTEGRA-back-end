@@ -104,8 +104,8 @@ class CustomerController extends Controller
             return $this->failure();
     }
 
-    public function showCustomerLeads(Request $request) {
-        $customer = Customer::findOrFail(request('customer_id'));
-            return new LeadCollection($customer->leads);
-            }     
+    public function showCustomerLeads($id) {
+        $customer = Customer::findOrFail($id);
+        return new LeadCollection($customer->leads);
+    }     
 }

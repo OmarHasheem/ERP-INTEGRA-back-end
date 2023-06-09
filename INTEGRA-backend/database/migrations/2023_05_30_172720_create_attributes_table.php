@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->enum('type', ['select', 'checkbox', 'radiobox', 'text', 'textArea', 'numeric', 'date-time']);
+            $table->enum('type', ['select', 'checkbox', 'radiobox', 'text', 'textArea', 'number', 'date-time', 'date']);
             $table->foreignId('group_id')->constrained('attribute_groups');
             $table->timestamps();
         });

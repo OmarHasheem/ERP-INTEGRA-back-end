@@ -82,4 +82,9 @@ class SupplierController extends Controller
         else
             return $this->failure();
     }
+
+    public function getProductsBySupplier($id) {
+        $supplier = Supplier::findOrFail($id);
+        return new SupplierResource($supplier->products);
+    }
 }

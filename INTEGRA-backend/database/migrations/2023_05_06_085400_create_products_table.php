@@ -19,12 +19,11 @@ return new class extends Migration
             $table->string('description');
             $table->integer('price');
             $table->integer('quantity_in_stock');
-            $table->jsonb('details')->nullable();
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('supplier_id')->constrained('suppliers');
             $table->timestamps();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.

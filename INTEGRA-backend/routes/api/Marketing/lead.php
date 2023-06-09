@@ -19,9 +19,7 @@ Route::controller(LeadController::class)->group(function () {
         Route::post('/leads/attachLeadToCustomer/{id}', 'attachLeadToCustomer');
         Route::post('/leads/detachLeadToCustomer/{id}', 'detachLeadToCustomer');
 
-        Route::post('/leads/showLeadCustomers', 'showLeadCustomers');
-        Route::post('/leads/showLeadCampaigns', 'showLeadCampaigns');
-
-        
+        Route::get('/leads/showLeadCustomers/{id}', 'showLeadCustomers');
+        Route::get('/leads/showLeadCampaigns/{id}', 'showLeadCampaigns');
     });
 });

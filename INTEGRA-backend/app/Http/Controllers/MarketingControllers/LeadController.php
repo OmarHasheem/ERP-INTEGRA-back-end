@@ -99,7 +99,6 @@ class LeadController extends Controller
     }
     //error
 
-
     public function detachLeadToCustomer($id) {
 
         $lead = Lead::find($id)->customers()->detach(request('customer_id'));
@@ -111,13 +110,13 @@ class LeadController extends Controller
 
     }
 
-    public function showLeadCustomers() {
-        $lead = Lead::findOrFail(request('lead_id'));
+    public function showLeadCustomers($id) {
+        $lead = Lead::findOrFail($id);
         return new CustomerCollection($lead->customers);
     }
 
-    public function showLeadCampaigns() {
-        $lead = Lead::findOrFail(request('lead_id'));
+    public function showLeadCampaigns($id) {
+        $lead = Lead::findOrFail($id);
         return new CampaignCollection($lead->campaigns);
     }
 }
