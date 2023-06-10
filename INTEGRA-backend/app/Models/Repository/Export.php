@@ -37,6 +37,4 @@ class Export extends Model
             return $product->price;
         });
     }
-
-
 }

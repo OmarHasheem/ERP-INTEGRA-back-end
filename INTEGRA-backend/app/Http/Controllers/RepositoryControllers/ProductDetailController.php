@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RepositoryControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Repository\ProductDetailCollection;
 use App\Http\Resources\Repository\ProductDetailResource;
+use App\Models\Repository\Product;
 use App\Models\Repository\ProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -34,25 +35,25 @@ class ProductDetailController extends Controller
         foreach($details as $detail){
             $product_id = $detail["productId"];
             $stock = $detail["stock"];
+            $group_id = $detail["groupId"];
             unset($detail["productId"]);
+            unset($detail["groupId"]);
             unset($detail["stock"]); 
             ProductDetail::create([
-                'stock'      => $stock,
-                'product_id' => $product_id,
-                'details'    => $detail,
+                'stock'                => $stock,
+                'product_id'           => $product_id,
+                'attribute_group_id'   => $group_id,
+                'details'              => $detail,
             ]);  
         }       
         return $this->success();
     } catch (Throwable $e) {
         return $this->failure();
     }
-
     }
 
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
-            'stock'      => 'required | numeric',
-            'product_id' => 'required | numeric',
             'details'    => 'required',
         ]);
 
@@ -60,15 +61,30 @@ class ProductDetailController extends Controller
             return  $validator->errors();
         }
 
+        $newStock = request('details')[0]['stock'];
 
-        $product = ProductDetail::findOrFail($id);
+        $productDetail = ProductDetail::findOrFail($id);
+        $stocks = $newStock - $productDetail->stock;
+        $productStock = Product::findOrFail($productDetail->product_id);
+       
+        $productDetails = $productStock->details;
+        foreach($productDetails as $detail) {
+            $stocks += $detail->stock;
+        }
 
-        $product->stock      = request('stock');
-        $product->product_id = request('category_id');
-        $product->details    = request('supplier_id');
+        if($stocks > $productStock->quantity_in_stock) {
+            return response()->json(['message' => 'The process has failed as the stock quantity specified in the details exceeds the available stock of the product.']);
+        }
 
-        if($product->isDirty(['stock', 'details', 'product_id'])){
-            $product->save();
+        $details = request('details')[0];
+        $productDetail->stock = $details["stock"];
+        unset($details["productId"]);
+        unset($details["groupId"]);
+        unset($details["stock"]); 
+        $productDetail->details = $details;
+
+        if($productDetail->isDirty(['stock', 'details'])){
+            $productDetail->save();
             return $this->success();
         }
         else {

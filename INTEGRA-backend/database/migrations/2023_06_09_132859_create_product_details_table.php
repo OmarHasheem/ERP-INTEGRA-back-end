@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
             $table->json('details');
             $table->integer('stock');
+            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('attribute_group_id')->constrained('attribute_groups');
             $table->timestamps();
         });
     }
