@@ -13,6 +13,7 @@ Route::controller(DepartmentController::class)->group(function () {
 
         Route::get('/departments/{id}', 'show');        
         Route::get('/departments', 'index');
+        Route::get('/departmentEmployees/{id}', 'showdepartmentEmployees');
         Route::post('/departments', 'store');
         Route::put('/departments/{id}', 'update');
         Route::delete('/departments/{id}', 'destroy');
