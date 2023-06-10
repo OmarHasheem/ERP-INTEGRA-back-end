@@ -30,14 +30,14 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::middleware('auth:api')->group(function (){
-                Route::middleware('api')
-                    ->group(base_path('routes/api/HR/employee.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/HR/employee.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/HR/department.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/HR/department.php'));
 
-                Route::middleware('api')
-                    ->group(base_path('routes/api/HR/benefit.php'));
+                // Route::middleware('api')
+                //     ->group(base_path('routes/api/HR/benefit.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/HR/employeeCertificate.php'));
@@ -94,6 +94,15 @@ class RouteServiceProvider extends ServiceProvider
                 // Route::middleware('api')
                 // ->group(base_path('routes/api/Repository/ProductAttribute/attributeGroup.php'));
             });    
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/HR/employee.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/HR/department.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/HR/benefit.php'));
 
         
     

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\HRControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HR\EmployeeAttendenceCollection;
+use App\Http\Resources\HR\EmployeeCertifecateCollection;
+use App\Http\Resources\HR\EmployeeEducationCollection;
+use App\Http\Resources\HR\EmployeePerformanceCollection;
+use App\Http\Resources\HR\EmployeeVacationCollection;
 use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\EmployeeResource;
 use App\Models\HR\Employee;
@@ -141,4 +146,44 @@ class EmployeeController extends Controller
             return $this->failure();    
 
     }
+
+    public function showEmployeeDetails($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $employeeDetails = [];
+        $employeeBenefit = [];
+       
+        foreach($employee->benefits as $benefit){
+
+            $benefitName       = $benefit->name;
+            $benefitCost       = $benefit->cost;
+            $enrollmentDate    = $benefit->pivot->enrollmentDate;
+            $coverageStartDate = $benefit->pivot->coverageStartDate;
+            $coverageEndDate   = $benefit->pivot->coverageEndDate;
+
+            $employeeBenefit[] = compact( 'benefitName' , 'benefitCost' ,'enrollmentDate','coverageStartDate' , 'coverageEndDate');
+    
+        }
+        $firstName    = $employee->firstName;
+        $lastName     = $employee->lastName;
+        $certificates = $employee->employeeCertificates;
+        $educations   = $employee->employeeEducations;
+        $performances = $employee->employeePerformances;
+        $vacations    = $employee->employeeVacations;
+
+        $employeeDetails[] = compact('firstName' , 'lastName' , 'certificates' , 'educations' , 'performances' ,'vacations' );
+        
+        foreach($employeeBenefit as $employeeBenefits)
+        {
+            $enrollmentDate    = $employeeBenefits['enrollmentDate'];
+            $coverageStartDate = $employeeBenefits['coverageStartDate'];
+            $coverageEndDate   = $employeeBenefits['coverageEndDate'];
+            $benefitName       = $employeeBenefits['benefitName'];
+            $benefitCost       = $employeeBenefits['benefitCost'];
+            $employeeDetails[] = compact('benefitName' , 'benefitCost', 'enrollmentDate' ,'coverageStartDate' ,'coverageEndDate' );
+        }
+         
+        return $employeeDetails;
+    
+         }
 }

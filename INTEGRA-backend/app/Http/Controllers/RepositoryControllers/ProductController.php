@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function show ($id) : ProductResource {
         $product = Product::find($id);
         $supplier = Supplier::findOrFail($product->supplier_id)->name;
-        $category = Category::findOrFail($product->supplier_id)->name;
+        $category = Category::findOrFail($product->category_id)->name;
         $product->details = Product::find($id)->details;
         $product->supplier = $supplier;
         $product->category = $category;

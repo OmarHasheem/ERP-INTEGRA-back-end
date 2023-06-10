@@ -15,6 +15,7 @@ Route::controller(EmployeeController::class)->group(function () {
 
         Route::get('/employees/{id}', 'show');        
         Route::get('/employees', 'index');
+        Route::get('/EmployeeDetails/{id}', 'showEmployeeDetails');
         Route::post('/employees/{id}', 'attachBenefitToEmployee');
         Route::post('/employees', 'store');
         Route::put('/employees/{id}', 'update');

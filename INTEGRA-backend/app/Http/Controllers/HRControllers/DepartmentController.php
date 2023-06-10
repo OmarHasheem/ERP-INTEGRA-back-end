@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HRControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\DepartmentCollection;
 use App\Http\Resources\HR\DepartmentResource;
 use App\Models\HR\Department;
@@ -73,6 +74,12 @@ class DepartmentController extends Controller
         } 
         else
             return $this->failure();
+    }
+
+    public function showDepartmentEmployees($id) 
+    {
+        $department = Department::findOrFail($id);
+        return new EmployeeCollection($department->employees);
     }
 
 }

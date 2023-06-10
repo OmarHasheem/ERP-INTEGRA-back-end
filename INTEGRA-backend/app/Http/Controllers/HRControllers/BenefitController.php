@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HRControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\BenefitCollection;
 use App\Http\Resources\HR\BenefitResource;
 use App\Models\HR\Benefit;
@@ -80,5 +81,26 @@ class BenefitController extends Controller
         } 
         else
             return $this->failure();
+    }
+
+    
+    public function showBenefitEmployees($id) 
+    {
+        $benefit = Benefit::findOrFail($id);
+        $data = [];
+        foreach($benefit->employees as $employee){
+        $firstName = $employee->firstName;
+        $lastName = $employee->lastName;
+        $enrollmentDate = $employee->pivot->enrollmentDate;
+        $coverageStartDate = $employee->pivot->coverageStartDate;
+        $coverageEndDate = $employee->pivot->coverageEndDate;
+            
+        $data [] = compact('firstName' , 'lastName' , 'enrollmentDate' , 'coverageStartDate' , 'coverageEndDate');
+        
+        }
+        return $data;
+
+        
+
     }
 }

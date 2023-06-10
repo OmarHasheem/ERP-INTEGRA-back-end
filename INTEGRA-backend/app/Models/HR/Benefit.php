@@ -13,6 +13,6 @@ class Benefit extends Model
     protected $guarded = [];
 
     public function employees() : BelongsToMany {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsToMany(Employee::class)->withPivot('enrollmentDate', 'coverageStartDate' , 'coverageEndDate');
     }
 }
