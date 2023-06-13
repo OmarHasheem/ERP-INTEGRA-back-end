@@ -76,11 +76,11 @@ class RouteServiceProvider extends ServiceProvider
                 //     ->group(base_path('routes/api/Marketing/pdffile.php'));   
 
 
-                // Route::middleware('api')
-                //     ->group(base_path('routes/api/Repository/export.php'));
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Repository/export.php'));
 
-                // Route::middleware('api')
-                //     ->group(base_path('routes/api/Repository/import.php'));
+                Route::middleware('api')
+                    ->group(base_path('routes/api/Repository/import.php'));
 
                 Route::middleware('api')
                     ->group(base_path('routes/api/Repository/supplier.php'));
@@ -139,9 +139,13 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/api/Marketing/tv.php'));
 
 
+        // Route::middleware('api')
+        //     ->group(base_path('routes/api/Repository/import.php'));
+
+
 
         Route::middleware('api')
-            ->group(base_path('routes/api/Repository/supplier.php'));
+            ->group(base_path('routes/api/Repository/supplier.php'));   
     
         Route::middleware('api')
             ->group(base_path('routes/api/Repository/category.php'));

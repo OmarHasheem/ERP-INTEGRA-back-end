@@ -13,6 +13,7 @@ use App\Http\Resources\Marketing\TvCollection;
 use App\Http\Resources\Marketing\LeadCollection;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Throwable;
 
 class CampaignController extends Controller
 {
@@ -98,26 +99,24 @@ class CampaignController extends Controller
             return $this->failure();
     }
 
-    public function attachCampaignToLead($id) {
-
-        $campaign = Campaign::find($id)->leads()->attach(request('lead_id'));
-        
-        if($campaign)
+    public function attachCampaignToLead(Request $request, $id) {
+        try {
+            Campaign::find($id)->leads()->attach(request('lead_id'));
             return $this->success();
-         else
+        } catch(Throwable $e) {
             return $this->failure();
+        }
     }
 
     //error
 
     public function detachCampaignToLead($id) {
-
-        $campaign = Campaign::find($id)->leads()->detach(request('lead_id'));
-
-        if($campaign)
+        try {
+            Campaign::find($id)->leads()->detach(request('lead_id'));
             return $this->success();
-        else
+        } catch(Throwable $e) {
             return $this->failure();
+        }
     }
 
     public function showCampaignEvents($id) {

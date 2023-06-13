@@ -61,7 +61,7 @@ class ProductDetailController extends Controller
             return  $validator->errors();
         }
 
-        $newStock = request('details')[0]['stock'];
+        $newStock = request('details')['group1']['stock'];
 
         $productDetail = ProductDetail::findOrFail($id);
         $stocks = $newStock - $productDetail->stock;
@@ -75,11 +75,9 @@ class ProductDetailController extends Controller
         if($stocks > $productStock->quantity_in_stock) {
             return response()->json(['message' => 'The process has failed as the stock quantity specified in the details exceeds the available stock of the product.']);
         }
-
-        $details = request('details')[0];
+        
+        $details = request('details')['group1'];
         $productDetail->stock = $details["stock"];
-        unset($details["productId"]);
-        unset($details["groupId"]);
         unset($details["stock"]); 
         $productDetail->details = $details;
 

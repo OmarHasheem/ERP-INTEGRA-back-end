@@ -16,7 +16,7 @@ Route::controller(ImportController::class)->group(function () {
         Route::get('/imports', 'index');
         Route::post('/imports', 'store');
         Route::put('/imports/{id}', 'update');
-        Route::delete('/imports/{id}', 'delete');
+        Route::delete('/imports/{id}', 'destroy');
 
 
     });
