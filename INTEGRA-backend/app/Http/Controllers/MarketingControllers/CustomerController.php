@@ -13,13 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
 
-    public function index() : CustomerCollection
-    {
+    public function index() : CustomerCollection{
         return new CustomerCollection(Customer::all());
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
 
         $validator = Validator::make($request->all(), [
             'name'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -49,18 +47,16 @@ class CustomerController extends Controller
             return $this->failure();
     }
 
-    public function show($id) : CustomerResource
-    {
+    public function show($id) : CustomerResource{
         $customer = Customer::find($id);
-        
+
         if($customer)
             return new CustomerResource($customer);
         else
             return $this->failure();
     }
 
-    public function update(Request $request , $id)
-    {
+    public function update(Request $request , $id){
 
         $validator = Validator::make($request->all(), [
             'name'    => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -89,17 +85,16 @@ class CustomerController extends Controller
             $customer->save();
             return $this->success();
         }
-        else 
+        else
             return $this->failure();
-        
+
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         if( $customer = Customer::findOrFail($id)) {
             $customer->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }
@@ -107,5 +102,5 @@ class CustomerController extends Controller
     public function showCustomerLeads($id) {
         $customer = Customer::findOrFail($id);
         return new LeadCollection($customer->leads);
-    }     
+    }
 }
