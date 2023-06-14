@@ -19,14 +19,6 @@ class Product extends Model
         return $this->hasMany(Category::class);
     }
 
-    public function imports() : BelongsToMany {
-        return $this->belongsToMany(Import::class)->withPivot('details', 'total_amount' , 'quantity');
-    }
-
-    public function exports() {
-        return $this->belongsToMany(Export::class)->withPivot('details', 'total_amount' , 'quantity');
-    }
-
     public function supplier() : HasOne {
         return $this->hasOne(Supplier::class);
     }

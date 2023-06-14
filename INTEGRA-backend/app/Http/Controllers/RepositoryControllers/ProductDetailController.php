@@ -8,13 +8,19 @@ use App\Http\Resources\Repository\ProductDetailResource;
 use App\Models\Repository\Product;
 use App\Models\Repository\ProductDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class ProductDetailController extends Controller
 {
     public function index() : ProductDetailCollection {
-        return new ProductDetailCollection(ProductDetail::all());
+        $productDetail = ProductDetail::query();
+        $productDetail = $productDetail->join('products', 'products.id', '=', 'product_details.product_id')
+            ->select('product_details.*', 'products.name', 'products.price')
+            ->get();
+
+        return new ProductDetailCollection($productDetail);
     }
 
     public function show($id) : ProductDetailResource {
