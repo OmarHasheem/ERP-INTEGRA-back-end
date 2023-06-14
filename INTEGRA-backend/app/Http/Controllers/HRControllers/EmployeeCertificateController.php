@@ -27,7 +27,6 @@ class EmployeeCertificateController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'employee_id' => 'required | numeric',
             'name'        => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -39,7 +38,7 @@ class EmployeeCertificateController extends Controller
         }
 
         EmployeeCertificate::create([
-            'employee_id' => request('employeeId'),
+            'employee_id' => request('employee_id'),
             'name' => request('name'),
             'level' => request('level'),
         ]);
@@ -61,10 +60,11 @@ class EmployeeCertificateController extends Controller
 
         $employeeCertificate = EmployeeCertificate::findOrFail($id);
         
+        $employeeCertificate->employee_id = request('employee_id');
         $employeeCertificate->name = request('name');
-        $employeeCertificate->cost = request('cost');
+        $employeeCertificate->level = request('level');
 
-        if($employeeCertificate->isDirty(['name' ,  'level'])){
+        if($employeeCertificate->isDirty(['name' ,  'level', 'employee_id'])){
             $employeeCertificate->save();
             return $this->success();
         }

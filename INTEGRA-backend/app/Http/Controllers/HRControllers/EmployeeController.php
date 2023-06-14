@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
-    //
-
     public function index() : EmployeeCollection
     {
         return new EmployeeCollection(Employee::all());
@@ -40,7 +38,7 @@ class EmployeeController extends Controller
             'lastName'     => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'dateOfBrith'  => 'required | date',
             'gender'       => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-            'address'      => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'address'      => 'required | regex:/^[^\'"]+$/',
             'email'        => 'required | email',
             'phone'        => 'required | numeric',
             'dateOfHire'   => 'required | date',
@@ -66,7 +64,7 @@ class EmployeeController extends Controller
             'salary'        => request('salary'),
             'supervisorId'  => request('supervisorId'),
             'status'        => request('status'),
-            'departmentId'  => request('departmentId'),
+            'department_id'  => request('departmentId'),
         ]);
 
         return response()->json(["message" => "The process has been succeded"]);
@@ -107,7 +105,7 @@ class EmployeeController extends Controller
         $employee->salary       = request('salary');
         $employee->supervisorId = request('supervisorId');
         $employee->status       = request('status');
-        $employee->departmentId = request('departmentId');
+        $employee->department_id = request('departmentId');
 
         if($employee->isDirty(['firstName' , 'lastName' ,  'dateOfBrith',  'gender',  'address',  'email',  'phone',  'dateOfHire',  'salary',  'supervisorId',  'status',  'departmentId'])){
             $employee->save();
@@ -151,7 +149,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         $employeeDetails = [];
-        $employeeBenefit = [];
+        $employeeBenefits = [];
        
         foreach($employee->benefits as $benefit){
 
@@ -173,17 +171,16 @@ class EmployeeController extends Controller
 
         $employeeDetails[] = compact('firstName' , 'lastName' , 'certificates' , 'educations' , 'performances' ,'vacations' );
         
-        foreach($employeeBenefit as $employeeBenefits)
+        foreach($employeeBenefits as $employeeBenefit)
         {
-            $enrollmentDate    = $employeeBenefits['enrollmentDate'];
-            $coverageStartDate = $employeeBenefits['coverageStartDate'];
-            $coverageEndDate   = $employeeBenefits['coverageEndDate'];
-            $benefitName       = $employeeBenefits['benefitName'];
-            $benefitCost       = $employeeBenefits['benefitCost'];
+            $enrollmentDate    = $employeeBenefit['enrollmentDate'];
+            $coverageStartDate = $employeeBenefit['coverageStartDate'];
+            $coverageEndDate   = $employeeBenefit['coverageEndDate'];
+            $benefitName       = $employeeBenefit['benefitName'];
+            $benefitCost       = $employeeBenefit['benefitCost'];
             $employeeDetails[] = compact('benefitName' , 'benefitCost', 'enrollmentDate' ,'coverageStartDate' ,'coverageEndDate' );
         }
          
         return $employeeDetails;
-    
-         }
+    }
 }

@@ -11,4 +11,5 @@ Route::prefix('userMangement')->group(function(){
     Route::delete('/users/{id}', 'destroy');
     Route::put('/users/{id}',  'update');
 });
+    Route::get('/getMe', 'getMe');
 });

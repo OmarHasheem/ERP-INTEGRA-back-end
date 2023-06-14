@@ -17,7 +17,7 @@ class Employee extends Model
     protected $guarded = [];
     
     public function employee() : HasOne {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employee::class, 'id', 'supervisorId');
     }
 
     public function benefits() : BelongsToMany {

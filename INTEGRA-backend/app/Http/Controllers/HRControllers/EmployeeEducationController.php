@@ -41,7 +41,7 @@ class EmployeeEducationController extends Controller
         }
 
         if(EmployeeEducation::create([
-            'employee_id'    => request('employeeId'),
+            'employee_id'    => request('employee_id'),
             'specialization' => request('specialization'),
             'degree'         => request('degree'),
             'grantingBy'     => request('grantingBy'),

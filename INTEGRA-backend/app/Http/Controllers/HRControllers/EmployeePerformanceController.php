@@ -40,7 +40,7 @@ class EmployeePerformanceController extends Controller
         }
 
         if(EmployeePerformance::create([
-            'employee_id'       => request('employeeId'),
+            'employee_id'       => request('employee_id'),
             'performanceRating' => request('performanceRating'),
             'comments'          => request('comments'),
             'reviewDate'        => request('reviewDate'),

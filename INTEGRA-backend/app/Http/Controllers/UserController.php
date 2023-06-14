@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserManagement\UserResource;
 use App\Http\Resources\UserManagement\UserCollection;
+use App\Models\HR\Department;
+use App\Models\HR\Employee;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -101,4 +104,61 @@ class UserController extends Controller
             return $this->failure();
     }
 
+
+    public function getMe()
+    {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+       
+        $employee = Employee::findOrFail($user->employee_id);
+        
+        $department = Department::findOrFail($employee->department_id)->name;
+        
+        $superVisor = $employee->employee->firstName . " " . $employee->employee->lastName;
+        $employeeDetails = [];
+        $employeeBenefits = [];
+       
+        foreach($employee->benefits as $benefit){
+
+            $benefitName       = $benefit->name;
+            $benefitCost       = $benefit->cost;
+            $enrollmentDate    = $benefit->pivot->enrollmentDate;
+            $coverageStartDate = $benefit->pivot->coverageStartDate;
+            $coverageEndDate   = $benefit->pivot->coverageEndDate;
+
+            $employeeBenefit[] = compact( 'benefitName' , 'benefitCost' ,'enrollmentDate','coverageStartDate' , 'coverageEndDate');
+    
+        }
+        $firstName    = $employee->firstName;
+        $lastName     = $employee->lastName;
+        $dateOfBrith  = $employee->dateOfBrith;
+        $gender       = $employee->gender;
+        $address      = $employee->address;
+        $email        = $employee->email;
+        $phone        = $employee->phone;
+        $dateOfHire   = $employee->dateOfHire;
+        $salary       = $employee->salary;
+        $status       = $employee->status;
+        $certificates = $employee->employeeCertificates;
+        $educations   = $employee->employeeEducations;
+        $performances = $employee->employeePerformances;
+        $vacations    = $employee->employeeVacations;
+
+        $employeeDetails[] = compact('firstName','lastName', 'dateOfBrith',
+        'gender', 'address', 'email', 'phone', 'dateOfHire', 'salary',
+        'status', 'department', 'superVisor', 'certificates', 'educations',
+        'performances', 'vacations');
+        
+        foreach($employeeBenefits as $employeeBenefit)
+        {
+            $enrollmentDate    = $employeeBenefit['enrollmentDate'];
+            $coverageStartDate = $employeeBenefit['coverageStartDate'];
+            $coverageEndDate   = $employeeBenefit['coverageEndDate'];
+            $benefitName       = $employeeBenefit['benefitName'];
+            $benefitCost       = $employeeBenefit['benefitCost'];
+            $employeeDetails[] = compact('benefitName' , 'benefitCost', 'enrollmentDate' ,'coverageStartDate' ,'coverageEndDate' );
+        }
+         
+        return $employeeDetails;
+    }
 }

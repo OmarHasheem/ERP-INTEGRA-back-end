@@ -31,7 +31,7 @@ class EmployeeVacationController extends Controller
         $validator = Validator::make($request->all(), [
             'employee_id'      => 'required | numeric',
             'startDate'        => 'required | date',
-            'endDate'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'endDate'          => 'required | date',
             'typeOfVacation'   => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'reasonOfVacation' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'status'           => 'required | regex:/^[a-zA-Z0-9\s]+$/',
@@ -42,7 +42,7 @@ class EmployeeVacationController extends Controller
         }
 
        if( EmployeeVacation::create([
-            'employee_id'      => request('employeeId'),
+            'employee_id'      => request('employee_id'),
             'startDate'        => request('startDate'),
             'endDate'          => request('endDate'),
             'typeOfVacation'   => request('typeOfVacation'),
@@ -58,7 +58,7 @@ class EmployeeVacationController extends Controller
         $validator = Validator::make($request->all(), [
             'employee_id'      => 'required | numeric',
             'startDate'        => 'required | date',
-            'endDate'          => 'required | regex:/^[a-zA-Z0-9\s]+$/',
+            'endDate'          => 'required | date',
             'typeOfVacation'   => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'reasonOfVacation' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'status'           => 'required | regex:/^[a-zA-Z0-9\s]+$/',
