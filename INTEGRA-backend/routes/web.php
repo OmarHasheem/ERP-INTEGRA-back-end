@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use App\Http\Controllers\MarketingControllers\PDFController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +17,9 @@ use App\Http\Controllers\MarketingControllers\PDFController;
 */
 
 // Route::get('/', function () {
-    
+
 //     $role = Role::find(1);
-        
+
 //     // $permission = Permission::find(1);
 
 //     // $role->givePermissionTo($permission);
@@ -29,12 +29,12 @@ use App\Http\Controllers\MarketingControllers\PDFController;
 
 Route::controller(PDFController::class)->group(function () {
     Route::prefix('marketing')->group(function (){
-        // Route::get('/pdfs', 'index')->middleware('permission:index pdf');        
+        // Route::get('/pdfs', 'index')->middleware('permission:index pdf');
         // Route::get('/pdf/show/{id}', 'show')->middleware('permission:store pdf');
         // Route::post('/pdf/store', 'store')->middleware('permission:show pdf');
         // Route::delete('/pdf/destroy/{id}', 'destroy')->middleware('permission:destroy pdf');
 
-        Route::get('/pdfs', 'index');        
+        Route::get('/pdfs', 'index');
         Route::get('/pdf/show/{id}', 'show');
         Route::get('/pdfs/storeImport/{id}', 'storeImport');
         Route::get('/pdfs/storeExport/{id}', 'storeExport');

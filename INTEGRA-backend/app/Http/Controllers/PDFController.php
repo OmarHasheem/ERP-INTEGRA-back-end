@@ -1,40 +1,47 @@
 <?php
 
-namespace App\Http\Controllers\MarketingControllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use App\Models\marketing\Campaign;
-use App\Models\User;
 use App\Models\Repository\Export;
 use App\Models\Repository\Import;
 use App\Models\HR\Employee;
-use App\Models\marketing\PDFFile;
+use App\Models\PDFFile;
 use PDF;
-use App\Http\Resources\Marketing\PDFResource;
-use App\Http\Resources\Marketing\PDFCollection;
-use Illuminate\Support\Facades\Validator;
-
-
+use App\Http\Resources\PDFCollection;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class PDFController extends Controller
 {
 
-    public function index() : PDFCollection{
-        return new PDFCollection(PDFFile::all());
+    public function index() {
+
+        $allowedTypes = [];
+
+        $user = JWTAuth::toUser(JWTAuth::getToken());
+
+        if ($user->hasPermissionTo("Marketing")) {
+            $allowedTypes[] = Campaign::class;
+        }
+
+        if ($user->hasPermissionTo("HR")) {
+            $allowedTypes[] = Employee::class;
+        }
+
+        if ($user->hasPermissionTo("Repository")) {
+            $allowedTypes[] = Export::class;
+            $allowedTypes[] = Import::class;
+        }
+
+        $results = PDFFile::whereIn('pdfable_type', $allowedTypes)->get();
+        return new PDFCollection($results);
     }
 
     public function storeCampaign(Request $request , $id){
-
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required | regex:/^[a-zA-Z0-9\s]+$/',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return  $validator->errors();
-        // }
 
         $campaign = Campaign::find($id);
         $data = [
@@ -49,10 +56,9 @@ class PDFController extends Controller
         $pdf = PDF::loadView('MarketingPDF', $data);
         $content = $pdf->download('MarketingPDF' .'.pdf');
 
-
         PDFFile::create ([
 
-            'name'          => "Marketing" ,
+            'name'          => $campaign->name ,
             'content'       => $content ,
             'pdfable_id'    => $campaign->id,
             'pdfable_type'  => Campaign::class,
@@ -64,7 +70,7 @@ class PDFController extends Controller
 
     }
 
-    public function storeExport(Request $request , $id){
+    public function storeExport( $id){
 
         $export = Export::find($id)->join('employees'  , 'exports.employee_id', '=', 'employees.id')
                                    ->join('customers', 'exports.customer_id', '=', 'customers.id')
@@ -96,7 +102,7 @@ class PDFController extends Controller
 
         PDFFile::create ([
 
-            'name'          => "Export" ,
+            'name'          => $export->name ,
             'content'       => $content ,
             'pdfable_id'    => $export->id,
             'pdfable_type'  => Export::class,
@@ -106,7 +112,7 @@ class PDFController extends Controller
             return $content;
     }
 
-    public function storeImport(Request $request , $id){
+    public function storeImport( $id){
 
             $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
                                        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
@@ -147,11 +153,10 @@ class PDFController extends Controller
                 return $content;
     }
 
-    public function storeEmployeeVecation(Request $request , $id){
+    public function storeEmployeeVecation( $id){
 
             $employee = Employee::find($id);
             $name = $employee-> firstName;
-
 
             $data = [
                 'title' => $name,

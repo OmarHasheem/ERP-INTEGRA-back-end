@@ -2,7 +2,7 @@
 
 namespace App\Models\Repository;
 
-use App\Models\Marketing\PDFFile;
+use App\Models\PDFFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

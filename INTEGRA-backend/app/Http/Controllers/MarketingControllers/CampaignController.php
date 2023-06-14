@@ -85,7 +85,7 @@ class CampaignController extends Controller
             $campaign->save();
             return $this->success();
         }
-        else 
+        else
             return $this->failure();
     }
 
@@ -94,7 +94,7 @@ class CampaignController extends Controller
         if( $campaign = Campaign::findOrFail($id)){
             $campaign->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }
@@ -128,14 +128,14 @@ class CampaignController extends Controller
         $campaign = Campaign::findOrFail($id);
         return new SocialMediaCollection($campaign->socialmedia);
     }
-       
+
     public function showCampaignTvs($id) {
         $campaign = Campaign::findOrFail($id);
         return new TvCollection($campaign->tvs);
-    }  
-                     
+    }
+
      public function showCampaignLeads($id) {
         $campaign = Campaign::findOrFail($id);
         return new LeadCollection($campaign->leads);
-    }                
+    }
 }
