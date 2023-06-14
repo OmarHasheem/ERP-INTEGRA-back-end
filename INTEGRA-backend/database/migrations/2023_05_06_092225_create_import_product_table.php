@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('import_product', function (Blueprint $table) {
             $table->id();
             $table->foreignId('import_id')->constrained('imports');
-            $table->foreignId('product_id')->constrained('products');
-            $table->jsonb('details');
+            $table->foreignId('product_details_id')->constrained('product_details');
             $table->integer('quantity');
             $table->integer('total_amount');
             $table->timestamps();

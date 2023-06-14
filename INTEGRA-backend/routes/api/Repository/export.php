@@ -12,7 +12,7 @@ Route::controller(ExportController::class)->group(function () {
         // Route::delete('/exports/{id}', 'delete')->middleware('permission:destroy export');
 
         Route::get('/exports/{id}', 'show');
-        //Route::get('/exports', 'index');
+        Route::get('/exports', 'index');
         Route::post('/exports', 'store');
         Route::put('/exports/{id}', 'update');
         Route::delete('/exports/{id}', 'destroy');

@@ -116,6 +116,14 @@ class RouteServiceProvider extends ServiceProvider
             // ->group(base_path('routes/api/UserManagement/role.php'));
 
 
+            Route::middleware('api')
+            ->group(base_path('routes/api/Repository/importProduct.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/Repository/exportProduct.php'));
+
+            Route::middleware('api')
+            ->group(base_path('routes/api/HR/employee.php'));
 
             Route::middleware('api')
             ->group(base_path('routes/api/HR/department.php'));

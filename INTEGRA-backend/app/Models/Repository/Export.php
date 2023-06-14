@@ -16,7 +16,7 @@ class Export extends Model
     protected $guarded = [];
 
     public function products()  {
-        return $this->belongsToMany(Product::class)->withPivot('details', 'quantity' , 'total_amount');
+        return $this->belongsToMany(ProductDetail::class)->withPivot('details', 'quantity' , 'total_amount');
     }
 
     public function pdf() {

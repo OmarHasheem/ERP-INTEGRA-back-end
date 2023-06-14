@@ -4,9 +4,11 @@ namespace App\Http\Controllers\RepositoryControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Repository\ImportCollection;
+use App\Http\Resources\Repository\ImportProductDetailCollection;
 use App\Http\Resources\Repository\ImportResource;
 use App\Models\HR\Employee;
 use App\Models\Repository\Import;
+use App\Models\Repository\ImportProductDetail;
 use App\Models\Repository\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
