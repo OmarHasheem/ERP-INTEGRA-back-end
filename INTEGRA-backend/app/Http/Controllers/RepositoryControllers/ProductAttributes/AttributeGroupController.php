@@ -7,7 +7,6 @@ use App\Http\Resources\Repository\ProductAttributes\AttributeCollection;
 use App\Http\Resources\Repository\ProductAttributes\AttributeGroupCollection;
 use App\Http\Resources\Repository\ProductAttributes\AttributeGroupResource;
 use App\Models\Repository\ProductAttributes\AttributeGroup;
-use Attribute;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -25,11 +24,11 @@ class AttributeGroupController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required | regex:/^[^\'"]+$/',
         ]);
-        
+
         if ($validator->fails()) {
             return  $validator->errors();
         }
-        
+
        if(AttributeGroup::create([
             'name' => request('name'),
         ]))
@@ -38,11 +37,11 @@ class AttributeGroupController extends Controller
             return $this->failure();
     }
 
-    public function update(Request $request, $id) { 
+    public function update(Request $request, $id) {
         $validator = Validator::make($request->all(), [
             'name' => 'required | regex:/^[^\'"]+$/',
         ]);
-        
+
         if ($validator->fails()) {
             return  $validator->errors();
         }

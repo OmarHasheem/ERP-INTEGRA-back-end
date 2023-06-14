@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use App\Models\marketing\Campaign;
 use App\Models\Repository\Export;
+use App\Models\Repository\ExportProductDetail;
+use App\Models\Repository\ImportProductDetail;
 use App\Models\Repository\Import;
 use App\Models\HR\Employee;
 use App\Models\PDFFile;
@@ -41,7 +43,7 @@ class PDFController extends Controller
         return new PDFCollection($results);
     }
 
-    public function storeCampaign(Request $request , $id){
+    public function storeCampaign($id){
 
         $campaign = Campaign::find($id);
         $data = [
@@ -70,7 +72,7 @@ class PDFController extends Controller
 
     }
 
-    public function storeExport( $id){
+    public function storeExport($id){
 
         $export = Export::find($id)->join('employees'  , 'exports.employee_id', '=', 'employees.id')
                                    ->join('customers', 'exports.customer_id', '=', 'customers.id')
@@ -79,19 +81,21 @@ class PDFController extends Controller
                                             ,'exports.name as export_name' ,'exports.date' ,'exports.total_amount' ,'exports.id')
                                    ->get()->first();
 
-        $product = Export::find($id)->join('export_product', 'exports.id', '=', 'export_product.export_id')
-                                   ->join('products'  , 'export_product.product_id', '=', 'products.id')
-                                   ->join('categories', 'products.category_id', '=', 'categories.id')
-                                   ->select( 'products.name as product_name', 'products.price'
-                                    ,'export_product.quantity', 'export_product.total_amount'
-                                    ,'categories.name as category_name' )
-                                    ->get();
+       $export_product = ExportProductDetail::query();
+       $export_product = $export_product->where('export_id', $id);
+       $export_product = $export_product->join('product_details', 'product_details.id', '=', 'export_product.product_details_id')
+                                        ->join('products', 'products.id', '=', 'product_details.product_id')
+                                        ->select('export_product.quantity', 'export_product.total_amount',
+                                                 'products.name as product_name', 'products.price',
+                                                 'product_details.details')
+                                        ->get();
+
 
         $data    = [
             'title'    => $export->export_name,
             'date'     => date('m/d/Y'),
             'export'   => $export,
-            'product'  => $product
+            'export_product'  => $export_product
 
                            ];
 
@@ -102,7 +106,7 @@ class PDFController extends Controller
 
         PDFFile::create ([
 
-            'name'          => $export->name ,
+            'name'          => $export->export_name ,
             'content'       => $content ,
             'pdfable_id'    => $export->id,
             'pdfable_type'  => Export::class,
@@ -114,27 +118,27 @@ class PDFController extends Controller
 
     public function storeImport( $id){
 
-            $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
+        $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
                                        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
                                        ->select('employees.firstName  as employee_name'
                                                 ,'suppliers.name as supplier_name'
                                                 ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount','imports.id' )
                                        ->get()->first();
 
-            $product = Import::find($id)->join('import_product', 'imports.id', '=', 'import_product.import_id')
-                                        ->join('products'  , 'import_product.product_id', '=', 'products.id')
-                                        ->join('categories', 'products.category_id', '=', 'categories.id')
-                                        ->select( 'products.name as product_name', 'products.price'
-                                         ,'import_product.quantity', 'import_product.total_amount'
-                                         ,'categories.name as category_name' )
+        $import_product = ImportProductDetail::query();
+        $import_product = $import_product->where('import_id', $id);
+        $import_product = $import_product->join('product_details', 'product_details.id', '=', 'import_product.product_details_id')
+                                         ->join('products', 'products.id', '=', 'product_details.product_id')
+                                         ->select('import_product.quantity', 'import_product.total_amount',
+                                                 'products.name as product_name', 'products.price',
+                                                 'product_details.details as details')
                                          ->get();
-
 
             $data    = [
                 'title'    => $import->import_name,
                 'date'     => date('m/d/Y'),
                 'import'   => $import,
-                'product'  => $product
+                'import_product'  => $import_product,
 
                                ];
 

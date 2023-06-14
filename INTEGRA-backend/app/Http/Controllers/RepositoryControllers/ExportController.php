@@ -26,9 +26,9 @@ class ExportController extends Controller
 
         if($export)
              return new exportResource($export);
-        else 
+        else
              return $this->failure();
-    } 
+    }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -43,7 +43,7 @@ class ExportController extends Controller
         }
 
         $token = JWTAuth::getToken();
-        $user = JWTAuth::toUser($token);
+        $user  = JWTAuth::toUser($token);
 
        if( Export::create([
             'name'          => request('name'),
@@ -54,7 +54,7 @@ class ExportController extends Controller
         ]))
             return $this->success();
         else
-            return $this->failure();    
+            return $this->failure();
     }
 
     public function update(Request $request, $id) {
@@ -81,7 +81,7 @@ class ExportController extends Controller
             return $this->success();
         }
         else {
-            return $this->failure();  
+            return $this->failure();
         }
     }
 
@@ -89,7 +89,7 @@ class ExportController extends Controller
         if( $export = Export::findOrFail($id)){
             $export->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }

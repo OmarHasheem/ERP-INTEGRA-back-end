@@ -23,7 +23,6 @@ class AttributeController extends Controller
         //             'attribute_values.name as attribute_values',
         //         ]);
 
-
         return new AttributeCollection(Attribute::all());
     }
 
@@ -47,11 +46,11 @@ class AttributeController extends Controller
             'type'     => 'required',
             'group_id' => 'required | numeric',
         ]);
-        
+
         if ($validator->fails()) {
             return  $validator->errors();
         }
-        
+
        if(Attribute::create([
             'name'     => request('name'),
             'type'     => request('type'),
@@ -70,7 +69,7 @@ class AttributeController extends Controller
             'values'   => 'required',
             'group_id' => 'required | numeric',
         ]);
-        
+
         if ($validator->fails()) {
             return  $validator->errors();
         }

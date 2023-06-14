@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Http\Controllers\RepositoryControllers\ProductDetailController;
 use Illuminate\Support\Facades\Route;

@@ -34,7 +34,7 @@ class ExportProductDetailController extends Controller
         }
 
         $product_detail->stock = $product_detail->stock - request('quantity');
-        $product_detail->save(); 
+        $product_detail->save();
 
         $product = Product::find($product_detail->product_id);
         $product->quantity_in_stock = $product->quantity_in_stock - request('quantity');
@@ -73,7 +73,7 @@ class ExportProductDetailController extends Controller
         $stock = $export->stock;
 
         $product_detail->stock = $product_detail->stock - request('quantity') + $stock;
-        $product_detail->save(); 
+        $product_detail->save();
 
         $product = Product::find($product_detail->product_id);
         $product->quantity_in_stock = $product->quantity_in_stock - request('quantity') + $stock;
@@ -88,7 +88,7 @@ class ExportProductDetailController extends Controller
             $export->save();
             return $this->success();
         }
-        else 
+        else
             return $this->failure();
 
     }

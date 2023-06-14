@@ -44,14 +44,14 @@ class ProductDetailController extends Controller
             $group_id = $detail["groupId"];
             unset($detail["productId"]);
             unset($detail["groupId"]);
-            unset($detail["stock"]); 
+            unset($detail["stock"]);
             ProductDetail::create([
                 'stock'                => $stock,
                 'product_id'           => $product_id,
                 'attribute_group_id'   => $group_id,
                 'details'              => $detail,
-            ]);  
-        }       
+            ]);
+        }
         return $this->success();
     } catch (Throwable $e) {
         return $this->failure();
@@ -72,7 +72,7 @@ class ProductDetailController extends Controller
         $productDetail = ProductDetail::findOrFail($id);
         $stocks = $newStock - $productDetail->stock;
         $productStock = Product::findOrFail($productDetail->product_id);
-       
+
         $productDetails = $productStock->details;
         foreach($productDetails as $detail) {
             $stocks += $detail->stock;
@@ -81,10 +81,10 @@ class ProductDetailController extends Controller
         if($stocks > $productStock->quantity_in_stock) {
             return response()->json(['message' => 'The process has failed as the stock quantity specified in the details exceeds the available stock of the product.']);
         }
-        
+
         $details = request('details')['group1'];
         $productDetail->stock = $details["stock"];
-        unset($details["stock"]); 
+        unset($details["stock"]);
         $productDetail->details = $details;
 
         if($productDetail->isDirty(['stock', 'details'])){
@@ -100,7 +100,7 @@ class ProductDetailController extends Controller
         if($detail = ProductDetail::findOrFail($id)){
             $detail->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }
