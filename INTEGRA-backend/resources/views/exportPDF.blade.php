@@ -40,7 +40,6 @@
             @foreach($export_product as $products)
             <tr>
                 <td>{{ $products->product_name }}</td>
-                @foreach ($export_product as $products)
                 <?php $detailsObject = json_decode($products->details); ?>
                 <td>
                 @foreach ($detailsObject as $key => $value)
@@ -50,9 +49,7 @@
                 <td>{{ $products->price }}</td>
                 <td>{{ $products->quantity }}</td>
                 <td>{{ $products->total_amount }}</td>
-
-            @endforeach
-        </tr>
+            </tr>
             @endforeach
     </table>
 

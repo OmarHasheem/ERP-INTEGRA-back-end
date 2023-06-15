@@ -4,7 +4,6 @@ use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(PDFController::class)->group(function () {
-    Route::prefix('marketing')->group(function (){
         // Route::get('/pdfs/{id}', 'show')->middleware('permission:show pdf'); ;
         // Route::get('/pdfs', 'index')->middleware('permission:index pdf');
         // Route::post('/pdfs/storeCampaign/{id}', 'storeCampaign');
@@ -19,7 +18,4 @@ Route::controller(PDFController::class)->group(function () {
         Route::post('/pdfs/storeExport/{id}', 'storeExport');
         Route::post('/pdfs/storeEmployeeVecation/{id}', 'storeEmployeeVecation');
         Route::delete('/pdfs/{id}', 'destroy');
-
-
-    });
 });

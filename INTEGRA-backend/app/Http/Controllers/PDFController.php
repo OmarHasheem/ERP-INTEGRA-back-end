@@ -15,6 +15,7 @@ use App\Models\HR\Employee;
 use App\Models\PDFFile;
 use PDF;
 use App\Http\Resources\PDFCollection;
+use Dflydev\DotAccessData\Data;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class PDFController extends Controller
@@ -59,7 +60,6 @@ class PDFController extends Controller
         $content = $pdf->download('MarketingPDF' .'.pdf');
 
         PDFFile::create ([
-
             'name'          => $campaign->name ,
             'content'       => $content ,
             'pdfable_id'    => $campaign->id,
@@ -118,12 +118,18 @@ class PDFController extends Controller
 
     public function storeImport( $id){
 
-        $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
-                                       ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
-                                       ->select('employees.firstName  as employee_name'
-                                                ,'suppliers.name as supplier_name'
-                                                ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount','imports.id' )
-                                       ->get()->first();
+        $import = Import::join('employees', 'imports.employee_id', '=', 'employees.id')
+        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
+        ->select(
+            'employees.firstName as employee_name',
+            'suppliers.name as supplier_name',
+            'imports.name as import_name',
+            'imports.date',
+            'imports.total_amount',
+            'imports.id'
+        )
+        ->where('imports.id', $id)
+        ->first();
 
         $import_product = ImportProductDetail::query();
         $import_product = $import_product->where('import_id', $id);
@@ -134,20 +140,20 @@ class PDFController extends Controller
                                                  'product_details.details as details')
                                          ->get();
 
-            $data    = [
-                'title'    => $import->import_name,
-                'date'     => date('m/d/Y'),
-                'import'   => $import,
-                'import_product'  => $import_product,
 
-                               ];
+        $data = [
+            'title' => $import->name,
+            'date' => $import->date,
+            'import' => $import,
+            'import_product' => $import_product,
+        ];
 
             $pdf = PDF::loadView('ImportPDF', $data);
             $content = $pdf->download('ImportPDF' .'.pdf');
 
             PDFFile::create ([
 
-                'name'          => "Import" ,
+                'name'          => $import->import_name,
                 'content'       => $content ,
                 'pdfable_id'    => $import->id,
                 'pdfable_type'  => Import::class,
@@ -176,7 +182,7 @@ class PDFController extends Controller
 
             PDFFile::create ([
 
-                'name'          => "Employee Vacation" ,
+                'name'          => "Employee Vacation",
                 'content'       => $content ,
                 'pdfable_id'    => $employee->id,
                 'pdfable_type'  => Employee::class,
