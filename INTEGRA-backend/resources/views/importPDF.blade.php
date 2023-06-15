@@ -1,8 +1,26 @@
+<style>
+    table {
+       border-collapse: collapse;
+       width: 100%;
+     }
+
+     th, td {
+       border: 1px solid #ccc;
+       padding: 8px;
+       text-align: left;
+
+     }
+
+     th {
+       background-color: #f2f2f2;
+       font-weight: bold;
+     }
+     </style>
+
 <!DOCTYPE html>
 <html>
 <head>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
     <h1>{{ $title }}</h1>
@@ -25,7 +43,7 @@
             <td>{{ $import->supplier_name }}</td>
         </tr>
     </table>
-
+    <br />
 
     <table class="table table-bordered">
     <tr><th>Products</th></tr>
@@ -40,7 +58,6 @@
         @foreach($import_product as $products)
         <tr>
             <td>{{ $products->product_name }}</td>
-            @foreach ($import_product as $products)
             <?php $detailsObject = json_decode($products->details); ?>
             <td>
             @foreach ($detailsObject as $key => $value)
@@ -50,9 +67,6 @@
             <td>{{ $products->price }}</td>
             <td>{{ $products->quantity }}</td>
             <td>{{ $products->total_amount }}</td>
-
-        @endforeach
-
 
         </tr>
         @endforeach

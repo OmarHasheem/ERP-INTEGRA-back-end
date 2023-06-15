@@ -44,32 +44,29 @@ class PDFController extends Controller
     }
 
     public function storeCampaign($id){
-
         $campaign = Campaign::find($id);
         $data = [
             'title' => $campaign->name,
             'date' => date('m/d/Y'),
             'campaign' => $campaign,
-            'SM'   => $campaign->socialmedia,
-            'TV'   => $campaign->tvs,
-            'EV'   => $campaign->events
+            'SM' => $campaign->socialmedia,
+            'TV' => $campaign->tvs,
+            'EV' => $campaign->events
         ];
 
         $pdf = PDF::loadView('MarketingPDF', $data);
-        $content = $pdf->download('MarketingPDF' .'.pdf');
+        $content = $pdf->download('CampaignPDF' . '.pdf');
 
-        PDFFile::create ([
-
-            'name'          => $campaign->name ,
-            'content'       => $content ,
-            'pdfable_id'    => $campaign->id,
-            'pdfable_type'  => Campaign::class,
-
+        PDFFile::create([
+            'name' => $campaign->name,
+            'content' => $content,
+            'pdfable_id' => $campaign->id,
+            'pdfable_type' => Campaign::class,
         ]);
 
-
-        return $content;
-
+        return response($content)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . 'CampaignPDF' . '.pdf"');
     }
 
     public function storeExport($id){
@@ -79,7 +76,7 @@ class PDFController extends Controller
                                    ->select( 'employees.firstName  as employee_name'
                                             ,'customers.name as customer_name'
                                             ,'exports.name as export_name' ,'exports.date' ,'exports.total_amount' ,'exports.id')
-                                   ->get()->first();
+                                   ->where('exports.id', $id)->first();
 
        $export_product = ExportProductDetail::query();
        $export_product = $export_product->where('export_id', $id);
@@ -113,17 +110,19 @@ class PDFController extends Controller
 
         ]);
 
-            return $content;
+        return response($content)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="' . 'ExportPDF' . '.pdf"');
     }
 
-    public function storeImport( $id){
+    public function storeImport($id){
 
         $import = Import::find($id)->join('employees'  , 'imports.employee_id', '=', 'employees.id')
-                                       ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
-                                       ->select('employees.firstName  as employee_name'
+                                        ->join('suppliers', 'imports.supplier_id', '=', 'suppliers.id')
+                                        ->select('employees.firstName  as employee_name'
                                                 ,'suppliers.name as supplier_name'
                                                 ,'imports.name as import_name' ,'imports.date' ,'imports.total_amount','imports.id' )
-                                       ->get()->first();
+                                        ->where('imports.id', $id)->first();
 
         $import_product = ImportProductDetail::query();
         $import_product = $import_product->where('import_id', $id);
@@ -154,10 +153,12 @@ class PDFController extends Controller
 
             ]);
 
-                return $content;
+            return response($content)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . 'ImportPDF' . '.pdf"');
     }
 
-    public function storeEmployeeVecation( $id){
+    public function storeEmployeeVacation($id){
 
             $employee = Employee::find($id);
             $name = $employee-> firstName;
@@ -171,7 +172,7 @@ class PDFController extends Controller
             ];
 
             $pdf = PDF::loadView('employeeVacationPDF', $data);
-            $content = $pdf->download('employeeVacationPDF'.'.pdf');
+            $content = $pdf->download('EmployeeVacationPDF'.'.pdf');
 
 
             PDFFile::create ([
@@ -183,9 +184,11 @@ class PDFController extends Controller
 
             ]);
 
-            return $content;
+            return response($content)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . 'EmployeeVacationPDF' . '.pdf"');
 
-    }//error
+    }
 
     public function show($id){
         $pdf_file = PDFFile::find($id);

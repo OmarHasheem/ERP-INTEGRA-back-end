@@ -17,7 +17,7 @@ Route::controller(PDFController::class)->group(function () {
         Route::post('/pdfs/storeImport/{id}', 'storeImport');
         Route::post('/pdfs/storeCampaign/{id}', 'storeCampaign');
         Route::post('/pdfs/storeExport/{id}', 'storeExport');
-        Route::post('/pdfs/storeEmployeeVecation/{id}', 'storeEmployeeVecation');
+        Route::post('/pdfs/storeEmployeeVecation/{id}', 'storeEmployeeVacation');
         Route::delete('/pdfs/{id}', 'destroy');
 
 
