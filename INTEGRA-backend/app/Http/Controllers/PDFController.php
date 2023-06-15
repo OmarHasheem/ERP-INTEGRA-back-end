@@ -52,7 +52,8 @@ class PDFController extends Controller
             'campaign' => $campaign,
             'SM' => $campaign->socialmedia,
             'TV' => $campaign->tvs,
-            'EV' => $campaign->events
+            'EV' => $campaign->events,
+            'LE' => $campaign->leads,
         ];
 
         $pdf = PDF::loadView('MarketingPDF', $data);

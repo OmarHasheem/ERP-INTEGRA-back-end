@@ -47,9 +47,9 @@
             <td>{{ $campaign->expected_revenue }}</td>
             <td>{{ $campaign->actual_revenue }}</td>
         </tr>
-        <br />
 
     </table>
+    <br />
     @if(isset($SM))
 
     <table class="table table-bordered">
@@ -59,6 +59,8 @@
             <th>Type</th>
             <th>Way</th>
             <th>Cost</th>
+            <th>Expected Revenue</th>
+            <th>Actual Revenue</th>
         </tr>
         @foreach($SM as $socialmedia)
         <tr>
@@ -66,6 +68,8 @@
             <td>{{ $socialmedia->type }}</td>
             <td>{{ $socialmedia->way }}</td>
             <td>{{ $socialmedia->cost }}</td>
+            <td>{{ $socialmedia->expected_revenue }}</td>
+            <td>{{ $socialmedia->actual_revenue }}</td>
         </tr>
         @endforeach
     </table>
@@ -82,6 +86,8 @@
             <th>Time</th>
             <th>Cost</th>
             <th>Advertising Period</th>
+            <th>Expected Revenue</th>
+            <th>Actual Revenue</th>
         </tr>
         @foreach($TV as $tvs)
         <tr>
@@ -89,6 +95,8 @@
             <td>{{ $tvs->time }}</td>
             <td>{{ $tvs->cost }}</td>
             <td>{{ $tvs->advertising_period }}</td>
+            <td>{{ $tvs->expected_revenue }}</td>
+            <td>{{ $tvs->actual_revenue }}</td>
         </tr>
         @endforeach
     </table>
@@ -101,24 +109,45 @@
     <table class="table table-bordered">
     <tr><th>Event</th></tr>
         <tr>
+            <th>Name</th>
             <th>Place</th>
             <th>Description</th>
             <th>Type</th>
-            <th>Event</th>
             <th>Cost</th>
+            <th>Expected Revenue</th>
+            <th>Actual Revenue</th>
         </tr>
         @foreach($EV as $event)
         <tr>
+            <td>{{ $event->name }}</td>
             <td>{{ $event->place }}</td>
             <td>{{ $event->description }}</td>
             <td>{{ $event->type }}</td>
-            <td>{{ $event->event }}</td>
             <td>{{ $event->cost }}</td>
+            <td>{{ $event->expected_revenue }}</td>
+            <td>{{ $event->actual_revenue }}</td>
         </tr>
         @endforeach
     </table>
-
     @endif
+    <br />
+
+    @if(isset($EV))
+
+    <table class="table table-bordered">
+        <tr><th style="text-align:center;">lead</th></tr>
+            <tr>
+                <th style="text-align:center;">Type</th>
+            </tr>
+            @foreach($LE as $lead)
+            <tr>
+                <td style="text-align:center;">{{ $lead->type }}</td>
+            </tr>
+            @endforeach
+        </table>
+        @endif
+
+
 
 </body>
 </html>
