@@ -1,13 +1,28 @@
+<style>
+    table {
+       border-collapse: collapse;
+       width: 100%;
+     }
+
+     th, td {
+       border: 1px solid #ccc;
+       padding: 8px;
+       text-align: left;
+
+     }
+
+     th {
+       background-color: #f2f2f2;
+       font-weight: bold;
+     }
+     </style>
+
 <!DOCTYPE html>
 <html>
-<head>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
 <body>
     <h1>{{ $title }}</h1>
     <p>{{ $date }}</p>
-  
+
     <table class="table table-bordered">
         <tr><th>Campaign</th></tr>
         <tr>
@@ -19,9 +34,9 @@
             <th>Status</th>
             <th>Expected Revenue</th>
             <th>Actual Revenue</th>
-            
+
         </tr>
-        
+
         <tr>
             <td>{{ $campaign->name }}</td>
             <td>{{ $campaign->description }}</td>
@@ -32,11 +47,11 @@
             <td>{{ $campaign->expected_revenue }}</td>
             <td>{{ $campaign->actual_revenue }}</td>
         </tr>
-        
-        
+        <br />
+
     </table>
     @if(isset($SM))
-    
+
     <table class="table table-bordered">
     <tr><th>Social Media</th></tr>
         <tr>
@@ -54,11 +69,12 @@
         </tr>
         @endforeach
     </table>
-    
+
     @endif
+    <br />
 
     @if(isset($TV))
-    
+
     <table class="table table-bordered">
     <tr><th>TV</th></tr>
         <tr>
@@ -76,11 +92,12 @@
         </tr>
         @endforeach
     </table>
-    
+
     @endif
+    <br />
 
     @if(isset($EV))
-    
+
     <table class="table table-bordered">
     <tr><th>Event</th></tr>
         <tr>
@@ -100,7 +117,7 @@
         </tr>
         @endforeach
     </table>
-    
+
     @endif
 
 </body>

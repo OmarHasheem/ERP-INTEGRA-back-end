@@ -1,15 +1,32 @@
+<style>
+ table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  </style>
+
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
     <h1>{{ $title }}</h1>
     <p>{{ $date }}</p>
-  
 
-    <table class="table table-bordered">
+
+    <table >
     <tr><th>Employee Vacation</th></tr>
         <tr>
             <th>Start Date</th>
@@ -28,11 +45,11 @@
             <td>{{ $employeeVacation->typeOfVacation }}</td>
             <td>{{ $employeeVacation->reasonOfVacation }}</td>
             <td>{{ $employee->firstName }}</td>
-           
+
         </tr>
         @endforeach
-    </table> 
-    
+    </table>
+
 
 </body>
 </html>
