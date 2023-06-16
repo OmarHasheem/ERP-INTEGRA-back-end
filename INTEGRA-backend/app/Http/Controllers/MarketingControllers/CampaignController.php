@@ -138,4 +138,68 @@ class CampaignController extends Controller
         $campaign = Campaign::findOrFail($id);
         return new LeadCollection($campaign->leads);
     }
+
+    public function showCampaignsRevenues() {
+
+        $campaigns = Campaign::all();
+        foreach ($campaigns as $campaign) {
+            $revenues[] = [
+                'campaign_id' => $campaign->id,
+                'campaign_name' => $campaign->name,
+                'expected_revenue' => $campaign->expected_revenue,
+                'actual_revenue' => $campaign->actual_revenue,
+            ];
+        }
+        return $revenues;
+    }
+
+    public function showCampaignsDetailsRevenue() {
+
+        $campaigns = Campaign::all();
+        $revenues = [];
+
+        foreach ($campaigns as $campaign) {
+            $events      = $campaign->events;
+            $tvs         = $campaign->tvs;
+            $socialmedia = $campaign->socialmedia;
+
+            $events_Revenue = [];
+            $TV_Revenue = [];
+            $socialmedia_Revenue = [];
+
+            foreach ($events as $event) {
+                $events_Revenue[] = [
+                    'event_id' => $event->id,
+                    'event_expected_revenue' => $event->expected_revenue,
+                    'event_actual_revenue' => $event->actual_revenue,
+                ];
+            }
+
+            foreach ($tvs as $tv) {
+                $TV_Revenue[] = [
+                    'tv_id' => $tv->id,
+                    'tv_expected_revenue' => $tv->expected_revenue,
+                    'tv_actual_revenue' => $tv->actual_revenue,
+                ];
+            }
+
+            foreach ($socialmedia as $socialmediaa) {
+                $socialmedia_Revenue[] = [
+                    'socialmedia_id' => $socialmediaa->id,
+                    'socialmedia_expected_revenue' => $socialmediaa->expected_revenue,
+                    'socialmedia_actual_revenue' => $socialmediaa->actual_revenue,
+                ];
+            }
+
+            $revenues[] = [
+                'campaign_id' => $campaign->id,
+                'campaign_name' => $campaign->name,
+                'events_Revenue' => $events_Revenue,
+                'TV_Revenue' => $TV_Revenue,
+                'socialmedia_Revenue' => $socialmedia_Revenue,
+            ];
+        }
+
+        return $revenues;
+    }
 }
