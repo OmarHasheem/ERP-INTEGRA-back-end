@@ -17,6 +17,7 @@ use PDF;
 use App\Http\Resources\PDFCollection;
 use Dflydev\DotAccessData\Data;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Spatie\Permission\Models\Role;
 
 class PDFController extends Controller
 {
@@ -26,7 +27,7 @@ class PDFController extends Controller
         $allowedTypes = [];
 
         $user = JWTAuth::toUser(JWTAuth::getToken());
-
+        
         if ($user->hasPermissionTo("Marketing")) {
             $allowedTypes[] = Campaign::class;
         }
