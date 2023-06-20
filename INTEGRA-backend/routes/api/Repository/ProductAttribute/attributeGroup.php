@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AttributeGroupController::class)->group(function () {
     Route::prefix('repository/products')->group(function (){
+
+        // Route::get('/attributeGroups/{id}', 'show')->middleware('permission:show attributeGroup');
+        // Route::get('/attributeGroups', 'index')->middleware('permission:index attributeGroup');
+        // Route::post('/attributeGroups', 'store')->middleware('permission:store attributeGroup');
+        // Route::put('/attributeGroups/{id}', 'update')->middleware('permission:update attributeGroup');
+        // Route::delete('/attributeGroups/{id}', 'destroy')->middleware('permission:destroy attributeGroup');
+
         Route::get('attributeGroups/{id}', 'show');
         Route::get('attributeGroups', 'index');
         Route::post('attributeGroups', 'store');

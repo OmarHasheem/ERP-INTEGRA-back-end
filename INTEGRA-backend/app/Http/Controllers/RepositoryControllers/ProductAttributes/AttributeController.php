@@ -12,31 +12,12 @@ use Illuminate\Support\Facades\Validator;
 class AttributeController extends Controller
 {
     public function index() : AttributeCollection {
-        // $attributes = Attribute
-        //     ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
-        //     ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
-        //     ->get([
-        //             'attributes.id as id',
-        //             'attributes.name as name',
-        //             'attributes.type as type',
-        //             'attribute_groups.name as group_name',
-        //             'attribute_values.name as attribute_values',
-        //         ]);
 
         return new AttributeCollection(Attribute::all());
     }
 
     public function show($id) : AttributeResource {
-        // $attributes = Attribute
-        // ::join('attribute_values', 'attributes.id', '=', 'attribute_values.attribute_id')
-        // ->join('attribute_groups', 'attributes.id', '=', 'attribute_groups.id')
-        // ->get([
-        //         'attributes.id as id',
-        //         'attributes.name as name',
-        //         'attributes.type as type',
-        //         'attribute_groups.name as group_name',
-        //         'attribute_values.name as attribute_values',
-        //     ]);
+
         return new AttributeResource(Attribute::findOrFail($id));
     }
 

@@ -163,7 +163,8 @@ class UserController extends Controller
         return $employeeDetails;
     }
 
-    public function showUserRoles($id){
+    public function showUserRoles($id)
+    {
         $user = User::findOrFail($id);
         $roles = $user->roles;
         return new RoleCollection($roles);

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -57,7 +56,7 @@ class RolePermissionsSeeder extends Seeder
         }
 
 
-        $marketingMangerRole = Role::where('name', 'Marketing Manger')->first();
+        $marketingMangerRole = Role::where('name', 'Marketing Manager')->first();
         $MMpermissionNames = ['Marketing',
                             'index campaign', 'show campaign', 'showCampaignEvents campaign' ,'showCampaignTvs campaign' ,'showCampaignSocialMedia campaign' ,'showCampaignLeads campaign' ,
                             'index socialMedia' ,'show socialMedia' ,
@@ -66,7 +65,7 @@ class RolePermissionsSeeder extends Seeder
                             'index lead','show lead' ,'showLeadCustomers lead' ,'showLeadCampaigns lead',
                             'index customer' ,'show customer' ,'showCustomerLeads customer',
 
-                            'index pdf' ,'store storeImport' , 'store storeCampaign' ,'store storeExport' ,'store storeEmployeeVacation' ,'show pdf' ,'destroy pdf',
+                            'index pdf' , 'store storeCampaign' ,'show pdf' ,'destroy pdf',
                             ];
         foreach ($MMpermissionNames as $permissionName) {
             $Mpermission = Permission::where('name', $permissionName)->first();
@@ -74,7 +73,7 @@ class RolePermissionsSeeder extends Seeder
         }
 
 
-        $HRMangerRole = Role::where('name', 'HR Manger')->first();
+        $HRMangerRole = Role::where('name', 'HR Manager')->first();
         $HRMpermissionNames = ['HR',
                             'index benefit' ,'show benefit' ,'showbenefitEmployees benefit' ,
                             'index department' ,'show department' ,'showdepartmentEmployees department',
@@ -84,7 +83,7 @@ class RolePermissionsSeeder extends Seeder
                             'index employeeVacation' ,'show employeeVacation' ,
                             'index employeeEducation' ,'show employeeEducation' ,
 
-                            'index pdf' ,'store storeImport' , 'store storeCampaign' ,'store storeExport' ,'store storeEmployeeVacation' ,'show pdf' ,'destroy pdf',
+                            'index pdf' ,'store storeEmployeeVacation' ,'show pdf' ,'destroy pdf',
                             ];
         foreach ($HRMpermissionNames as $permissionName) {
             $HRpermission = Permission::where('name', $permissionName)->first();
@@ -92,7 +91,7 @@ class RolePermissionsSeeder extends Seeder
         }
 
 
-        $repositoryAdminRole = Role::where('name', 'Repository Manger')->first();
+        $repositoryAdminRole = Role::where('name', 'Repository Manager')->first();
         $RMpermissionNames = ['Repository' ,
                             'index catagory' ,'show catagory' ,'getProductsByCategory catagory',
                             'index export' ,'show export' ,
@@ -105,7 +104,7 @@ class RolePermissionsSeeder extends Seeder
                             'index attributeGroup' ,'show attributeGroup' ,'getProductsBySupplier supplier',
                             'index supplier' ,'show supplier' ,
 
-                            'index pdf' ,'store storeImport' , 'store storeCampaign' ,'store storeExport' ,'store storeEmployeeVacation' ,'show pdf' ,'destroy pdf',
+                            'index pdf' ,'store storeImport' ,'store storeExport' ,'show pdf' ,'destroy pdf',
                             ];
         foreach ($RMpermissionNames as $permissionName) {
             $Rpermission = Permission::where('name', $permissionName)->first();
