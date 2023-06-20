@@ -31,9 +31,24 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $marketing = $user->hasPermissionTo("Marketing");
+        $hr = $user->hasPermissionTo("HR");
+        $repository = $user->hasPermissionTo("Repository");
+        $permission = '';
+
+        if($marketing && $hr && $repository) {
+            $permission = 'userManagement';
+        } else if($marketing) {
+            $permission = 'marketing';
+        } else if($hr) {
+            $permission = 'hr';
+        } else if($repository) {
+            $permission = 'repository';
+        }
         return response()->json([
             'status' => 'success',
             'user' => $user,
+            'permission' => 'hr',
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',

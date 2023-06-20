@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\UploadedFile;
 use App\Models\marketing\Campaign;
 use App\Models\Repository\Export;
 use App\Models\Repository\ExportProductDetail;
@@ -15,9 +13,7 @@ use App\Models\HR\Employee;
 use App\Models\PDFFile;
 use PDF;
 use App\Http\Resources\PDFCollection;
-use Dflydev\DotAccessData\Data;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use Spatie\Permission\Models\Role;
 
 class PDFController extends Controller
 {
