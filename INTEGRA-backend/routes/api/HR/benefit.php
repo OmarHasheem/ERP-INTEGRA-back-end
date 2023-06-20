@@ -14,7 +14,7 @@ Route::controller(BenefitController::class)->group(function () {
 
         Route::get('/benefits/{id}', 'show');        
         Route::get('/benefits', 'index');
-        Route::get('/benefitEmployees/{id}', 'showbenefitEmployees');
+        Route::get('/benefits/employeesBenefit/{id}', 'showbenefitEmployees');
         Route::post('/benefits', 'store');
         Route::put('/benefits/{id}', 'update');
         Route::delete('/benefits/{id}', 'destroy');
