@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(CampaignController::class)->group(function () {
     Route::prefix('marketing')->group(function (){
-        // Route::get('/campaigns/{id}', 'show')->middleware('permission:show campaign');        
+        // Route::get('/campaigns/{id}', 'show')->middleware('permission:show campaign');
         // Route::get('/campaigns', 'index')->middleware('permission:index campaign');
         // Route::post('/campaigns', 'store')->middleware('permission:store campaign');
         // Route::put('/campaigns/{id}', 'update')->middleware('permission:update campaign');
@@ -13,7 +13,9 @@ Route::controller(CampaignController::class)->group(function () {
         // Route::post('/campaigns/attachCampaignToLead/{id}', 'attachCampaignToLead')->middleware('campaign:attach attachCampaignToLead');
         // Route::post('/campaigns/detachCampaignToLead/{id}', 'detachCampaignToLead')->middleware('campaign:detach detachCampaignToLead   ');
 
-        Route::get('/campaigns/{id}', 'show');        
+        Route::get('/campaigns/showCampaignsRevenues', 'showCampaignsRevenues');
+        Route::get('/campaigns/showCampaignsDetailsRevenue', 'showCampaignsDetailsRevenue');
+        Route::get('/campaigns/{id}', 'show');
         Route::get('/campaigns', 'index');
         Route::post('/campaigns', 'store');
         Route::put('/campaigns/{id}', 'update');
@@ -26,7 +28,8 @@ Route::controller(CampaignController::class)->group(function () {
         Route::get('/campaigns/showCampaignSocialMedia/{id}', 'showCampaignSocialMedia');
         Route::get('/campaigns/showCampaignLeads/{id}', 'showCampaignLeads');
 
-    
+
+
     });
 });
 

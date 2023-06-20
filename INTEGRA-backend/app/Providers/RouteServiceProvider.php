@@ -97,15 +97,20 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('api')
                 ->group(base_path('routes/api/UserManagement/user.php'));
 
+                // Route::middleware('api')
+                // ->group(base_path('routes/api/UserManagement/permission.php'));
+
+                // Route::middleware('api')
+                // ->group(base_path('routes/api/UserManagement/role.php'));
+            });
+
+            Route::middleware('api')
+                ->group(base_path('routes/api/api.php'));
                 Route::middleware('api')
                 ->group(base_path('routes/api/UserManagement/permission.php'));
 
                 Route::middleware('api')
                 ->group(base_path('routes/api/UserManagement/role.php'));
-            });
-
-            Route::middleware('api')
-                ->group(base_path('routes/api/api.php'));
 
 
             // Route::middleware('api')
