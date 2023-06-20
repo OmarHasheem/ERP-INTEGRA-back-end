@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserManagement\RoleCollection;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserManagement\UserResource;
@@ -11,6 +12,7 @@ use App\Models\HR\Employee;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -104,20 +106,19 @@ class UserController extends Controller
             return $this->failure();
     }
 
-
     public function getMe()
     {
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
-       
+
         $employee = Employee::findOrFail($user->employee_id);
-        
+
         $department = Department::findOrFail($employee->department_id)->name;
-        
+
         $superVisor = $employee->employee->firstName . " " . $employee->employee->lastName;
         $employeeDetails = [];
         $employeeBenefits = [];
-       
+
         foreach($employee->benefits as $benefit){
 
             $benefitName       = $benefit->name;
@@ -127,7 +128,7 @@ class UserController extends Controller
             $coverageEndDate   = $benefit->pivot->coverageEndDate;
 
             $employeeBenefit[] = compact( 'benefitName' , 'benefitCost' ,'enrollmentDate','coverageStartDate' , 'coverageEndDate');
-    
+
         }
         $firstName    = $employee->firstName;
         $lastName     = $employee->lastName;
@@ -148,7 +149,7 @@ class UserController extends Controller
         'gender', 'address', 'email', 'phone', 'dateOfHire', 'salary',
         'status', 'department', 'superVisor', 'certificates', 'educations',
         'performances', 'vacations');
-        
+
         foreach($employeeBenefits as $employeeBenefit)
         {
             $enrollmentDate    = $employeeBenefit['enrollmentDate'];
@@ -158,7 +159,14 @@ class UserController extends Controller
             $benefitCost       = $employeeBenefit['benefitCost'];
             $employeeDetails[] = compact('benefitName' , 'benefitCost', 'enrollmentDate' ,'coverageStartDate' ,'coverageEndDate' );
         }
-         
+
         return $employeeDetails;
     }
+
+    public function showUserRoles($id){
+        $user = User::findOrFail($id);
+        $roles = $user->roles;
+        return new RoleCollection($roles);
+    }
+
 }
