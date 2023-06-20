@@ -14,9 +14,6 @@ class RoleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'name'         => $this->name ,
-            'permissions'  => $this->permissions,
-        ];
+        return parent::toArray($request);
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UserController::class)->group(function () {
 Route::prefix('userMangement')->group(function(){
+    Route::get('/users/userRoles/{id}', 'showUserRoles');
     Route::get('/users/{id}','show');
     Route::get('/users', 'index');
     Route::post('/users', 'store');
