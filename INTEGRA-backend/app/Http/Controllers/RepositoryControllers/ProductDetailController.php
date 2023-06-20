@@ -53,9 +53,9 @@ class ProductDetailController extends Controller
             ]);
         }
         return $this->success();
-    } catch (Throwable $e) {
-        return $this->failure();
-    }
+        } catch (Throwable $e) {
+            return $this->failure();
+        }
     }
 
     public function update(Request $request, $id) {
