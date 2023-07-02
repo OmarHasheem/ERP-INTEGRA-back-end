@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AttributeGroupController::class)->group(function () {
     Route::prefix('repository/products')->group(function (){
+        // Route::get('attributeGroups/attributesOfGroup/{id}', 'getAttributesByGroup')->middleware('permission:get AttributesByGroup');
 
         // Route::get('/attributeGroups/{id}', 'show')->middleware('permission:show attributeGroup');
         // Route::get('/attributeGroups', 'index')->middleware('permission:index attributeGroup');

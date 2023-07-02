@@ -58,7 +58,7 @@ class EventController extends Controller
         if($event)
             return new EventResource($event);
         else
-            return $this->failure(); 
+            return $this->failure();
     }
 
     public function update(Request $request,  $id)
@@ -70,6 +70,7 @@ class EventController extends Controller
             'description'      => 'required | regex:/^[A-Za-z\s]+$/',
             'type'             => 'required | regex:/^[A-Za-z\s]+$/',
             'cost'             => 'required | numeric',
+            'actual_revenue'   => 'numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);
@@ -85,16 +86,17 @@ class EventController extends Controller
         $event->description           = request('description');
         $event->type                  = request('type');
         $event->cost                  = request('cost');
+        $event->actual_revenue        = request('actual_revenue');
         $event->expected_revenue      = request('expected_revenue');
         $event->campaign_id           = request('campaign_id');
 
-        if($event->isDirty(['name' , 'place' , 'description' , 'type' , 'cost' , 'expected_revenue' , 'campaign_id' ])){
+        if($event->isDirty(['name' , 'place' , 'description' , 'type' , 'cost' , 'actual_revenue','expected_revenue' , 'campaign_id' ])){
             $event->save();
             return $this->success();
         }
-        else 
+        else
             return $this->failure();
-        
+
     }
 
     public function destroy($id)
@@ -102,7 +104,7 @@ class EventController extends Controller
         if( $event = Event::findOrFail($id)) {
             $event->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }

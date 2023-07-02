@@ -47,17 +47,17 @@ class TvController extends Controller
 
             return $this->success();
         else
-            return $this->failure();    
-    
+            return $this->failure();
+
     }
 
-    public function show($id) 
+    public function show($id)
     {
         $tv = Tv::find($id);
         if($tv)
             return new TvResource($tv);
         else
-            return $this->failure(); 
+            return $this->failure();
     }
 
     public function update(Request $request,  $id)
@@ -68,6 +68,7 @@ class TvController extends Controller
             'time'               => 'required',
             'cost'               => 'required | numeric',
             'advertising_period' => 'required | numeric',
+            'actual_revenue'     => 'numeric',
             'expected_revenue'   => 'required | numeric',
             'campaign_id'        => 'required | numeric',
 
@@ -83,16 +84,17 @@ class TvController extends Controller
         $tv->time               = request('time');
         $tv->cost               = request('cost');
         $tv->advertising_period = request('advertising_period');
+        $tv->actual_revenue     = request('actual_revenue');
         $tv->expected_revenue   = request('expected_revenue');
         $tv->campaign_id        = request('campaign_id');
 
-        if($tv->isDirty(['channel' , 'time' , 'cost', 'advertising_period' , 'expected_revenue' , 'campaign_id' ])){
+        if($tv->isDirty(['channel' , 'time' , 'cost', 'advertising_period' , 'expected_revenue' ,  'actual_revenue', 'campaign_id' ])){
             $tv->save();
             return $this->success();
         }
-        else 
-            return $this->failure(); 
-        
+        else
+            return $this->failure();
+
     }
 
     public function destroy($id)
@@ -100,7 +102,7 @@ class TvController extends Controller
         if( $tv = Tv::findOrFail($id)) {
             $tv->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }
