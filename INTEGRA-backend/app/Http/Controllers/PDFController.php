@@ -23,7 +23,7 @@ class PDFController extends Controller
         $allowedTypes = [];
 
         $user = JWTAuth::toUser(JWTAuth::getToken());
-
+        
         if ($user->hasPermissionTo("Marketing")) {
             $allowedTypes[] = Campaign::class;
         }

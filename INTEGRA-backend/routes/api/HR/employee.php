@@ -9,9 +9,14 @@ Route::controller(EmployeeController::class)->group(function () {
 
         // Route::get('/employees/{id}', 'show')->middleware('permission:show employee');
         // Route::get('/employees', 'index')->middleware('permission:index employee');
+<<<<<<< HEAD
 
         // Route::post('/employees/{id}', 'attachBenefitToEmployee')->middleware('permssion:attach employee');
 
+=======
+        // Route::post('/employees/attachBenefitToEmployee/{id}', 'attachBenefitToEmployee')->middleware('permssion:attach employee');
+        //Route::post('/employees/detachBenefitToEmployee/{id}', 'detachBenefitOfEmployee');
+>>>>>>> 88f9ccd9c23e1c185b2b207544562efd52868495
         // Route::post('/employees', 'store')->middleware('permission:store employee');
         // Route::put('/employees/{id}', 'update')->middleware('permission:update employee');
         // Route::delete('/employees/{id}', 'destroy')->middleware('permission:destroy employee');
@@ -19,7 +24,8 @@ Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employees/{id}', 'show');
         Route::get('/employees', 'index');
         Route::get('/employees/employeeDetails/{id}', 'showEmployeeDetails');
-        Route::post('/employees/{id}', 'attachBenefitToEmployee');
+        Route::post('/employees/attachBenefitToEmployee/{id}', 'attachBenefitToEmployee');
+        Route::post('/employees/detachBenefitToEmployee/{id}', 'detachBenefitOfEmployee');
         Route::post('/employees', 'store');
         Route::put('/employees/{id}', 'update');
         Route::delete('/employees/{id}', 'destroy');

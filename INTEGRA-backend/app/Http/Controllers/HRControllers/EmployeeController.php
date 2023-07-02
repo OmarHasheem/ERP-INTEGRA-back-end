@@ -10,7 +10,9 @@ use App\Http\Resources\HR\EmployeePerformanceCollection;
 use App\Http\Resources\HR\EmployeeVacationCollection;
 use App\Http\Resources\HR\EmployeeCollection;
 use App\Http\Resources\HR\EmployeeResource;
+use App\Models\HR\Benefit;
 use App\Models\HR\Employee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -127,22 +129,26 @@ class EmployeeController extends Controller
 
     public function attachBenefitToEmployee($id)
     {
-        $benefitId         = request('benefitId');
-        $enrollmentDate    = request('enrollmentDate');
-        $coverageStartDate = request('coverageStartDate');
-        $coverageEndDate   = request('coverageEndDate');
+        $benefitId = request('benefitId');
+
+
+        $currentDate = Carbon::now();
+        $startOfIncomingMonth = $currentDate->copy()->startOfMonth()->addMonth();
+        $dateAfterYear = $startOfIncomingMonth->copy()->addYear();
 
         $employee = Employee::findOrFail($id);
-        if($employee->benefits()->attach($benefitId,
-         [
-            'enrollmentDate'    => $enrollmentDate,
-            'coverageStartDate' => $coverageStartDate,
-            'coverageEndDate'   => $coverageEndDate,
-        ]))
-            return $this->success();
-        else
-            return $this->failure();    
+        $employee->benefits()->attach($benefitId, [
+            'enrollmentDate'    => $currentDate->toDateString(),
+            'coverageStartDate' =>  $startOfIncomingMonth->toDateString(),
+            'coverageEndDate'   => $dateAfterYear->toDateString(),
+         ]);
 
+        return $this->success();
+    }
+
+    public function detachBenefitOfEmployee($id) {
+        Employee::find($id)->benefits()->detach(request('benefitId'));
+        return $this->success();
     }
 
     public function showEmployeeDetails($id)
@@ -162,6 +168,7 @@ class EmployeeController extends Controller
             $employeeBenefit[] = compact( 'benefitName' , 'benefitCost' ,'enrollmentDate','coverageStartDate' , 'coverageEndDate');
     
         }
+        $id           = $employee->id;
         $firstName    = $employee->firstName;
         $lastName     = $employee->lastName;
         $certificates = $employee->employeeCertificates;
@@ -169,7 +176,7 @@ class EmployeeController extends Controller
         $performances = $employee->employeePerformances;
         $vacations    = $employee->employeeVacations;
 
-        $employeeDetails[] = compact('firstName' , 'lastName' , 'certificates' , 'educations' , 'performances' ,'vacations' );
+        $employeeDetails[] = compact('id', 'firstName' , 'lastName' , 'certificates' , 'educations' , 'performances' ,'vacations' );
         
         foreach($employeeBenefits as $employeeBenefit)
         {

@@ -88,18 +88,16 @@ class BenefitController extends Controller
         $benefit = Benefit::findOrFail($id);
         $data = [];
         foreach($benefit->employees as $employee){
+        $id = $employee->id;
         $firstName = $employee->firstName;
         $lastName = $employee->lastName;
         $enrollmentDate = $employee->pivot->enrollmentDate;
         $coverageStartDate = $employee->pivot->coverageStartDate;
         $coverageEndDate = $employee->pivot->coverageEndDate;
-
-        $data [] = compact('firstName' , 'lastName' , 'enrollmentDate' , 'coverageStartDate' , 'coverageEndDate');
-
+            
+        $data [] = compact('id', 'firstName' , 'lastName' , 'enrollmentDate' , 'coverageStartDate' , 'coverageEndDate');
+        
         }
         return $data;
-
-
-
     }
 }
