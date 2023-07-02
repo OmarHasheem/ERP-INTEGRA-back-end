@@ -45,7 +45,7 @@ class SocialMediaController extends Controller
             'campaign_id'      => request('campaign_id')
         ]))
             return $this->success();
-        else    
+        else
             return $this->failure();
     }
 
@@ -56,7 +56,7 @@ class SocialMediaController extends Controller
         if($socialmedia)
             return new SocialMediaResource($socialmedia);
         else
-            return $this->failure(); 
+            return $this->failure();
     }
 
     public function update(Request $request, $id)
@@ -67,6 +67,7 @@ class SocialMediaController extends Controller
             'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'way'              => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
+            'actual_revenue'   => 'numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);
@@ -81,17 +82,18 @@ class SocialMediaController extends Controller
         $socialmedia->type              = request('type');
         $socialmedia->way               = request('way');
         $socialmedia->cost              = request('cost');
+        $socialmedia->actual_revenue    = request('actual_revenue');
         $socialmedia->expected_revenue  = request('expected_revenue');
         $socialmedia->campaign_id       = request('campaign_id');
 
 
-        if($socialmedia->isDirty(['blogger' , 'type' , 'way', 'cost' , 'expected_revenue' , 'campaign_id' ])){
+        if($socialmedia->isDirty(['blogger' , 'type' , 'way', 'cost' , 'expected_revenue' , 'actual_revenue', 'campaign_id' ])){
             $socialmedia->save();
             return $this->success();
         }
-        else 
+        else
             return $this->failure();
-        
+
     }
 
 
@@ -100,7 +102,7 @@ class SocialMediaController extends Controller
         if( $socialmedia = SocialMedia::findOrFail($id)) {
             $socialmedia->delete();
             return $this->success();
-        } 
+        }
         else
             return $this->failure();
     }

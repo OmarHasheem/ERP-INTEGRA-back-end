@@ -27,12 +27,12 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update campaign' , 'guard_name' => 'api'],
             ['name' => 'show campaign' , 'guard_name' => 'api'],
             ['name' => 'destroy campaign' , 'guard_name' => 'api'],
-            ['name' => 'attachCampaignToLead campaign' , 'guard_name' => 'api'],
-            ['name' => 'detachCampaignToLead campaign' , 'guard_name' => 'api'],
-            ['name' => 'showCampaignEvents campaign' , 'guard_name' => 'api'],
-            ['name' => 'showCampaignTvs campaign' , 'guard_name' => 'api'],
-            ['name' => 'showCampaignSocialMedia campaign' , 'guard_name' => 'api'],
-            ['name' => 'showCampaignLeads campaign' , 'guard_name' => 'api'],
+            ['name' => 'attach CampaignToLead' , 'guard_name' => 'api'],
+            ['name' => 'detach CampaignToLead' , 'guard_name' => 'api'],
+            ['name' => 'show CampaignEvents' , 'guard_name' => 'api'],
+            ['name' => 'show CampaignTvs' , 'guard_name' => 'api'],
+            ['name' => 'show CampaignSocialMedia' , 'guard_name' => 'api'],
+            ['name' => 'show CampaignLeads' , 'guard_name' => 'api'],
 
             ['name' => 'index socialMedia' , 'guard_name' => 'api'],
             ['name' => 'store socialMedia' , 'guard_name' => 'api'],
@@ -57,17 +57,17 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update lead' , 'guard_name' => 'api'],
             ['name' => 'show lead' , 'guard_name' => 'api'],
             ['name' => 'destroy lead' , 'guard_name' => 'api'],
-            ['name' => 'attachLeadToCustomer lead' , 'guard_name' => 'api'],
-            ['name' => 'detachLeadToCustomer lead' , 'guard_name' => 'api'],
-            ['name' => 'showLeadCustomers lead' , 'guard_name' => 'api'],
-            ['name' => 'showLeadCampaigns lead' , 'guard_name' => 'api'],
+            ['name' => 'attach LeadToCustome' , 'guard_name' => 'api'],
+            ['name' => 'detach LeadToCustomer' , 'guard_name' => 'api'],
+            ['name' => 'show LeadCustomers' , 'guard_name' => 'api'],
+            ['name' => 'show LeadCampaigns' , 'guard_name' => 'api'],
 
             ['name' => 'index customer' , 'guard_name' => 'api'],
             ['name' => 'store customer' , 'guard_name' => 'api'],
             ['name' => 'update customer' , 'guard_name' => 'api'],
             ['name' => 'show customer' , 'guard_name' => 'api'],
             ['name' => 'destroy customer' , 'guard_name' => 'api'],
-            ['name' => 'showCustomerLeads customer' , 'guard_name' => 'api'],
+            ['name' => 'show CustomerLeads' , 'guard_name' => 'api'],
 
 
             //HR
@@ -76,14 +76,14 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update benefit' , 'guard_name' => 'api'],
             ['name' => 'show benefit' , 'guard_name' => 'api'],
             ['name' => 'destroy benefit' , 'guard_name' => 'api'],
-            ['name' => 'showbenefitEmployees benefit' , 'guard_name' => 'api'],
+            ['name' => 'show benefitEmployees' , 'guard_name' => 'api'],
 
             ['name' => 'index department' , 'guard_name' => 'api'],
             ['name' => 'store department' , 'guard_name' => 'api'],
             ['name' => 'update department' , 'guard_name' => 'api'],
             ['name' => 'show department' , 'guard_name' => 'api'],
             ['name' => 'destroy department' , 'guard_name' => 'api'],
-            ['name' => 'showdepartmentEmployees department' , 'guard_name' => 'api'],
+            ['name' => 'show departmentEmployees' , 'guard_name' => 'api'],
 
             ['name' => 'index employee' , 'guard_name' => 'api'],
             ['name' => 'store employee' , 'guard_name' => 'api'],
@@ -91,7 +91,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'show employee' , 'guard_name' => 'api'],
             ['name' => 'destroy employee' , 'guard_name' => 'api'],
             ['name' => 'destroy showEmployeeDetails' , 'guard_name' => 'api'],
-            ['name' => 'attachBenefitToEmployee employee' , 'guard_name' => 'api'],
+            ['name' => 'attach BenefitToEmployee' , 'guard_name' => 'api'],
 
             ['name' => 'index employeeCertificate' , 'guard_name' => 'api'],
             ['name' => 'store employeeCertificate' , 'guard_name' => 'api'],
@@ -124,7 +124,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update catagory' , 'guard_name' => 'api'],
             ['name' => 'show catagory' , 'guard_name' => 'api'],
             ['name' => 'destroy catagory' , 'guard_name' => 'api'],
-            ['name' => 'getProductsByCategory catagory' , 'guard_name' => 'api'],
+            ['name' => 'get ProductsByCategory' , 'guard_name' => 'api'],
 
             ['name' => 'index export' , 'guard_name' => 'api'],
             ['name' => 'store export' , 'guard_name' => 'api'],
@@ -137,7 +137,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update exportProducts' , 'guard_name' => 'api'],
             ['name' => 'show exportProducts' , 'guard_name' => 'api'],
             ['name' => 'destroy exportProducts' , 'guard_name' => 'api'],
-            ['name' => 'productsByExportId exportProducts' , 'guard_name' => 'api'],
+            ['name' => 'get productsByExportId' , 'guard_name' => 'api'],
 
             ['name' => 'index import' , 'guard_name' => 'api'],
             ['name' => 'store import' , 'guard_name' => 'api'],
@@ -150,7 +150,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update importProducts' , 'guard_name' => 'api'],
             ['name' => 'show importProducts' , 'guard_name' => 'api'],
             ['name' => 'destroy importProducts' , 'guard_name' => 'api'],
-            ['name' => 'productsByImportId importProducts' , 'guard_name' => 'api'],
+            ['name' => 'get productsByImportId' , 'guard_name' => 'api'],
 
             ['name' => 'index product' , 'guard_name' => 'api'],
             ['name' => 'store product' , 'guard_name' => 'api'],
@@ -175,18 +175,18 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update attributeGroup' , 'guard_name' => 'api'],
             ['name' => 'show attributeGroup' , 'guard_name' => 'api'],
             ['name' => 'destroy attributeGroup' , 'guard_name' => 'api'],
-            ['name' => 'getAttributesByGroup attributeGroup' , 'guard_name' => 'api'],
+            ['name' => 'get AttributesByGroup' , 'guard_name' => 'api'],
 
             ['name' => 'index supplier' , 'guard_name' => 'api'],
             ['name' => 'store supplier' , 'guard_name' => 'api'],
             ['name' => 'update supplier' , 'guard_name' => 'api'],
             ['name' => 'show supplier' , 'guard_name' => 'api'],
             ['name' => 'destroy supplier' , 'guard_name' => 'api'],
-            ['name' => 'getProductsBySupplier supplier' , 'guard_name' => 'api'],
+            ['name' => 'get ProductsBySupplier' , 'guard_name' => 'api'],
 
 
             //UserMangment
-            ['name' => 'showPermissionRoles permission' , 'guard_name' => 'api'],
+            ['name' => 'show PermissionRoles' , 'guard_name' => 'api'],
             ['name' => 'index permission' , 'guard_name' => 'api'],
 
             ['name' => 'index role' , 'guard_name' => 'api'],
@@ -194,16 +194,17 @@ class PermissionsSeeder extends Seeder
             ['name' => 'update role' , 'guard_name' => 'api'],
             ['name' => 'show role' , 'guard_name' => 'api'],
             ['name' => 'destroy role' , 'guard_name' => 'api'],
-            ['name' => 'attach role' , 'guard_name' => 'api'],
-            ['name' => 'detach role' , 'guard_name' => 'api'],
-            ['name' => 'assignRole role' , 'guard_name' => 'api'],
-            ['name' => 'unassignRole role' , 'guard_name' => 'api'],
+            ['name' => 'attach RolePermissions' , 'guard_name' => 'api'],
+            ['name' => 'detach RolePermissions' , 'guard_name' => 'api'],
+            ['name' => 'assign Role' , 'guard_name' => 'api'],
+            ['name' => 'unassign Role' , 'guard_name' => 'api'],
 
             ['name' => 'index user' , 'guard_name' => 'api'],
             ['name' => 'store user' , 'guard_name' => 'api'],
             ['name' => 'update user' , 'guard_name' => 'api'],
             ['name' => 'show user' , 'guard_name' => 'api'],
             ['name' => 'destroy user' , 'guard_name' => 'api'],
+            ['name' => 'show UserRoles' , 'guard_name' => 'api'],
 
 
             //PDF
@@ -211,6 +212,10 @@ class PermissionsSeeder extends Seeder
             ['name' => 'store pdf' , 'guard_name' => 'api'],
             ['name' => 'show pdf' , 'guard_name' => 'api'],
             ['name' => 'destroy pdf' , 'guard_name' => 'api'],
+            ['name' => 'store Campaign pdf' , 'guard_name' => 'api'],
+            ['name' => 'store Export pdf' , 'guard_name' => 'api'],
+            ['name' => 'store EmployeeVacation pdf' , 'guard_name' => 'api'],
+            ['name' => 'store Import pdf' , 'guard_name' => 'api'],
 
 
         ]);
