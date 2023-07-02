@@ -27,6 +27,7 @@ class EventController extends Controller
             'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
+            'actual_revenue'   => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);
 
@@ -42,6 +43,7 @@ class EventController extends Controller
             'type'             => request('type') ,
             'cost'             => request('cost') ,
             'expected_revenue' => request('expected_revenue') ,
+            'actual_revenue'   => request('actual_revenue') ,
             'campaign_id'      => request('campaign_id') ,
 
         ]))
@@ -70,7 +72,7 @@ class EventController extends Controller
             'description'      => 'required | regex:/^[A-Za-z\s]+$/',
             'type'             => 'required | regex:/^[A-Za-z\s]+$/',
             'cost'             => 'required | numeric',
-            'actual_revenue'   => 'numeric',
+            'actual_revenue'   => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);

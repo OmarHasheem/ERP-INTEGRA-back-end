@@ -28,7 +28,7 @@ class TvController extends Controller
             'cost'               => 'required | numeric',
             'advertising_period' => 'required | numeric',
             'campaign_id'        => 'required | numeric',
-            'actual_revenue'     => 'numeric',
+            'actual_revenue'     => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -42,6 +42,7 @@ class TvController extends Controller
             'cost'               => request('cost') ,
             'advertising_period' => request('advertising_period') ,
             'expected_revenue'   => request('expected_revenue') ,
+            'actual_revenue'   => request('actual_revenue') ,
             'campaign_id'        => request('campaign_id')
         ]))
 
@@ -68,7 +69,7 @@ class TvController extends Controller
             'time'               => 'required',
             'cost'               => 'required | numeric',
             'advertising_period' => 'required | numeric',
-            'actual_revenue'     => 'numeric',
+            'actual_revenue'     => 'required | numeric',
             'expected_revenue'   => 'required | numeric',
             'campaign_id'        => 'required | numeric',
 

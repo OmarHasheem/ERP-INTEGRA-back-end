@@ -28,6 +28,7 @@ class SocialMediaController extends Controller
             'way'              => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
             'expected_revenue' => 'required | numeric',
+            'actual_revenue'   => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);
 
@@ -42,6 +43,7 @@ class SocialMediaController extends Controller
             'way'              => request('way') ,
             'cost'             => request('cost') ,
             'expected_revenue' => request('expected_revenue') ,
+            'actual_revenue'   => request('actual_revenue') ,
             'campaign_id'      => request('campaign_id')
         ]))
             return $this->success();
@@ -67,7 +69,7 @@ class SocialMediaController extends Controller
             'type'             => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'way'              => 'required | regex:/^[a-zA-Z0-9\s]+$/',
             'cost'             => 'required | numeric',
-            'actual_revenue'   => 'numeric',
+            'actual_revenue'   => 'required | numeric',
             'expected_revenue' => 'required | numeric',
             'campaign_id'      => 'required | numeric',
         ]);

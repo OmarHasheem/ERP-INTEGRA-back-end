@@ -32,6 +32,7 @@ class CampaignController extends Controller
             'end_date'         => 'required | date',
             'budget'           => 'required | numeric',
             'expected_revenue' => 'required | numeric',
+            'actual_revenue'   => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +46,7 @@ class CampaignController extends Controller
             'end_date'         => request('end_date') ,
             'budget'           => request('budget') ,
             'expected_revenue' => request('expected_revenue') ,
+            'actual_revenue' => request('actual_revenue') ,
         ]))
             return $this->success();
         else
@@ -66,6 +68,7 @@ class CampaignController extends Controller
             'end_date'         => 'required | date',
             'budget'           => 'required | numeric',
             'expected_revenue' => 'required | numeric',
+            'actual_revenue'   => 'required | numeric',
         ]);
 
         if ($validator->fails()) {
@@ -80,8 +83,9 @@ class CampaignController extends Controller
         $campaign->end_date              = request('end_date');
         $campaign->budget                = request('budget');
         $campaign->expected_revenue      = request('expected_revenue');
+        $campaign->expected_revenue      = request('actual_revenue');
 
-        if($campaign->isDirty(['name' , 'description' , 'start_date', 'end_date' , 'budget' , 'expected_revenue' ])){
+        if($campaign->isDirty(['name' , 'description' , 'start_date', 'end_date' , 'budget' , 'expected_revenue', 'actual_revenue'])){
             $campaign->save();
             return $this->success();
         }
@@ -108,7 +112,6 @@ class CampaignController extends Controller
         }
     }
 
-    //error
 
     public function detachCampaignToLead($id) {
         try {
