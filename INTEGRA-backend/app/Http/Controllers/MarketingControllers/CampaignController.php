@@ -12,7 +12,6 @@ use App\Http\Resources\Marketing\SocialMediaCollection;
 use App\Http\Resources\Marketing\TvCollection;
 use App\Http\Resources\Marketing\LeadCollection;
 use Illuminate\Support\Facades\Validator;
-use DB;
 use Throwable;
 
 class CampaignController extends Controller
@@ -54,7 +53,6 @@ class CampaignController extends Controller
     }
 
     public function show($id) : CampaignResource {
-
             $campaign = Campaign::findOrFail($id);
             return new CampaignResource($campaign);
     }
@@ -83,7 +81,7 @@ class CampaignController extends Controller
         $campaign->end_date              = request('end_date');
         $campaign->budget                = request('budget');
         $campaign->expected_revenue      = request('expected_revenue');
-        $campaign->expected_revenue      = request('actual_revenue');
+        $campaign->actual_revenue      = request('actual_revenue');
 
         if($campaign->isDirty(['name' , 'description' , 'start_date', 'end_date' , 'budget' , 'expected_revenue', 'actual_revenue'])){
             $campaign->save();
@@ -95,7 +93,7 @@ class CampaignController extends Controller
 
     public function destroy($id) {
 
-        if( $campaign = Campaign::findOrFail($id)){
+        if($campaign = Campaign::findOrFail($id)){
             $campaign->delete();
             return $this->success();
         }

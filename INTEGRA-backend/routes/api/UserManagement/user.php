@@ -11,6 +11,6 @@ Route::prefix('userManagement')->group(function(){
     Route::post('/users', 'store');
     Route::delete('/users/{id}', 'destroy');
     Route::put('/users/{id}',  'update');
-});
     Route::get('/getMe', 'getMe');
+});
 });

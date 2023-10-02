@@ -70,9 +70,8 @@ class RoleController extends Controller
 
         $role = Role::findOrFail($id);
 
-        foreach ($request->permissions as $permission) {
-        $role->givePermissionTo($permission);
-        }
+        $role->givePermissionTo($request->permissionId);
+
         return response()->json(['message' => 'Permissions is assign to ' . $role->name . ' role']);
 
     }
